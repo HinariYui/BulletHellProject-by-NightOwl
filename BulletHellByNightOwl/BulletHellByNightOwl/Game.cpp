@@ -156,9 +156,10 @@ void Game::init(int width, int height)
 	objects.push_back(BG4); // index 6
 
 	PlayerGameObject * player = new PlayerGameObject(Tag::Player);
-	player->setColor(1.0, 1.0, 1.0);
 	player->setSize(playerSizeX, playerSizeY);
+	player->setRotation(180);
 	player->setPosition(glm::vec3(-128, -250, 0));
+	player->setAnimationLoop(1,1,4,1000);
 	objects.push_back(player); // index 7
 	
 	GameObject * boss = new GameObject(Tag::Enemy);

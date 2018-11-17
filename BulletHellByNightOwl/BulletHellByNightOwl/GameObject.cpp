@@ -39,34 +39,37 @@ void GameObject::setColor(float r, float g, float b)
 
 void GameObject::render(glm::mat4 globalModelTransform)
 {
-	SquareMeshVbo *squareMesh = dynamic_cast<SquareMeshVbo*> (Game::getInstance()->getRenderer()->getMesh(SquareMeshVbo::MESH_NAME));
+	if(tag != Tag::Player)
+	{
+		SquareMeshVbo *squareMesh = dynamic_cast<SquareMeshVbo*> (Game::getInstance()->getRenderer()->getMesh(SquareMeshVbo::MESH_NAME));
 
-	MeshVbo * mesh = NULL;
+		MeshVbo * mesh = NULL;
 
-	GLuint modelMatixId = Game::getInstance()->getRenderer()->getModelMatrixAttrId();
-	GLuint colorId = Game::getInstance()->getRenderer()->getColorUniformId();
-	GLuint modeId = Game::getInstance()->getRenderer()->getModeUniformId();
+		GLuint modelMatixId = Game::getInstance()->getRenderer()->getModelMatrixAttrId();
+		GLuint colorId = Game::getInstance()->getRenderer()->getColorUniformId();
+		GLuint modeId = Game::getInstance()->getRenderer()->getModeUniformId();
 
 
-	if (modelMatixId == -1) {
-		cout << "Error: Can't perform transformation " << endl;
-		return;
-	}
-	if (colorId == -1) {
-		cout << "Error: Can't set color " << endl;
-		return;
-	}
-	vector <glm::mat4> matrixStack;
+		if (modelMatixId == -1) {
+			cout << "Error: Can't perform transformation " << endl;
+			return;
+		}
+		if (colorId == -1) {
+			cout << "Error: Can't set color " << endl;
+			return;
+		}
+		vector <glm::mat4> matrixStack;
 
-	glm::mat4 currentMatrix = this->getTransform();
+		glm::mat4 currentMatrix = this->getTransform();
 
-	if (squareMesh != nullptr) {
-	
-		currentMatrix = globalModelTransform * currentMatrix;
-		glUniformMatrix4fv(modelMatixId, 1, GL_FALSE, glm::value_ptr(currentMatrix));
-		glUniform3f(colorId, color.x, color.y, color.z);
-		glUniform1i(modeId, 0);
-		squareMesh->render();
+		if (squareMesh != nullptr) {
+
+			currentMatrix = globalModelTransform * currentMatrix;
+			glUniformMatrix4fv(modelMatixId, 1, GL_FALSE, glm::value_ptr(currentMatrix));
+			glUniform3f(colorId, color.x, color.y, color.z);
+			glUniform1i(modeId, 0);
+			squareMesh->render();
+		}
 	}
 	
 }
