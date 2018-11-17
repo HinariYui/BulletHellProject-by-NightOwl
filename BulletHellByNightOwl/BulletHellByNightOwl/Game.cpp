@@ -12,8 +12,8 @@ Game* Game::instance = nullptr;
 //
 //float playerSizeX = 35;
 //float playerSizeY = 35;
-float playerSizeX = 30;
-float playerSizeY = 30;
+float playerSizeX = 40;
+float playerSizeY = 40;
 
 Game * Game::getInstance()
 {
@@ -194,9 +194,11 @@ Game::Game()
 
 void Game::update(float deltaTime)
 {
-	for (DrawableObject *obj : this->objects)
+	//for (DrawableObject *obj : this->objects)
+	for(int i = 0; i < objects.size(); i++)
 	{
-		obj->update(deltaTime);
+		objects[i]->update(deltaTime);
+		//obj->update(deltaTime);
 	}
 }
 

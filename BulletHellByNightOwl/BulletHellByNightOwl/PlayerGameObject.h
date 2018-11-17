@@ -9,7 +9,8 @@ class PlayerGameObject :public GameObject
 	bool moveUp = false;
 	bool moveDown = false;
 	bool isShooting = false;
-	DrawableObject* playerBullet = NULL;
+	//DrawableObject* playerBullet = NULL;
+	int shootCD = 0;
 
 	//for Sprite
 	unsigned int texture;

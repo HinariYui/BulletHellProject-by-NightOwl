@@ -11,6 +11,13 @@ void PlayerGameObject::update(float deltaTime)
 		translate(glm::normalize(getVelocity()) * 3.0f);
 	}
 	checkMovement();
+	
+	shootCD++;
+	if (shootCD >= 5)//shoot every 5 frame
+	{
+		checkAction();
+		shootCD = 0;
+	}
 	resetVelocityZ();
 
 	//update sprite
@@ -49,7 +56,7 @@ void PlayerGameObject::shoot(char status)
 	{
 		isShooting = false;
 	}
-	checkAction();
+	//checkAction();
 }
 
 void PlayerGameObject::checkAction()
@@ -58,7 +65,7 @@ void PlayerGameObject::checkAction()
 	{	
 		//std::cout << "nnnnnnnnnnnnnnnnnnXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXnnn" << isShooting << std::endl;
 
-		playerBullet= new BulletGameObject(Tag::pBullet);
+		DrawableObject* playerBullet= new BulletGameObject(Tag::pBullet);
 		
 		dynamic_cast<GameObject*>(playerBullet)->setColor(1.0, 1.0, 1.0);
 		playerBullet->setSize(10, 10);
@@ -81,10 +88,7 @@ void PlayerGameObject::checkAction()
 		//std::cout << std::endl; std::cout << std::endl; std::cout << std::endl; std::cout << std::endl; std::cout << std::endl;
 
 	}
-	else
-	{
-		playerBullet = NULL;
-	}
+	
 }
 
 void PlayerGameObject::move(char direction)
