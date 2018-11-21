@@ -1,16 +1,10 @@
 #include <iostream>
 #include "Boss1.h"
-#include "BulletGameObject.h"
+#include "EnemyBullet.h"
 
 
 void Boss1::update(float deltaTime)
 {
-	//if (getVelocity() != glm::vec3(0, 0, 0))
-	//{
-	//	translate(glm::normalize(getVelocity()) * 3.0f);
-	//}
-	//resetVelocityZ();
-
 	//Game*  g = Game::getInstance();
 	//GLuint objNum = g->getObjectRef()->size();
 	//GameObject* obj = NULL;
@@ -21,12 +15,18 @@ void Boss1::update(float deltaTime)
 	//{
 	//	bool b = checkCollision(obj);
 	//}
-	shoot();
+	GameObject::update(deltaTime);
+	shootCD++;
+	if (shootCD >= 10)//shoot every 10 frame
+	{
+		shoot();
+		shootCD = 0;
+	}
 }
 
 void Boss1::shoot()
 {
-	enemyBullet = new BulletGameObject(Tag::eBullet);
+	enemyBullet = new EnemyBullet(Tag::eBullet);
 
 	dynamic_cast<GameObject*>(enemyBullet)->setColor(1.0, 0.0, 0.0);
 	enemyBullet->setSize(10, 10);

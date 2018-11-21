@@ -6,6 +6,7 @@ class Boss1 :public GameObject
 {
 	bool isShooting = false;
 	DrawableObject* enemyBullet = NULL;
+	int shootCD = 0;
 
 public:
 	Boss1(Tag enemy) : GameObject(enemy) {};

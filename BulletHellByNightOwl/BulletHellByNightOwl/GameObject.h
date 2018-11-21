@@ -14,7 +14,7 @@ enum Tag{Player, Enemy, pBullet, eBullet, Wall, BG};
 class GameObject :public DrawableObject
 {
 protected:
-	GLuint hp = 10;
+	int hp = 10;
 	GLuint vertexNum = 0;
 	glm::vec3 color;
 	glm::vec3 velocity;
