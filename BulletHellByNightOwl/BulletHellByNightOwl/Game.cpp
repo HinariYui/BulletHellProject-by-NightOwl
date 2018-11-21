@@ -12,8 +12,8 @@ Game* Game::instance = nullptr;
 //
 //float playerSizeX = 35;
 //float playerSizeY = 35;
-float playerSizeX = 30;
-float playerSizeY = 30;
+float playerSizeX = 40;
+float playerSizeY = 40;
 
 Game * Game::getInstance()
 {
@@ -156,9 +156,10 @@ void Game::init(int width, int height)
 	objects.push_back(BG4); // index 6
 
 	PlayerGameObject * player = new PlayerGameObject(Tag::Player);
-	player->setColor(1.0, 1.0, 1.0);
 	player->setSize(playerSizeX, playerSizeY);
+	player->setRotation(180);
 	player->setPosition(glm::vec3(-128, -250, 0));
+	player->setAnimationLoop(1,1,4,1000);
 	objects.push_back(player); // index 7
 	
 	GameObject * boss = new GameObject(Tag::Enemy);
@@ -193,9 +194,11 @@ Game::Game()
 
 void Game::update(float deltaTime)
 {
-	for (DrawableObject *obj : this->objects)
+	//for (DrawableObject *obj : this->objects)
+	for(int i = 0; i < objects.size(); i++)
 	{
-		obj->update(deltaTime);
+		objects[i]->update(deltaTime);
+		//obj->update(deltaTime);
 	}
 }
 
