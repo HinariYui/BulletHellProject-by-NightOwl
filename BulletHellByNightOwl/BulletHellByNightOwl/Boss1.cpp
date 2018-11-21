@@ -1,15 +1,15 @@
 #include <iostream>
 #include "Boss1.h"
-
+#include "BulletGameObject.h"
 
 
 void Boss1::update(float deltaTime)
 {
-	if (getVelocity() != glm::vec3(0, 0, 0))
-	{
-		translate(glm::normalize(getVelocity()) * 3.0f);
-	}
-	resetVelocityZ();
+	//if (getVelocity() != glm::vec3(0, 0, 0))
+	//{
+	//	translate(glm::normalize(getVelocity()) * 3.0f);
+	//}
+	//resetVelocityZ();
 
 	//Game*  g = Game::getInstance();
 	//GLuint objNum = g->getObjectRef()->size();
@@ -21,6 +21,7 @@ void Boss1::update(float deltaTime)
 	//{
 	//	bool b = checkCollision(obj);
 	//}
+	shoot();
 }
 
 void Boss1::shoot()
@@ -30,6 +31,8 @@ void Boss1::shoot()
 	dynamic_cast<GameObject*>(enemyBullet)->setColor(1.0, 0.0, 0.0);
 	enemyBullet->setSize(10, 10);
 	enemyBullet->setPosition(this->getPosition() + glm::vec3(0, -26, 0));
+
+	Game::getInstance()->getObjectRef()->push_back(enemyBullet);
 }
 
 void Boss1::move()
@@ -39,8 +42,8 @@ void Boss1::move()
 
 Boss1::~Boss1()
 {
-	//if (playerBullet != NULL)
-	//{
-	//	delete playerBullet;
-	//}
+	if (enemyBullet != NULL)
+	{
+		delete enemyBullet;
+	}
 }

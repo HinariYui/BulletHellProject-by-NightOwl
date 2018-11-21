@@ -1,7 +1,6 @@
-#pragma once
 
 #include "GameObject.h"
-#include "BulletGameObject.h"
+//#include "BulletGameObject.h"
 
 class Boss1 :public GameObject
 {
