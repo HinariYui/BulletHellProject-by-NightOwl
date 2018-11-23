@@ -1,4 +1,5 @@
 #include "GameObject.h"
+#include "Game.h"
 
 class BulletGameObject :public GameObject
 {

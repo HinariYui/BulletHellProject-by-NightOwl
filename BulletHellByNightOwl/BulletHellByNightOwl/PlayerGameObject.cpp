@@ -1,11 +1,13 @@
 #include <iostream>
 #include <SDL_image.h>
 #include "PlayerGameObject.h"
+#include "Game.h"
 
 
 
 void PlayerGameObject::update(float deltaTime)
 {
+
 	if (getVelocity() != glm::vec3(0, 0, 0))
 	{
 		translate(glm::normalize(getVelocity()) * 3.0f);
@@ -33,16 +35,31 @@ void PlayerGameObject::update(float deltaTime)
 	GLuint objNum = g->getObjectRef()->size();
 	GameObject* obj = NULL;
 
-	//for (int i = 0; i < objNum; i++)
+	for (int i = 0; i < objNum; i++)
 	{
-		obj = dynamic_cast<GameObject*>(g->getObjectRef()->at(7)); // enemy index=7
-
-		if (this->getTag() != obj->getTag())
+		obj = dynamic_cast<GameObject*>(g->getObjectRef()->at(i)); // enemy index=7
+		if (obj)
 		{
-			bool b = checkCollision(obj);
-			//cout << "                           " << b << "    " << endl; //i << endl;
+			if (this->getTag() != obj->getTag())
+			{
+				bool b = checkCollision(obj);
+				//cout << "                           " << b << "    " << endl; //i << endl;
+			}
 		}
+	}
 
+	if (Game::getInstance()->playerIsDead)
+	{
+		for (int i = Game::getInstance()->getObjectRef()->size() - 1; i >= 0; i--)
+		{
+			DrawableObject* instance = Game::getInstance()->getObjectRef()->at(i);
+
+			if (instance->getObjId() == this->objID)
+			{
+				Game::getInstance()->getObjectRef()->erase(Game::getInstance()->getObjectRef()->begin() + i);
+				Game::getInstance()->getObjectRef()->end();
+			}
+		}
 	}
 }
 
@@ -68,7 +85,7 @@ void PlayerGameObject::checkAction()
 		DrawableObject* playerBullet= new BulletGameObject(Tag::pBullet);
 		
 		dynamic_cast<GameObject*>(playerBullet)->setColor(1.0, 1.0, 1.0);
-		playerBullet->setSize(10, 10);
+		playerBullet->setSize(5, 5);
 		playerBullet->setPosition(this->getPosition() + glm::vec3(0, 18, 0));
 		
 
@@ -140,6 +157,11 @@ void PlayerGameObject::checkMovement()
 	float halfSizeY = size.y * 0.5f +1;
 
 	setVelocity(glm::vec3(0, 0, 0));
+	if (moveLeft == false && moveRight == false && moveUp == false && moveDown == false && isIdle == false)
+	{
+		setAnimationLoop(1, 1, 4, 1000);
+		isIdle = true;
+	}
 
 	if (moveLeft == true)
 	{
@@ -176,8 +198,16 @@ void PlayerGameObject::checkMovement()
 
 	if (moveUp == true)
 	{
+		if (isIdle == true)
+		{
+			setAnimationLoop(2,1,4,1000);
+			isIdle = false;
+		}
+
 		//cout << "up" << endl;
 		this->addVelocity(glm::vec3(0, 1, 0));
+
+		//setAnimationLoop(2, 1, 4, 1000);
 		
 		if (pos.y >= 330 - halfSizeY)
 		{
@@ -192,6 +222,12 @@ void PlayerGameObject::checkMovement()
 	}
 	if (moveDown == true)
 	{
+		if (isIdle == true)
+		{
+			setAnimationLoop(2, 1, 4, 1000);
+			isIdle = false;
+		}
+
 		//cout << "down" << endl;
 		this->addVelocity(glm::vec3(0, -1, 0));
 		
@@ -206,7 +242,10 @@ void PlayerGameObject::checkMovement()
 			setPosition(newPosition);
 		}
 	}
+	
+	//setAnimationLoop(1, 1, 4, 1000);
 
+	
 }
 
 

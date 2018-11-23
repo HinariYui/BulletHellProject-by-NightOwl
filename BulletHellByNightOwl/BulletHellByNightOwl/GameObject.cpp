@@ -1,4 +1,5 @@
 #include "GameObject.h"
+#include "Game.h"
 
 GameObject::GameObject(Tag newTag)
 {
@@ -9,21 +10,24 @@ GameObject::GameObject(Tag newTag)
 		setVelocity(glm::vec3(0, 8, 0));
 	}
 
-	Game*  g = Game::getInstance();
-	GLuint objNum = g->getObjectRef()->size();
-	GameObject* obj = NULL;
+	//Game*  g = Game::getInstance();
+	//GLuint objNum = g->getObjectRef()->size();
+	//GameObject* obj = NULL;
 
-	for (int i = objNum - 1; i >= 0; i--)
-	{
-		obj = dynamic_cast<GameObject*>(g->getObjectRef()->at(i));
+	//for (int i = objNum - 1; i >= 0; i--)
+	//{
+	//	obj = dynamic_cast<GameObject*>(g->getObjectRef()->at(i));
+	//	if (obj)
+	//	{
+	//		if (this->getTag() != obj->getTag())
+	//		{
+	//			bool b = this->checkCollision(obj);
+	//			//cout << "                           " << b << "    " << endl; //i << endl;
+	//		}
+	//	}
+	//	
 
-		if (this->getTag() != obj->getTag())
-		{
-			bool b = this->checkCollision(obj);
-			//cout << "                           " << b << "    " << endl; //i << endl;
-		}
-
-	}
+	//}
 	
 }
 
@@ -155,22 +159,6 @@ bool GameObject::checkCollision(GameObject* obj)
 			(obj->hp)--;
 			cout << obj->hp << endl;
 		}
-		
-
-		
-		
-
-		//EnemyHP--
-		//cout << endl;	
-		//cout << endl;
-		//cout << endl;
-		//cout << "                    " << "HIT" << endl;
-		//cout << endl;
-		//cout << endl;
-		//cout << endl;
-
-		//cout << ".........................................."<<Game::getInstance()->getObjectRef()->size() << endl;
-
 		for (int i = Game::getInstance()->getObjectRef()->size()-1; i >= 0; i--)
 		{
 			DrawableObject* instance = Game::getInstance()->getObjectRef()->at(i);
@@ -180,10 +168,24 @@ bool GameObject::checkCollision(GameObject* obj)
 				Game::getInstance()->getObjectRef()->erase(Game::getInstance()->getObjectRef()->begin() + i);
 				Game::getInstance()->getObjectRef()->end();
 			}
-			//cout << "__________________________________________" << Game::getInstance()->getObjectRef()->size() << endl;
-
 		}
+	}
+	if (this->tag == Player && (obj->tag == Enemy || obj->tag == eBullet))
+	{
+		isCollide = true;
 
+		//for (int i = Game::getInstance()->getObjectRef()->size() - 1; i >= 0; i--)
+		//{
+		//	DrawableObject* instance = Game::getInstance()->getObjectRef()->at(i);
+
+		//	if (instance->getObjId() == this->objID)
+		//	{
+		//		Game::getInstance()->getObjectRef()->erase(Game::getInstance()->getObjectRef()->begin() + i);
+		//		Game::getInstance()->getObjectRef()->end();
+		//	}
+		//}
+
+		Game::getInstance()->playerIsDead = true;
 	}
 
 	return true;

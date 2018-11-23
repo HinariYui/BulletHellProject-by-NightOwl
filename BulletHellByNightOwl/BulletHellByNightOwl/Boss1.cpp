@@ -1,6 +1,5 @@
 #include <iostream>
 #include "Boss1.h"
-#include "EnemyBullet.h"
 
 
 void Boss1::update(float deltaTime)
@@ -19,20 +18,20 @@ void Boss1::update(float deltaTime)
 	shootCD++;
 	if (shootCD >= 10)//shoot every 10 frame
 	{
-		shoot();
+		shoot1();
 		shootCD = 0;
 	}
 }
 
-void Boss1::shoot()
+void Boss1::shoot1()
 {
-	enemyBullet = new EnemyBullet(Tag::eBullet);
+	enemyBullet1 = new EnemyBullet(Tag::eBullet);
 
-	dynamic_cast<GameObject*>(enemyBullet)->setColor(1.0, 0.0, 0.0);
-	enemyBullet->setSize(10, 10);
-	enemyBullet->setPosition(this->getPosition() + glm::vec3(0, -26, 0));
+	dynamic_cast<GameObject*>(enemyBullet1)->setColor(1.0, 0.0, 0.0);
+	enemyBullet1->setSize(10, 10);
+	enemyBullet1->setPosition(this->getPosition() + glm::vec3(0, -26, 0));
 
-	Game::getInstance()->getObjectRef()->push_back(enemyBullet);
+	Game::getInstance()->getObjectRef()->push_back(enemyBullet1);
 }
 
 void Boss1::move()
@@ -42,8 +41,8 @@ void Boss1::move()
 
 Boss1::~Boss1()
 {
-	if (enemyBullet != NULL)
+	if (enemyBullet1 != NULL)
 	{
-		delete enemyBullet;
+		delete enemyBullet1;
 	}
 }

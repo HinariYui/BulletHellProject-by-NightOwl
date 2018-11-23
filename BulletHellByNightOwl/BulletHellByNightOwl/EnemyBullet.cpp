@@ -43,3 +43,8 @@ void EnemyBullet::update(float deltaTime)
 	//
 	//}
 }
+
+//void EnemyBullet::SetBulletVelocity(glm::vec3 vel)
+//{
+//	bulletVel = vel;
+//}

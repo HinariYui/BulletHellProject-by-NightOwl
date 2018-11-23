@@ -1,4 +1,5 @@
 #include "BulletGameObject.h"
+#include "Game.h"
 
 unsigned int BulletGameObject::bulletNum = 0;
 
@@ -41,11 +42,13 @@ void BulletGameObject::update(float deltaTime)
 	for (int i = objNum -1; i >= 0; i--)
 	{
 		obj = dynamic_cast<GameObject*>(g->getObjectRef()->at(i));
-
-		if (this->getTag() != obj->getTag())
+		if (obj)
 		{
-			bool b = this->checkCollision(obj);
-			//cout << "                           " << b << "    " << endl; //i << endl;
+			if (this->getTag() != obj->getTag())
+			{
+				bool b = this->checkCollision(obj);
+				//cout << "                           " << b << "    " << endl; //i << endl;
+			}
 		}
 
 	}

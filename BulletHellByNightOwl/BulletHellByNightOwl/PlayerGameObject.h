@@ -1,4 +1,3 @@
-#include "SpriteObject.h"
 #include "GameObject.h"
 #include "BulletGameObject.h"
 
@@ -9,6 +8,9 @@ class PlayerGameObject :public GameObject
 	bool moveUp = false;
 	bool moveDown = false;
 	bool isShooting = false;
+
+	bool isMoving = false;
+	bool isIdle = false;
 	//DrawableObject* playerBullet = NULL;
 	int shootCD = 0;
 

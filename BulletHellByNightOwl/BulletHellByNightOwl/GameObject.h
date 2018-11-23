@@ -1,6 +1,5 @@
 #pragma once
 #include "stdafx.h"
-#include "Game.h"
 #include "SquareMeshVbo.h"
 #include "HexagonMeshVbo.h"
 #include "CustomMeshVbo.h"
