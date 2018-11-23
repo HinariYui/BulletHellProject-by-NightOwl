@@ -12,10 +12,10 @@ class Game
 	int winWidth, winHeight;
 	vector<DrawableObject*> objects;
 	GLRenderer *renderer;
+	DrawableObject* player;
 	Game();
 public:
 	bool playerIsDead = false;
-	int playerIndex = 5;
 	static Game* getInstance();
 	GLRenderer * getRenderer();
 	vector<DrawableObject*>* getObjectRef();//added by me
