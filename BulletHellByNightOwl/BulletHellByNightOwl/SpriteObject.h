@@ -29,6 +29,7 @@ public:
 	int getRow();
 	int getColumn();
 	void genUV();
+	void loopUV(float deltaTime);
 	void setAnimationLoop(int row, int column, int loop, int time); // 1000 = 1 secone
 	void nextAnimation();
 };

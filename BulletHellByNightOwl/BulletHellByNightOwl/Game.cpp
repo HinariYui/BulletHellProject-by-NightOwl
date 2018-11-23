@@ -121,8 +121,8 @@ void Game::init(int width, int height)
 	objects.push_back(BG);
 
 	SpriteObject * PA = new SpriteObject("bg1.png", 1, 1); //Play Area
-	PA->setSize(1088, 720);
-	PA->setPosition(glm::vec3(-128, 0, 0));
+	PA->setSize(1280, 720);
+	PA->setPosition(glm::vec3(-212, 0, 0));
 	objects.push_back(PA); // index 0
 	//cout << "IIIIIIIIIIIIDDDDDDDDDD     0          " << PA->getObjId()<< endl;
 
@@ -172,14 +172,14 @@ void Game::init(int width, int height)
 
 	p->setSize(playerSizeX, playerSizeY);
 	p->setRotation(180);
-	p->setPosition(glm::vec3(-128, -250, 0));
+	p->setPosition(glm::vec3(-212, -250, 0));
 	p->setAnimationLoop(1,1,4,1000);
 	objects.push_back(player); // index 7
 	
 	GameObject * boss = new GameObject(Tag::Enemy);
 	boss->setColor(1.0, 0.0, 0.0);
 	boss->setSize(100, 100);
-	boss->setPosition(glm::vec3(-128, 200, 0));
+	boss->setPosition(glm::vec3(-212, 200, 0));
 	objects.push_back(boss); // index 8
 
 	

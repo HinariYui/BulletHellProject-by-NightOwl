@@ -77,13 +77,15 @@ void SpriteObject::render(glm::mat4 globalModelTransform)
 
 void SpriteObject::update(float deltaTime)
 {
-	timeCount += deltaTime;
-	if (timeCount > animationTime / loopMax)
-	{
-		this->nextAnimation();
-		this->genUV();
-		timeCount = 0;
-	}
+	//timeCount += deltaTime;
+	//if (timeCount > animationTime / loopMax)
+	//{
+	//	this->nextAnimation();
+	//	//this->genUV();
+	//	timeCount = 0;
+	//}
+
+	this->loopUV(deltaTime);
 
 	
 }
@@ -124,6 +126,15 @@ void SpriteObject::genUV()
 
 	uv[6] = (column - 1) * ratioC;
 	uv[7] = row * ratioR;
+}
+
+void SpriteObject::loopUV(float deltaTime)
+{
+	float speed = deltaTime * 0.0003f;
+	uv[1] += speed;
+	uv[3] += speed;
+	uv[5] += speed;
+	uv[7] += speed;
 }
 
 void SpriteObject::setAnimationLoop(int row, int column, int loop, int time)

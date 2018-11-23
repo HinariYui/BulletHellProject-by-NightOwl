@@ -168,14 +168,14 @@ void PlayerGameObject::checkMovement()
 		//cout << "left" << endl;
 		this->addVelocity(glm::vec3(-1, 0, 0));
 
-		if (pos.x <= -378 + halfSizeX)
+		if (pos.x <= -462 + halfSizeX)
 		{
 			newVelocity = getVelocity();
 			newVelocity.x = 0;
 			setVelocity(newVelocity);
 
 			newPosition = getPosition();
-			newPosition.x = -378 + halfSizeX;
+			newPosition.x = -462 + halfSizeX;
 			setPosition(newPosition);
 		}
 	}
@@ -184,14 +184,14 @@ void PlayerGameObject::checkMovement()
 		//cout << "right" << endl;
 		this->addVelocity(glm::vec3(1, 0, 0));
 		
-		if (pos.x >= 122 - halfSizeX)
+		if (pos.x >= 38 - halfSizeX)
 		{
 			newVelocity = getVelocity();
 			newVelocity.x = 0;
 			setVelocity(newVelocity);
 		
 			newPosition = getPosition();
-			newPosition.x = 122 - halfSizeX;
+			newPosition.x = 38 - halfSizeX;
 			setPosition(newPosition);
 		}
 	}
