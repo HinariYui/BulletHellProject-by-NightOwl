@@ -115,6 +115,11 @@ void Game::init(int width, int height)
 	squareMesh->loadData();
 	renderer->addMesh(SquareMeshVbo::MESH_NAME, squareMesh);
 
+	SpriteObject * BG = new SpriteObject("bgBase.png", 1, 1); //BG
+	BG->setSize(1280, 720);
+	BG->setPosition(glm::vec3(0, 0, 0));
+	objects.push_back(BG);
+
 	SpriteObject * PA = new SpriteObject("bg1.png", 1, 1); //Play Area
 	PA->setSize(1088, 720);
 	PA->setPosition(glm::vec3(-128, 0, 0));
