@@ -9,6 +9,9 @@ class PlayerGameObject :public GameObject
 	bool moveUp = false;
 	bool moveDown = false;
 	bool isShooting = false;
+
+	bool isMoving = false;
+	bool isIdle = false;
 	//DrawableObject* playerBullet = NULL;
 	int shootCD = 0;
 

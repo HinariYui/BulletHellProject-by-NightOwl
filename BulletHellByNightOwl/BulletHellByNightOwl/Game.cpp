@@ -46,53 +46,57 @@ void Game::handleMouse(int x, int y)
 
 void Game::handleKey(char ch)
 {
+	if (!playerIsDead)
+	{
 
-	cout << ch << endl;
-	if (this->objects.size() > 0) {
-		DrawableObject * playerObj = this->objects.at(7);
-		PlayerGameObject * player = dynamic_cast<PlayerGameObject *>(playerObj);
-		
-		if (ch == 'l')
-		{
-			player->move('l');
-		}
-		if (ch == 'r')
-		{
-			player->move('r');
-		}
-		if (ch == 'u')
-		{
-			player->move('u');
-		}
-		if (ch == 'd')
-		{
-			player->move('d');
-		}
-		if (ch == 'L')//release button
-		{
-			player->move('L');
-		}
-		if (ch == 'R')
-		{
-			player->move('R');
-		}
-		if (ch == 'U')
-		{
-			player->move('U');
-		}
-		if (ch == 'D')
-		{
-			player->move('D');
-		}
-		if (ch == 'z')
-		{
-			player->shoot('z');
-		}
-		if (ch == 'Z')
-		{
-			player->shoot('Z');
+		cout << ch << endl;
+		if (this->objects.size() > 0) {
+			DrawableObject * playerObj = this->objects.at(playerIndex);
+			PlayerGameObject * player = dynamic_cast<PlayerGameObject *>(playerObj);
+
+			if (ch == 'l')
+			{
+				player->move('l');
+			}
+			if (ch == 'r')
+			{
+				player->move('r');
+			}
+			if (ch == 'u')
+			{
+				player->move('u');
+			}
+			if (ch == 'd')
+			{
+				player->move('d');
+			}
+			if (ch == 'L')//release button
+			{
+				player->move('L');
+			}
+			if (ch == 'R')
+			{
+				player->move('R');
+			}
+			if (ch == 'U')
+			{
+				player->move('U');
+			}
+			if (ch == 'D')
+			{
+				player->move('D');
+			}
+			if (ch == 'z')
+			{
+				player->shoot('z');
+			}
+			if (ch == 'Z')
+			{
+				player->shoot('Z');
+			}
 		}
 	}
+
 }
 
 void Game::init(int width, int height)
@@ -115,21 +119,21 @@ void Game::init(int width, int height)
 	objects.push_back(PA); // index 0
 	cout << "IIIIIIIIIIIIDDDDDDDDDD     0          " << PA->getObjId()<< endl;
 
-	GameObject * perBG1 = new GameObject(Tag::BG);
-	perBG1->setColor(0, 1, 0);
-	perBG1->setSize(116, 670);
-	perBG1->setRotation(-10);
-	perBG1->setPosition(glm::vec3(-377, 10, 0));
-	objects.push_back(perBG1); // index 1
-	cout << "IIIIIIIIIIIIDDDDDDDDDD     1        " << perBG1->getObjId() << endl;
+	//GameObject * perBG1 = new GameObject(Tag::BG);
+	//perBG1->setColor(0, 1, 0);
+	//perBG1->setSize(116, 670);
+	//perBG1->setRotation(-10);
+	//perBG1->setPosition(glm::vec3(-377, 10, 0));
+	//objects.push_back(perBG1); // index 1
+	//cout << "IIIIIIIIIIIIDDDDDDDDDD     1        " << perBG1->getObjId() << endl;
 
 
-	GameObject * perBG2 = new GameObject(Tag::BG);
-	perBG2->setColor(0, 1, 0);
-	perBG2->setSize(116, 670);
-	perBG2->setRotation(10);
-	perBG2->setPosition(glm::vec3(121, 10, 0));
-	objects.push_back(perBG2); // index 2
+	//GameObject * perBG2 = new GameObject(Tag::BG);
+	//perBG2->setColor(0, 1, 0);
+	//perBG2->setSize(116, 670);
+	//perBG2->setRotation(10);
+	//perBG2->setPosition(glm::vec3(121, 10, 0));
+	//objects.push_back(perBG2); // index 2
 	
 	GameObject * BG1 = new GameObject(Tag::Wall);
 	BG1->setColor(1, 0.7, 0);
@@ -194,12 +198,42 @@ Game::Game()
 
 void Game::update(float deltaTime)
 {
+	
+	timer += deltaTime;
+	if (timer > 3000)
+	{
+		if (playerIsDead)
+		{
+			PlayerGameObject * player = new PlayerGameObject(Tag::Player);
+			player->setSize(playerSizeX, playerSizeY);
+			player->setRotation(180);
+			player->setPosition(glm::vec3(-128, -250, 0));
+			player->setAnimationLoop(1, 1, 4, 1000);
+			objects.push_back(player);
+			
+			for (int i = objects.size() - 1; i >= 0; i--)
+			{
+				DrawableObject* instance = objects.at(i);
+
+				if (instance->getObjId() == player->getObjId())
+				{
+					playerIndex = i;
+					break;
+				}
+			}
+
+			playerIsDead = false;
+		}
+	}
+
 	//for (DrawableObject *obj : this->objects)
 	for(int i = 0; i < objects.size(); i++)
 	{
 		objects[i]->update(deltaTime);
 		//obj->update(deltaTime);
 	}
+
+
 }
 
 vector<DrawableObject*>* Game::getObjectRef()

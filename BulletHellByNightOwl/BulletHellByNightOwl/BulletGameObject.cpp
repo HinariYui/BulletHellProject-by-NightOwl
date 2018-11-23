@@ -1,4 +1,5 @@
 #include "BulletGameObject.h"
+#include "Game.h"
 
 unsigned int BulletGameObject::bulletNum = 0;
 

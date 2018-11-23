@@ -6,13 +6,16 @@
 
 using namespace std;
 class Game
-{
+{	
+	float timer = 0.0f;
 	static Game* instance;
 	int winWidth, winHeight;
 	vector<DrawableObject*> objects;
 	GLRenderer *renderer;
 	Game();
 public:
+	bool playerIsDead = false;
+	int playerIndex = 5;
 	static Game* getInstance();
 	GLRenderer * getRenderer();
 	vector<DrawableObject*>* getObjectRef();//added by me

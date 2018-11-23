@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Boss1.h"
 #include "BulletGameObject.h"
+#include "Game.h"
 
 
 void Boss1::update(float deltaTime)
