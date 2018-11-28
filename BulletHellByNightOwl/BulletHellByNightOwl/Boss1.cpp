@@ -2,6 +2,15 @@
 #include "Boss1.h"
 
 
+
+Boss1::Boss1(Tag enemy, string fileName, int row, int col) : SpriteObject(fileName, row, col)
+{
+	tag = enemy;
+	state = IDLE;
+	idleTime = rand() % 1000 + 2000;
+	stateTime = 0;
+}
+
 void Boss1::update(float deltaTime)
 {
 	//Game*  g = Game::getInstance();
@@ -15,12 +24,65 @@ void Boss1::update(float deltaTime)
 	//	bool b = checkCollision(obj);
 	//}
 	GameObject::update(deltaTime);
-	shootCD++;
-	if (shootCD >= 10)//shoot every 10 frame
+	//shootCD++;
+	//if (shootCD >= 10)//shoot every 10 frame
+	//{
+	//	shoot1();
+	//	shootCD = 0;
+	//}
+	if (state == IDLE)
+	{
+		updateIDLE(deltaTime);
+	}
+	else if (state == ATK1)
+	{
+		updateATK1(deltaTime);
+	}
+	else if (state == ATK2)
+	{
+		updateATK2(deltaTime);
+	}
+	else if (state == ATK3)
+	{
+		updateATK3(deltaTime);
+	}
+}
+
+void Boss1::updateIDLE(float deltaTime)
+{
+	stateTime += deltaTime;
+	if (stateTime >= idleTime)
+	{
+		stateTime = 0;
+		state = ATK1;
+	}
+}
+
+void Boss1::updateATK1(float deltaTime)
+{
+	stateTime += deltaTime;
+	ATKCount += deltaTime;
+	if (ATKCount >= 50)//shoot every 0.05 sec
 	{
 		shoot1();
-		shootCD = 0;
+		ATKCount = 0;
 	}
+	if (stateTime >= 4000)
+	{
+		stateTime = 0;
+		state = IDLE;
+		idleTime = rand() % 1000 + 2000;
+	}
+}
+
+void Boss1::updateATK2(float deltaTime)
+{
+
+}
+
+void Boss1::updateATK3(float deltaTime)
+{
+
 }
 
 void Boss1::shoot1()

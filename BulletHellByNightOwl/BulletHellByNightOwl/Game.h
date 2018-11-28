@@ -14,6 +14,8 @@ class Game
 	GLRenderer *renderer;
 	DrawableObject* player;
 	Game();
+	float e1SpawnRate = 0;
+
 public:
 	bool playerIsDead = false;
 	static Game* getInstance();

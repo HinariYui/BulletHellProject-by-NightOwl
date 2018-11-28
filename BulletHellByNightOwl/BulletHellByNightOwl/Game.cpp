@@ -6,7 +6,10 @@
 #include "CustomMeshVbo.h"
 #include "PlayerGameObject.h"
 #include "CircleMeshVbo.h"
-#include "SpriteObject.h"
+#include "Boss1.h"
+#include "Enemy1.h"
+
+#define MID_PLAYAREA_X -212
 
 Game* Game::instance = nullptr;
 //
@@ -49,10 +52,8 @@ void Game::handleKey(char ch)
 	if (!playerIsDead)
 	{
 
-		cout << ch << endl;
+		//cout << ch << endl;
 		if (this->objects.size() > 0) {
-			//DrawableObject * playerObj = this->objects.at(playerIndex);
-			//PlayerGameObject * player = dynamic_cast<PlayerGameObject *>(playerObj);
 
 			PlayerGameObject *p = dynamic_cast<PlayerGameObject*>(this->player);
 
@@ -175,15 +176,13 @@ void Game::init(int width, int height)
 	p->setPosition(glm::vec3(-212, -250, 0));
 	p->setAnimationLoop(1,1,4,1000);
 	objects.push_back(player); // index 7
-	
-	GameObject * boss = new GameObject(Tag::Enemy);
-	boss->setColor(1.0, 0.0, 0.0);
+
+	Boss1 * boss = new Boss1(Tag::Enemy, "bg1.png", 4, 4); //Tag enemy, string fileName, int row, int col
+	//boss->setColor(1.0, 0.0, 0.0);
 	boss->setSize(100, 100);
 	boss->setPosition(glm::vec3(-212, 200, 0));
 	objects.push_back(boss); // index 8
 
-	
-	
 
 
 
@@ -209,17 +208,19 @@ Game::Game()
 void Game::update(float deltaTime)
 {
 	
-	timer += deltaTime;
-	if (timer > 3000)
+	
+	if (playerIsDead)
 	{
-		if (playerIsDead)
+		timer += deltaTime;
+		if (timer > 1000)
 		{
 			player = new PlayerGameObject(Tag::Player);
 
 			PlayerGameObject* p = dynamic_cast<PlayerGameObject*>(player);
+			p->SetInvincible(true);
 			p->setSize(playerSizeX, playerSizeY);
 			p->setRotation(180);
-			p->setPosition(glm::vec3(-128, -250, 0));
+			p->setPosition(glm::vec3(-212, -250, 0));
 			p->setAnimationLoop(1, 1, 4, 1000);
 			objects.push_back(player);
 
@@ -238,7 +239,19 @@ void Game::update(float deltaTime)
 			//}
 
 			playerIsDead = false;
+			timer = 0;
 		}
+	}
+
+	e1SpawnRate += deltaTime;
+	if (e1SpawnRate >= 1000)
+	{
+		int x = rand() % 300 - MID_PLAYAREA_X -462;
+		Enemy1 * enemy = new Enemy1(Tag::Enemy, "RED.png", 1, 1); //Tag enemy, string fileName, int row, int col
+		enemy->setSize(35, 35);
+		enemy->setPosition(glm::vec3(x, 300, 0));
+		objects.push_back(enemy);
+		e1SpawnRate = 0;
 	}
 
 	//for (DrawableObject *obj : this->objects)

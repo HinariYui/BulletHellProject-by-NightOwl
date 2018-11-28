@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <ctime>
 
 // OpenGL headers
 #include <GL/glew.h>
@@ -35,6 +36,9 @@ bool keyHeld;
 int main(int argc, char *argv[])
 {
 	quit = false;
+
+
+	std::srand(std::time(nullptr));
 
 	//Use OpenGL 3.1 core
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);

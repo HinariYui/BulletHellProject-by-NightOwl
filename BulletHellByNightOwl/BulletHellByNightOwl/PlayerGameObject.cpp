@@ -35,16 +35,28 @@ void PlayerGameObject::update(float deltaTime)
 	GLuint objNum = g->getObjectRef()->size();
 	GameObject* obj = NULL;
 
-	for (int i = 0; i < objNum; i++)
+	if (!IsInvincible())
 	{
-		obj = dynamic_cast<GameObject*>(g->getObjectRef()->at(i)); // enemy index=7
-		if (obj)
+		for (int i = 0; i < objNum; i++)
 		{
-			if (this->getTag() != obj->getTag())
+			obj = dynamic_cast<GameObject*>(g->getObjectRef()->at(i)); // enemy index=7
+			if (obj)
 			{
-				bool b = checkCollision(obj);
-				//cout << "                           " << b << "    " << endl; //i << endl;
+				if (this->getTag() != obj->getTag())
+				{
+					bool b = checkCollision(obj);
+					//cout << "                           " << b << "    " << endl; //i << endl;
+				}
 			}
+		}
+	}
+	else
+	{
+		invincibleTime += deltaTime;
+		blinkTime += deltaTime;
+		if (invincibleTime >= 3000)
+		{
+			SetInvincible(false);
 		}
 	}
 
@@ -301,6 +313,22 @@ void PlayerGameObject::addSprite(string fileName, int row, int column)
 
 void PlayerGameObject::render(glm::mat4 globalModelTransform)
 {
+	if (IsInvincible())
+	{
+		if (blinkTime >= 100)
+		{
+			blinkTime = 0;
+			isBlinking = !isBlinking;
+		}
+		if (!isBlinking)
+		{
+			return;
+		}
+	}
+
+
+
+
 	SquareMeshVbo *squareMesh = dynamic_cast<SquareMeshVbo *> (Game::getInstance()->getRenderer()->getMesh(SquareMeshVbo::MESH_NAME));
 
 	GLuint modelMatixId = Game::getInstance()->getRenderer()->getModelMatrixAttrId();
@@ -395,4 +423,14 @@ void PlayerGameObject::nextAnimation()
 		loopCount = 0;
 	}
 
+}
+
+bool PlayerGameObject::IsInvincible()
+{
+	return invincible;
+}
+
+void PlayerGameObject::SetInvincible(bool inv)
+{
+	invincible = inv;
 }

@@ -80,7 +80,7 @@ void GameObject::render(glm::mat4 globalModelTransform)
 
 void GameObject::update(float deltaTime)
 {
-	this->translate(velocity * glm::vec3(3, 3, 3));
+	this->translate(velocity * 3.0f);
 
 	if (hp < 1)
 	{
@@ -155,9 +155,7 @@ bool GameObject::checkCollision(GameObject* obj)
 		isCollide = true;
 		if(obj->isCollide == false)
 		{
-			cout << obj->hp << endl;
 			(obj->hp)--;
-			cout << obj->hp << endl;
 		}
 		for (int i = Game::getInstance()->getObjectRef()->size()-1; i >= 0; i--)
 		{

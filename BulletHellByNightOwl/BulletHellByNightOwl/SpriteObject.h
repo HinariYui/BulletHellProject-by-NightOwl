@@ -1,9 +1,9 @@
 #pragma once
-#include "DrawableObject.h"
+#include "GameObject.h"
 #include "gtc/matrix_transform.hpp"
 #include "gtc/type_ptr.hpp"
 
-class SpriteObject :public DrawableObject
+class SpriteObject :public GameObject
 {
 private:
 	unsigned int texture;

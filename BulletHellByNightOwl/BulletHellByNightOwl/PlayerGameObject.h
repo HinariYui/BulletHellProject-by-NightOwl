@@ -1,3 +1,5 @@
+#pragma once
+
 #include "GameObject.h"
 #include "BulletGameObject.h"
 
@@ -13,6 +15,8 @@ class PlayerGameObject :public GameObject
 	bool isIdle = false;
 	//DrawableObject* playerBullet = NULL;
 	int shootCD = 0;
+	bool invincible = false;
+	float invincibleTime = 0;
 
 	//for Sprite
 	unsigned int texture;
@@ -27,8 +31,11 @@ class PlayerGameObject :public GameObject
 	int loopCount;
 	int animationTime;
 	int timeCount;
+	float blinkTime = 0;
+	bool isBlinking = false;
 
 public:
+
 	PlayerGameObject(Tag player) : GameObject(player) {addSprite("player.png", 2, 4); }; //: GameObject(player) { addSprite("player.png", 2, 4); };
 	~PlayerGameObject();
 	void checkMovement();
@@ -36,6 +43,10 @@ public:
 	void move(char direction);
 	void shoot(char status);
 	void update(float deltaTime);
+
+	//player state
+	bool IsInvincible();
+	void SetInvincible(bool inv);
 
 	//for sprite
 	void addSprite(string fileName, int row, int column);

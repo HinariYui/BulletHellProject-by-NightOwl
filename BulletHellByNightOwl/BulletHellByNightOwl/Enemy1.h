@@ -3,18 +3,17 @@
 #include "SpriteObject.h"
 #include "EnemyBullet.h"
 
-enum Boss1State
+enum Enemy1State
 {
-	IDLE = 0,
-	ATK1,
-	ATK2,
-	ATK3
+	MOVE = 0,
+	ATK,
+	EXIT
 };
 
-class Boss1 :public SpriteObject
+class Enemy1 :public SpriteObject
 {
 private:
-	Boss1State state;
+	Enemy1State state;
 	bool isShooting = false;
 	bool reachDestination = false;
 	DrawableObject* enemyBullet1 = NULL;
@@ -25,14 +24,13 @@ private:
 	float stateTime;
 	float ATKCount = 0;
 
-	void updateIDLE(float deltaTime);
-	void updateATK1(float deltaTime);
-	void updateATK2(float deltaTime);
-	void updateATK3(float deltaTime);
+	void updateMOVE(float deltaTime);
+	void updateATK(float deltaTime);
+	void updateEXIT(float deltaTime);
 
 public:
-	Boss1(Tag enemy, string fileName, int row, int col);
-	~Boss1();
+	Enemy1(Tag enemy, string fileName, int row, int col);
+	~Enemy1();
 	void move();
 	void shoot1();
 	void update(float deltaTime);

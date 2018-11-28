@@ -4,7 +4,7 @@
 #include "SquareMeshVbo.h"
 #include <SDL_image.h>
 
-SpriteObject::SpriteObject(string fileName, int row, int column)
+SpriteObject::SpriteObject(string fileName, int row, int column) : GameObject(NONE)
 {
 	glActiveTexture(GL_TEXTURE0);
 	SDL_Surface *image = IMG_Load(fileName.c_str());

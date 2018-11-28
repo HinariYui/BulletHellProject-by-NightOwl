@@ -8,7 +8,7 @@
 #include "gtc/matrix_transform.hpp"
 #include "gtc/type_ptr.hpp"
 
-enum Tag{Player, Enemy, pBullet, eBullet, Wall, BG};
+enum Tag{Player, Enemy, pBullet, eBullet, Wall, BG, NONE};
 
 class GameObject :public DrawableObject
 {

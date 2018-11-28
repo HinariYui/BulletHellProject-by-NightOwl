@@ -3,6 +3,9 @@
 
 unsigned int BulletGameObject::bulletNum = 0;
 
+#define LEFTBORDER -462
+#define	RIGHTBORDER 38
+
 BulletGameObject::~BulletGameObject()
 {
 	bulletNum--;
@@ -15,7 +18,7 @@ void BulletGameObject::update(float deltaTime)
 	float halfSizeX = (size.x * 0.5f)+4;
 	float halfSizeY = (size.y * 0.5f)+4;
 
-	if ((pos.x > 122+halfSizeX) || (pos.x < -378-halfSizeX) || (pos.y > 330+halfSizeY) || (pos.y < -330-halfSizeY))
+	if ((pos.x > RIGHTBORDER +halfSizeX) || (pos.x < LEFTBORDER -halfSizeX) || (pos.y > 330+halfSizeY) || (pos.y < -330-halfSizeY))
 	{
 		for (int i = Game::getInstance()->getObjectRef()->size() - 1; i >= 0; i--)
 		{
@@ -34,8 +37,8 @@ void BulletGameObject::update(float deltaTime)
 	GLuint objNum = g->getObjectRef()->size();
 	GameObject* obj = NULL;
 
-	//left border(-509+131=-378, 0, 0)
-	//right border(381-259=122, 0, 0)
+	//left border(-509+131=-378, 0, 0) >> -462
+	//right border(381-259=122, 0, 0) >> 38
 	//top border(0, 345-15=330, 0)
 	//bottom border(0,-345+15=-330, 0)
 

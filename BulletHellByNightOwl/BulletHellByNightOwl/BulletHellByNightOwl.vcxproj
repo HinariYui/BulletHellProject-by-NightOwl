@@ -126,6 +126,7 @@
     <ClCompile Include="CircleMeshVbo.cpp" />
     <ClCompile Include="CustomMeshVbo.cpp" />
     <ClCompile Include="DrawableObject.cpp" />
+    <ClCompile Include="Enemy1.cpp" />
     <ClCompile Include="EnemyBullet.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -146,6 +147,7 @@
     <ClInclude Include="CircleMeshVbo.h" />
     <ClInclude Include="CustomMeshVbo.h" />
     <ClInclude Include="DrawableObject.h" />
+    <ClInclude Include="Enemy1.h" />
     <ClInclude Include="EnemyBullet.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
