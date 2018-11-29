@@ -55,7 +55,7 @@ int main(int argc, char *argv[])
 	else
 	{
 		// Create window
-		window = SDL_CreateWindow("Xyberg", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WIDTH, HEIGHT, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
+		window = SDL_CreateWindow("CyberCity-BulletHell", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WIDTH, HEIGHT, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
 		if (window == NULL)
 		{
 			// Display error message
@@ -132,6 +132,7 @@ int main(int argc, char *argv[])
 				keyHeld = true;
 				switch (sdlEvent.key.keysym.sym)
 				{
+				case SDLK_RETURN: game->handleKey('e'); break;//press enter
 				case SDLK_LEFT: game->handleKey('l'); break;
 				case SDLK_RIGHT:game->handleKey('r'); break;
 				case SDLK_UP: game->handleKey('u');   break;

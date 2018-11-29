@@ -8,6 +8,7 @@
 #include "CircleMeshVbo.h"
 #include "Boss1.h"
 #include "Enemy1.h"
+#include "Menu.h"
 
 #define MID_PLAYAREA_X -212
 
@@ -49,6 +50,21 @@ void Game::handleMouse(int x, int y)
 
 void Game::handleKey(char ch)
 {
+	if(ch == 'e')
+	{
+		if (menuIsDestroyed == false)
+		{
+			cout << "in" << endl;
+			objects.pop_back();
+			menuIsDestroyed = true;
+		}
+		else
+		{
+
+		}
+
+	}
+
 	if (!playerIsDead)
 	{
 
@@ -116,15 +132,21 @@ void Game::init(int width, int height)
 	squareMesh->loadData();
 	renderer->addMesh(SquareMeshVbo::MESH_NAME, squareMesh);
 
-	SpriteObject * BG = new SpriteObject("bgBase.png", 1, 1); //BG
-	BG->setSize(1280, 720);
-	BG->setPosition(glm::vec3(0, 0, 0));
-	objects.push_back(BG);
+	menu = new Menu();
+	menu->setSize(1280, 720);
+	menu->setPosition(glm::vec3(0, 0, 0));
+	objects.push_back(menu); // index 8
 
-	SpriteObject * PA = new SpriteObject("bg1.png", 1, 1); //Play Area
-	PA->setSize(1280, 720);
-	PA->setPosition(glm::vec3(-212, 0, 0));
-	objects.push_back(PA); // index 0
+
+	//SpriteObject * BG = new SpriteObject("bgBase.png", 1, 1); //BG
+	//BG->setSize(1280, 720);
+	//BG->setPosition(glm::vec3(0, 0, 0));
+	//objects.push_back(BG);
+
+	//SpriteObject * PA = new SpriteObject("bg1.png", 1, 1); //Play Area
+	//PA->setSize(1280, 720);
+	//PA->setPosition(glm::vec3(-212, 0, 0));
+	//objects.push_back(PA); // index 0
 	//cout << "IIIIIIIIIIIIDDDDDDDDDD     0          " << PA->getObjId()<< endl;
 
 	////GameObject * perBG1 = new GameObject(Tag::BG);
@@ -167,29 +189,22 @@ void Game::init(int width, int height)
 	//BG4->setPosition(glm::vec3(-128, 345, 0));
 	//objects.push_back(BG4); // index 6
 
-	player = new PlayerGameObject(Tag::Player);
+	//player = new PlayerGameObject(Tag::Player);
 
-	PlayerGameObject* p = dynamic_cast<PlayerGameObject *>(player);
+	//PlayerGameObject* p = dynamic_cast<PlayerGameObject *>(player);
 
-	p->setSize(playerSizeX, playerSizeY);
-	p->setRotation(180);
-	p->setPosition(glm::vec3(-212, -250, 0));
-	p->setAnimationLoop(1,1,4,1000);
-	objects.push_back(player); // index 7
+	//p->setSize(playerSizeX, playerSizeY);
+	//p->setRotation(180);
+	//p->setPosition(glm::vec3(-212, -250, 0));
+	//p->setAnimationLoop(1,1,4,1000);
+	//objects.push_back(player); // index 7
 
-	Boss1 * boss = new Boss1(Tag::Enemy, "bg1.png", 4, 4); //Tag enemy, string fileName, int row, int col
-	//boss->setColor(1.0, 0.0, 0.0);
-	boss->setSize(100, 100);
-	boss->setPosition(glm::vec3(-212, 200, 0));
-	objects.push_back(boss); // index 8
-
-
-
-
-	//SpriteObject * character = new SpriteObject("character.png", 4, 4);
-	//character->setSize(200, -200 * 1.5);
-	//character->setAnimationLoop(1, 1, 16, 4000);
-	//objects.push_back(character);
+	//Boss1 * boss = new Boss1(Tag::Enemy, "bg1.png", 4, 4); //Tag enemy, string fileName, int row, int col
+	////boss->setColor(1.0, 0.0, 0.0);
+	//boss->setSize(100, 100);
+	//boss->setPosition(glm::vec3(-212, 200, 0));
+	//p->setAnimationLoop(1, 1, 0, 1000);
+	//objects.push_back(boss); // index 8
 }
 
 void Game::render()
@@ -207,60 +222,96 @@ Game::Game()
 
 void Game::update(float deltaTime)
 {
-	
-	
-	if (playerIsDead)
+	if (menuIsDestroyed == true)
 	{
-		timer += deltaTime;
-		if (timer > 1000)
+		if (firstRound == true)
 		{
+			SpriteObject * BG = new SpriteObject("bgBase.png", 1, 1); //BG
+			BG->setSize(1280, 720);
+			BG->setPosition(glm::vec3(0, 0, 0));
+			objects.push_back(BG);
+
+			SpriteObject * PA = new SpriteObject("bg1.png", 1, 1); //Play Area
+			PA->setSize(1280, 720);
+			PA->setPosition(glm::vec3(-212, 0, 0));
+			objects.push_back(PA); // index 0
+
+
 			player = new PlayerGameObject(Tag::Player);
 
-			PlayerGameObject* p = dynamic_cast<PlayerGameObject*>(player);
-			p->SetInvincible(true);
+			PlayerGameObject* p = dynamic_cast<PlayerGameObject *>(player);
+
 			p->setSize(playerSizeX, playerSizeY);
 			p->setRotation(180);
 			p->setPosition(glm::vec3(-212, -250, 0));
 			p->setAnimationLoop(1, 1, 4, 1000);
-			objects.push_back(player);
+			objects.push_back(player); // index 7
 
-
-
-			//			
-			//for (int i = objects.size() - 1; i >= 0; i--)
-			//{
-			//	DrawableObject* instance = objects.at(i);
-
-			//	if (instance->getObjId() == player->getObjId())
-			//	{
-			//		playerIndex = i;
-			//		break;
-			//	}
-			//}
+			Boss1 * boss = new Boss1(Tag::Enemy, "bg1.png", 4, 4); //Tag enemy, string fileName, int row, int col
+																   //boss->setColor(1.0, 0.0, 0.0);
+			boss->setSize(100, 100);
+			boss->setPosition(glm::vec3(-212, 200, 0));
+			p->setAnimationLoop(1, 1, 0, 1000);
+			objects.push_back(boss); // index 8
 
 			playerIsDead = false;
-			timer = 0;
+			firstRound = false;
 		}
-	}
 
-	e1SpawnRate += deltaTime;
-	if (e1SpawnRate >= 1000)
-	{
-		int x = rand() % 300 - MID_PLAYAREA_X -462;
-		Enemy1 * enemy = new Enemy1(Tag::Enemy, "RED.png", 1, 1); //Tag enemy, string fileName, int row, int col
-		enemy->setSize(35, 35);
-		enemy->setPosition(glm::vec3(x, 300, 0));
-		objects.push_back(enemy);
-		e1SpawnRate = 0;
-	}
+		if (playerIsDead)
+		{
+			timer += deltaTime;
+			if (timer > 1000)
+			{
+				player = new PlayerGameObject(Tag::Player);
 
-	//for (DrawableObject *obj : this->objects)
-	for(int i = 0; i < objects.size(); i++)
-	{
-		objects[i]->update(deltaTime);
-		//obj->update(deltaTime);
-	}
+				PlayerGameObject* p = dynamic_cast<PlayerGameObject*>(player);
+				p->SetInvincible(true);
+				p->setSize(playerSizeX, playerSizeY);
+				p->setRotation(180);
+				p->setPosition(glm::vec3(-212, -250, 0));
+				p->setAnimationLoop(1, 1, 4, 1000);
+				objects.push_back(player);
 
+
+
+				//			
+				//for (int i = objects.size() - 1; i >= 0; i--)
+				//{
+				//	DrawableObject* instance = objects.at(i);
+
+				//	if (instance->getObjId() == player->getObjId())
+				//	{
+				//		playerIndex = i;
+				//		break;
+				//	}
+				//}
+
+				playerIsDead = false;
+				timer = 0;
+			}
+		}
+
+		e1SpawnRate += deltaTime;
+		if (e1SpawnRate >= 1000)
+		{
+			int x = rand() % 300 - MID_PLAYAREA_X - 462;
+			Enemy1 * enemy = new Enemy1(Tag::Enemy, "RED.png", 1, 1); //Tag enemy, string fileName, int row, int col
+			enemy->setSize(35, 35);
+			enemy->setPosition(glm::vec3(x, 300, 0));
+			objects.push_back(enemy);
+			e1SpawnRate = 0;
+		}
+
+		//for (DrawableObject *obj : this->objects)
+		for (int i = 0; i < objects.size(); i++)
+		{
+			objects[i]->update(deltaTime);
+			//obj->update(deltaTime);
+		}
+
+
+	}
 
 }
 
