@@ -61,7 +61,7 @@ void TextObject::loadText(string text, SDL_Color textColor, int fontSize)
 	glBindTexture( GL_TEXTURE_2D, texture);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	TTF_Font * font = TTF_OpenFont("Disco3.ttf", fontSize);
+	TTF_Font * font = TTF_OpenFont("AUTOMANI.TTF", fontSize);
 	if (font)
 	{
 		SDL_Surface* surfaceMessage = TTF_RenderText_Blended(font, text.c_str(), textColor);

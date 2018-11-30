@@ -33,7 +33,7 @@ void Enemy1::update(float deltaTime)
 void Enemy1::updateMOVE(float deltaTime)
 {
 	float y = getPosition().y;
-	if (y <= 0)
+	if (y <= 100)
 	{
 		state = ATK;
 		setVelocity(glm::vec3(0, 0, 0));

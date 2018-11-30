@@ -1,6 +1,9 @@
 #include "EnemyBullet.h"
 #include "Game.h"
 
+#define LEFTBORDER -462
+#define	RIGHTBORDER 38
+
 void EnemyBullet::update(float deltaTime)
 {
 	translate(velocity);
@@ -8,7 +11,7 @@ void EnemyBullet::update(float deltaTime)
 	float halfSizeX = (size.x * 0.5f) + 4;
 	float halfSizeY = (size.y * 0.5f) + 4;
 
-	if ((pos.x > 122 + halfSizeX) || (pos.x < -378 - halfSizeX) || (pos.y > 330 + halfSizeY) || (pos.y < -330 - halfSizeY))
+	if ((pos.x > RIGHTBORDER + halfSizeX) || (pos.x < LEFTBORDER - halfSizeX) || (pos.y > 330 + halfSizeY) || (pos.y < -330 - halfSizeY))
 	{
 		for (int i = Game::getInstance()->getObjectRef()->size() - 1; i >= 0; i--)
 		{

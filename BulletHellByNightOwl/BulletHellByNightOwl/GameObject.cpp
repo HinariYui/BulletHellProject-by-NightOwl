@@ -156,10 +156,11 @@ bool GameObject::checkCollision(GameObject* obj)
 		if(obj->isCollide == false)
 		{
 			(obj->hp)--;
-			//if (hp < 1)//try to  + score for player
-			//{
-			//	Game::getPlayerRef();
-			//}
+			if (hp < 1)//try to  + score for player
+			{
+				//PlayerGameObject* p = Game::getInstance()->getPlayerRef();
+				//PlayerGameObject* ply = dynamic_cast<PlayerGameObject*>(p);
+			}
 		}
 		for (int i = Game::getInstance()->getObjectRef()->size()-1; i >= 0; i--)
 		{
