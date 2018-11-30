@@ -13,11 +13,14 @@ class Game
 	vector<DrawableObject*> objects;
 	GLRenderer *renderer;
 	DrawableObject* player;
+	DrawableObject* menu;
 	Game();
 	float e1SpawnRate = 0;
 
 public:
-	bool playerIsDead = false;
+	bool firstRound = true;
+	bool menuIsDestroyed = false;
+	bool playerIsDead = true;
 	static Game* getInstance();
 	GLRenderer * getRenderer();
 	vector<DrawableObject*>* getObjectRef();//added by me
