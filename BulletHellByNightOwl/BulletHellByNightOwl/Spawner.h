@@ -1,8 +1,8 @@
 #pragma once
+
 #include <ctime>
 #include <iostream>
 #include "Enemy1.h"
-#include "Game.h"
 
 class Spawner
 {

@@ -1,4 +1,5 @@
 #include "EnemyBullet.h"
+#include "Game.h"
 
 void EnemyBullet::update(float deltaTime)
 {

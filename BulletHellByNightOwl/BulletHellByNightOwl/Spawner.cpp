@@ -1,6 +1,12 @@
 #include "Spawner.h"
+#include "Game.h"
 
 #define MID_PLAYAREA_X -212
+
+Spawner::Spawner()
+{
+
+}
 
 void Spawner::update(float deltaTime)
 {

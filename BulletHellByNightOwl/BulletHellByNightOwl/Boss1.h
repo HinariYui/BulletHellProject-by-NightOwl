@@ -1,7 +1,6 @@
 #pragma once
 
 #include "SpriteObject.h"
-#include "EnemyBullet.h"
 
 enum Boss1State
 {

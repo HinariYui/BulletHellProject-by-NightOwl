@@ -1,5 +1,7 @@
 #include <iostream>
 #include "Boss1.h"
+#include "EnemyBullet.h"
+#include "Game.h"
 
 
 

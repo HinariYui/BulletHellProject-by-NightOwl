@@ -10,6 +10,7 @@
 #include "Boss1.h"
 #include "Enemy1.h"
 #include "Menu.h"
+#include "Spawner.h"
 
 #define MID_PLAYAREA_X -212
 
@@ -132,6 +133,9 @@ void Game::init(int width, int height)
 	menu->setSize(1280, 720);
 	menu->setPosition(glm::vec3(0, 0, 0));
 	objects.push_back(menu); // index 8
+
+	Spawner* e1 = new Spawner();
+	spawners.push_back(e1);
 
 
 	//SpriteObject * BG = new SpriteObject("bgBase.png", 1, 1); //BG
@@ -300,17 +304,22 @@ void Game::update(float deltaTime)
 			}
 		}
 
-		e1SpawnRate += deltaTime;
-		if (e1SpawnRate >= 1000)
+		for (int i = 0; i < spawners.size(); i++)
 		{
-			int x = rand() % 300 - MID_PLAYAREA_X - 462;
-			Enemy1 * enemy = new Enemy1(Tag::Enemy, "bossgirl-minion2.png", 1, 1); //Tag enemy, string fileName, int row, int col
-			enemy->setRotation(180);													   //boss->setColor(1.0, 0.0, 0.0);
-			enemy->setSize(35, 35);
-			enemy->setPosition(glm::vec3(x, 300, 0));
-			objects.push_back(enemy);
-			e1SpawnRate = 0;
+			spawners[i]->update(deltaTime);
 		}
+
+		//e1SpawnRate += deltaTime;
+		//if (e1SpawnRate >= 1000)
+		//{
+		//	int x = rand() % 300 - MID_PLAYAREA_X - 462;
+		//	Enemy1 * enemy = new Enemy1(Tag::Enemy, "bossgirl-minion2.png", 1, 1); //Tag enemy, string fileName, int row, int col
+		//	enemy->setRotation(180);													   //boss->setColor(1.0, 0.0, 0.0);
+		//	enemy->setSize(35, 35);
+		//	enemy->setPosition(glm::vec3(x, 300, 0));
+		//	objects.push_back(enemy);
+		//	e1SpawnRate = 0;
+		//}
 
 		//for (DrawableObject *obj : this->objects)
 		for (int i = 0; i < objects.size(); i++)

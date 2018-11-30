@@ -138,6 +138,7 @@
     <ClCompile Include="MeshVbo.cpp" />
     <ClCompile Include="PlayerGameObject.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="Spawner.cpp" />
     <ClCompile Include="SpriteObject.cpp" />
     <ClCompile Include="SquareMeshVbo.cpp" />
     <ClCompile Include="stdafx.cpp" />
@@ -160,6 +161,7 @@
     <ClInclude Include="MeshVbo.h" />
     <ClInclude Include="PlayerGameObject.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="Spawner.h" />
     <ClInclude Include="SpriteObject.h" />
     <ClInclude Include="SquareMeshVbo.h" />
     <ClInclude Include="stdafx.h" />

@@ -3,6 +3,7 @@
 #include <vector>
 #include "DrawableObject.h"
 #include "GLRenderer.h"
+#include "Spawner.h"
 
 using namespace std;
 class Game
@@ -11,6 +12,7 @@ class Game
 	static Game* instance;
 	int winWidth, winHeight;
 	vector<DrawableObject*> objects;
+	vector<Spawner*> spawners;
 	GLRenderer *renderer;
 	DrawableObject* player;
 	DrawableObject* menu;
