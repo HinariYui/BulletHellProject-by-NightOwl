@@ -14,6 +14,7 @@ class PlayerGameObject :public GameObject
 	bool isMoving = false;
 	bool isIdle = false;
 	//DrawableObject* playerBullet = NULL;
+	int score = 0;
 	int shootCD = 0;
 	bool invincible = false;
 	float invincibleTime = 0;

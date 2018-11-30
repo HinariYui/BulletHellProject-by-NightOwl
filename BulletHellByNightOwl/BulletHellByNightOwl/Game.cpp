@@ -6,6 +6,7 @@
 #include "CustomMeshVbo.h"
 #include "PlayerGameObject.h"
 #include "CircleMeshVbo.h"
+#include "TextObject.h" 
 #include "Boss1.h"
 #include "Enemy1.h"
 #include "Menu.h"
@@ -200,6 +201,7 @@ void Game::init(int width, int height)
 	//boss->setPosition(glm::vec3(-212, 200, 0));
 	//p->setAnimationLoop(1, 1, 0, 1000);
 	//objects.push_back(boss); // index 8
+
 }
 
 void Game::render()
@@ -248,6 +250,17 @@ void Game::update(float deltaTime)
 			boss->setPosition(glm::vec3(-212, 200, 0));
 			p->setAnimationLoop(1, 1, 0, 1000);
 			objects.push_back(boss); // index 8
+
+			SDL_Color color = { 255, 165, 255 };
+
+			TextObject * text = new TextObject();
+			text->loadText("SCORE", color, 30);
+			text->setPosition(glm::vec3(500, 185, 0));
+			objects.push_back(text); // index 8
+
+
+
+
 
 			playerIsDead = false;
 			firstRound = false;
@@ -314,6 +327,11 @@ void Game::update(float deltaTime)
 vector<DrawableObject*>* Game::getObjectRef()
 {
 	return &objects;
+}
+
+DrawableObject* Game::getPlayerRef()
+{
+	return this->player;
 }
 
 

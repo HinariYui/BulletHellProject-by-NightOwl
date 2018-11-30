@@ -16,5 +16,8 @@ public:
 	virtual void render();
 	virtual void loadData();
 	void adjustTexcoord(float * uv);
+	void resetTexcoord();
+
+
 	//GLfloat* getVertexData();
 };
