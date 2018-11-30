@@ -58,11 +58,6 @@ void Game::handleKey(char ch)
 			objects.pop_back();
 			menuIsDestroyed = true;
 		}
-		else
-		{
-
-		}
-
 	}
 
 	if (!playerIsDead)
@@ -247,8 +242,8 @@ void Game::update(float deltaTime)
 			p->setAnimationLoop(1, 1, 4, 1000);
 			objects.push_back(player); // index 7
 
-			Boss1 * boss = new Boss1(Tag::Enemy, "bg1.png", 4, 4); //Tag enemy, string fileName, int row, int col
-																   //boss->setColor(1.0, 0.0, 0.0);
+			Boss1 * boss = new Boss1(Tag::Enemy, "bossgirl-sample.png", 1, 1); //Tag enemy, string fileName, int row, int col
+			boss->setRotation(180);													   //boss->setColor(1.0, 0.0, 0.0);
 			boss->setSize(100, 100);
 			boss->setPosition(glm::vec3(-212, 200, 0));
 			p->setAnimationLoop(1, 1, 0, 1000);
@@ -296,7 +291,8 @@ void Game::update(float deltaTime)
 		if (e1SpawnRate >= 1000)
 		{
 			int x = rand() % 300 - MID_PLAYAREA_X - 462;
-			Enemy1 * enemy = new Enemy1(Tag::Enemy, "RED.png", 1, 1); //Tag enemy, string fileName, int row, int col
+			Enemy1 * enemy = new Enemy1(Tag::Enemy, "bossgirl-minion2.png", 1, 1); //Tag enemy, string fileName, int row, int col
+			enemy->setRotation(180);													   //boss->setColor(1.0, 0.0, 0.0);
 			enemy->setSize(35, 35);
 			enemy->setPosition(glm::vec3(x, 300, 0));
 			objects.push_back(enemy);
