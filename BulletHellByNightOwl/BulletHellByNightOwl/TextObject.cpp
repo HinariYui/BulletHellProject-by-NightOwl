@@ -1,5 +1,6 @@
 #include "TextObject.h"
 #include "Game.h"
+#include "PlayerGameObject.h"
 #include "SquareMeshVbo.h"
 
 TextObject::TextObject()
@@ -54,6 +55,7 @@ void TextObject::render(glm::mat4 globalModelTransform)
 
 void TextObject::update(float deltaTime)
 {
+
 }
 
 void TextObject::loadText(string text, SDL_Color textColor, int fontSize)

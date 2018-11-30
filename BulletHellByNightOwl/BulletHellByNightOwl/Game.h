@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include "TextObject.h"
 #include "DrawableObject.h"
 #include "GLRenderer.h"
 #include "Spawner.h"
@@ -18,6 +19,7 @@ class Game
 	DrawableObject* menu;
 	Game();
 	float e1SpawnRate = 0;
+	TextObject * scoreText;
 
 public:
 	bool firstRound = true;

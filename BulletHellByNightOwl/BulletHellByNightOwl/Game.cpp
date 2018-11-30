@@ -1,3 +1,4 @@
+#include <string>
 #include "stdafx.h"
 #include "Game.h"
 #include "GLRendererColor.h"
@@ -239,7 +240,6 @@ void Game::update(float deltaTime)
 
 
 			player = new PlayerGameObject(Tag::Player);
-
 			PlayerGameObject* p = dynamic_cast<PlayerGameObject *>(player);
 
 			p->setSize(playerSizeX, playerSizeY);
@@ -257,18 +257,26 @@ void Game::update(float deltaTime)
 
 			SDL_Color color = { 255, 165, 255 };
 
-			TextObject * text = new TextObject();
-			text->loadText("SCORE", color, 30);
-			text->setPosition(glm::vec3(500, 185, 0));
-			objects.push_back(text); // index 8
+			TextObject * text1 = new TextObject();
+			text1->loadText("SCORE", color, 30);
+			text1->setPosition(glm::vec3(500, 185, 0));
+			objects.push_back(text1); // index 8
 
+			std::string s = std::to_string(p->score);
 
-
-
+			scoreText = new TextObject();
+			scoreText->loadText(s, color, 30);
+			scoreText->setPosition(glm::vec3(500, 150, 0));
+			objects.push_back(scoreText);
 
 			playerIsDead = false;
 			firstRound = false;
 		}
+			
+		SDL_Color color = { 255, 165, 255 };
+		PlayerGameObject* p = dynamic_cast<PlayerGameObject *>(player);
+		std::string s = std::to_string(p->score);
+		scoreText->loadText(s, color, 30);
 
 		if (playerIsDead)
 		{
@@ -284,20 +292,6 @@ void Game::update(float deltaTime)
 				p->setPosition(glm::vec3(-212, -250, 0));
 				p->setAnimationLoop(1, 1, 4, 1000);
 				objects.push_back(player);
-
-
-
-				//			
-				//for (int i = objects.size() - 1; i >= 0; i--)
-				//{
-				//	DrawableObject* instance = objects.at(i);
-
-				//	if (instance->getObjId() == player->getObjId())
-				//	{
-				//		playerIndex = i;
-				//		break;
-				//	}
-				//}
 
 				playerIsDead = false;
 				timer = 0;

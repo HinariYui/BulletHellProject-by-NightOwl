@@ -14,7 +14,7 @@ class PlayerGameObject :public GameObject
 	bool isMoving = false;
 	bool isIdle = false;
 	//DrawableObject* playerBullet = NULL;
-	int score = 0;
+
 	int shootCD = 0;
 	bool invincible = false;
 	float invincibleTime = 0;
@@ -36,6 +36,8 @@ class PlayerGameObject :public GameObject
 	bool isBlinking = false;
 
 public:
+
+	int score = 0;
 
 	PlayerGameObject(Tag player) : GameObject(player) {addSprite("player.png", 2, 4); }; //: GameObject(player) { addSprite("player.png", 2, 4); };
 	~PlayerGameObject();

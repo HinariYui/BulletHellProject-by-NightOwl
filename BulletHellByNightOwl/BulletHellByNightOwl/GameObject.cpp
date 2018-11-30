@@ -1,5 +1,6 @@
 #include "GameObject.h"
 #include "Game.h"
+#include "PlayerGameObject.h"
 
 GameObject::GameObject(Tag newTag)
 {
@@ -156,10 +157,12 @@ bool GameObject::checkCollision(GameObject* obj)
 		if(obj->isCollide == false)
 		{
 			(obj->hp)--;
-			if (hp < 1)//try to  + score for player
+			if (obj->hp < 1)//try to  + score for player
 			{
-				//PlayerGameObject* p = Game::getInstance()->getPlayerRef();
-				//PlayerGameObject* ply = dynamic_cast<PlayerGameObject*>(p);
+				PlayerGameObject* p = dynamic_cast<PlayerGameObject*>(Game::getInstance()->getPlayerRef());
+				(p->score)++;
+
+				cout << p->score << endl;
 			}
 		}
 		for (int i = Game::getInstance()->getObjectRef()->size()-1; i >= 0; i--)
