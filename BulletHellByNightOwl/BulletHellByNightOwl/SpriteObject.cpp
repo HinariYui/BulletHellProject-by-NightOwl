@@ -130,7 +130,7 @@ void SpriteObject::genUV()
 
 void SpriteObject::loopUV(float deltaTime)
 {
-	float speed = deltaTime * 0.0003f;
+	float speed = deltaTime * 0.00015f;
 	uv[1] += speed;
 	uv[3] += speed;
 	uv[5] += speed;

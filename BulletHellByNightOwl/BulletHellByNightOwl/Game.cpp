@@ -121,7 +121,7 @@ void Game::init(int width, int height)
 	BG->setPosition(glm::vec3(0, 0, 0));
 	objects.push_back(BG);
 
-	SpriteObject * PA = new SpriteObject("bg1.png", 1, 1); //Play Area
+	SpriteObject * PA = new SpriteObject("bg1.png", 2, 1); //Play Area
 	PA->setSize(1280, 720);
 	PA->setPosition(glm::vec3(-212, 0, 0));
 	objects.push_back(PA); // index 0
@@ -177,7 +177,7 @@ void Game::init(int width, int height)
 	p->setAnimationLoop(1,1,4,1000);
 	objects.push_back(player); // index 7
 
-	Boss1 * boss = new Boss1(Tag::Enemy, "bg1.png", 4, 4); //Tag enemy, string fileName, int row, int col
+	Boss1 * boss = new Boss1(Tag::Enemy, "bossgirl-sample.png", 1, 1); //Tag enemy, string fileName, int row, int col
 	//boss->setColor(1.0, 0.0, 0.0);
 	boss->setSize(100, 100);
 	boss->setPosition(glm::vec3(-212, 200, 0));
@@ -247,7 +247,7 @@ void Game::update(float deltaTime)
 	if (e1SpawnRate >= 1000)
 	{
 		int x = rand() % 300 - MID_PLAYAREA_X -462;
-		Enemy1 * enemy = new Enemy1(Tag::Enemy, "RED.png", 1, 1); //Tag enemy, string fileName, int row, int col
+		Enemy1 * enemy = new Enemy1(Tag::Enemy, "bossgirl-minion2.png", 1, 1); //Tag enemy, string fileName, int row, int col
 		enemy->setSize(35, 35);
 		enemy->setPosition(glm::vec3(x, 300, 0));
 		objects.push_back(enemy);
