@@ -46,7 +46,7 @@ void TextObject::render(glm::mat4 globalModelTransform)
 		currentMatrix = globalModelTransform * currentMatrix;
 		glUniformMatrix4fv(modelMatixId, 1, GL_FALSE, glm::value_ptr(currentMatrix));
 		glUniform1i(modeId, 1);
-		//squareMesh->resetTexcoord();
+		squareMesh->resetTexcoord();
 		squareMesh->render();
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
@@ -61,7 +61,7 @@ void TextObject::loadText(string text, SDL_Color textColor, int fontSize)
 	glBindTexture( GL_TEXTURE_2D, texture);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	TTF_Font * font = TTF_OpenFont("airstrikeexpand.ttf", fontSize);
+	TTF_Font * font = TTF_OpenFont("Disco3.ttf", fontSize);
 	if (font)
 	{
 		SDL_Surface* surfaceMessage = TTF_RenderText_Blended(font, text.c_str(), textColor);

@@ -73,4 +73,18 @@ void SquareMeshVbo::adjustTexcoord(float * uv)
 //{
 //	return vertexData;
 //}
+void SquareMeshVbo::resetTexcoord()
+{
+	GLfloat texData[] =
+	{
+		0.0f, 0.0f,
+		1.0f, 0.0f,
+		1.0f, 1.0f,
+		0.0f, 1.0f
+	};
+
+	glBindBuffer(GL_ARRAY_BUFFER, this->texVboId);
+	glBufferData(GL_ARRAY_BUFFER, 2 * 4 * sizeof(GLfloat), texData, GL_STATIC_DRAW);
+}
+
 

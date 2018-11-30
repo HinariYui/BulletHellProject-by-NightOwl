@@ -9,6 +9,7 @@
 #include <SDL_main.h>
 #include <SDL.h>
 #include <SDL_opengl.h>
+#include <SDL_ttf.h>
 
 #include "GLRendererColor.h"
 #include "SquareMeshVbo.h"
@@ -54,6 +55,8 @@ int main(int argc, char *argv[])
 	}
 	else
 	{
+		TTF_Init();
+
 		// Create window
 		window = SDL_CreateWindow("CyberCity-BulletHell", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WIDTH, HEIGHT, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
 		if (window == NULL)

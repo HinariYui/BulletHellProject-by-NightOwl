@@ -29,5 +29,6 @@ public:
 	void init(int width, int height);
 	void render();
 	void update(float deltaTime);
+	DrawableObject* getPlayerRef();
 
 };
