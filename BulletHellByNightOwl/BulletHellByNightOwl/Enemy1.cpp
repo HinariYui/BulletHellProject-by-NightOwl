@@ -59,7 +59,7 @@ void Enemy1::updateEXIT(float deltaTime)
 		stateTime = 0;
 		setVelocity(glm::vec3(0, 2, 0));
 	}
-	if (y >= 100)
+	if (y >= 400)
 	{
 		hp = 0;
 	}
