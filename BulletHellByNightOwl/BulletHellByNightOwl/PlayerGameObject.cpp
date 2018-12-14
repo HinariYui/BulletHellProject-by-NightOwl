@@ -14,8 +14,8 @@ void PlayerGameObject::update(float deltaTime)
 	}
 	checkMovement();
 	
-	shootCD++;
-	if (shootCD >= 5)//shoot every 5 frame
+	shootCD += deltaTime;
+	if (shootCD >= 50)//shoot every 0.05 sec
 	{
 		checkAction();
 		shootCD = 0;
@@ -341,6 +341,7 @@ void PlayerGameObject::render(glm::mat4 globalModelTransform)
 	}
 
 	glm::mat4 currentMatrix = this->getTransform();
+	//currentMatrix = glm::scale(currentMatrix, glm::vec3(2, 2, 1)); //2 times bigger
 
 	if (squareMesh != nullptr) {
 

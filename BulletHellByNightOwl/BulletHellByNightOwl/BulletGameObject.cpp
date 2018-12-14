@@ -13,7 +13,7 @@ BulletGameObject::~BulletGameObject()
 
 void BulletGameObject::update(float deltaTime)
 {
-	translate(getVelocity() * 1.0f);
+	translate(getVelocity() * 2.0f);
 
 	float halfSizeX = (size.x * 0.5f)+4;
 	float halfSizeY = (size.y * 0.5f)+4;

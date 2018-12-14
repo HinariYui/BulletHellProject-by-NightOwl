@@ -11,6 +11,9 @@ Boss1::Boss1(Tag enemy, string fileName, int row, int col) : SpriteObject(fileNa
 	state = IDLE;
 	idleTime = rand() % 1000 + 2000;
 	stateTime = 0;
+	rotationMatrix = glm::mat4(1.0f);
+	rotationMatrix = glm::rotate(rotationMatrix, 0.25f, glm::vec3(0.0f, 0.0f, 1.0f)); //0.1f -> radiant
+	hp = 1000;
 }
 
 void Boss1::update(float deltaTime)
@@ -64,7 +67,7 @@ void Boss1::updateATK1(float deltaTime)
 {
 	stateTime += deltaTime;
 	ATKCount += deltaTime;
-	if (ATKCount >= 50)//shoot every 0.05 sec
+	if (ATKCount >= 100)//shoot every 0.1 sec
 	{
 		shoot1();
 		ATKCount = 0;
@@ -90,12 +93,68 @@ void Boss1::updateATK3(float deltaTime)
 void Boss1::shoot1()
 {
 	enemyBullet1 = new EnemyBullet(Tag::eBullet);
-
-	dynamic_cast<GameObject*>(enemyBullet1)->setColor(1.0, 0.0, 0.0);
-	enemyBullet1->setSize(10, 10);
-	enemyBullet1->setPosition(this->getPosition() + glm::vec3(0, -26, 0));
-
+	EnemyBullet *eb1 = dynamic_cast<EnemyBullet*>(enemyBullet1);
+	if (eb1)
+	{
+		eb1->setColor(1.0, 0.0, 0.0);
+		eb1->setSize(10, 10);
+		eb1->setPosition(this->getPosition());
+		eb1->setVelocity(velD);
+		glm::vec4 temp(velD.x, velD.y, velD.z, 1);
+		temp = rotationMatrix * temp;
+		velD.x = temp.x;
+		velD.y = temp.y;
+		velD.z = temp.z;
+	}
 	Game::getInstance()->getObjectRef()->push_back(enemyBullet1);
+
+	enemyBullet2 = new EnemyBullet(Tag::eBullet);
+	EnemyBullet *eb2 = dynamic_cast<EnemyBullet*>(enemyBullet2);
+	if (eb2)
+	{
+		eb2->setColor(1.0, 0.0, 0.0);
+		eb2->setSize(10, 10);
+		eb2->setPosition(this->getPosition());
+		eb2->setVelocity(velR);
+		glm::vec4 temp(velR.x, velR.y, velR.z, 1);
+		temp = rotationMatrix * temp;
+		velR.x = temp.x;
+		velR.y = temp.y;
+		velR.z = temp.z;
+	}
+	Game::getInstance()->getObjectRef()->push_back(enemyBullet2);
+
+	enemyBullet3 = new EnemyBullet(Tag::eBullet);
+	EnemyBullet *eb3 = dynamic_cast<EnemyBullet*>(enemyBullet3);
+	if (eb3)
+	{
+		eb3->setColor(1.0, 0.0, 0.0);
+		eb3->setSize(10, 10);
+		eb3->setPosition(this->getPosition());
+		eb3->setVelocity(velU);
+		glm::vec4 temp(velU.x, velU.y, velU.z, 1);
+		temp = rotationMatrix * temp;
+		velU.x = temp.x;
+		velU.y = temp.y;
+		velU.z = temp.z;
+	}
+	Game::getInstance()->getObjectRef()->push_back(enemyBullet3);
+
+	enemyBullet4 = new EnemyBullet(Tag::eBullet);
+	EnemyBullet *eb4 = dynamic_cast<EnemyBullet*>(enemyBullet4);
+	if (eb4)
+	{
+		eb4->setColor(1.0, 0.0, 0.0);
+		eb4->setSize(10, 10);
+		eb4->setPosition(this->getPosition());
+		eb4->setVelocity(velL);
+		glm::vec4 temp(velL.x, velL.y, velL.z, 1);
+		temp = rotationMatrix * temp;
+		velL.x = temp.x;
+		velL.y = temp.y;
+		velL.z = temp.z;
+	}
+	Game::getInstance()->getObjectRef()->push_back(enemyBullet4);
 }
 
 void Boss1::move()
