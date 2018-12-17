@@ -22,6 +22,8 @@ Game* Game::instance = nullptr;
 float playerSizeX = 40;
 float playerSizeY = 40;
 
+int scoreTemp;
+
 Game * Game::getInstance()
 {
 	if (instance == nullptr) {
@@ -136,6 +138,7 @@ void Game::init(int width, int height)
 	objects.push_back(menu); // index 8
 
 	Spawner* e1 = new Spawner();
+	e1->SetSpawnRate(1000);
 	spawners.push_back(e1);
 
 
@@ -242,18 +245,18 @@ void Game::update(float deltaTime)
 			player = new PlayerGameObject(Tag::Player);
 			PlayerGameObject* p = dynamic_cast<PlayerGameObject *>(player);
 
-			p->setSize(playerSizeX, playerSizeY);
+			p->setSize(playerSizeX/5, playerSizeY/5);
 			p->setRotation(180);
 			p->setPosition(glm::vec3(-212, -250, 0));
 			p->setAnimationLoop(1, 1, 4, 1000);
 			objects.push_back(player); // index 7
 
-			Boss1 * boss = new Boss1(Tag::Enemy, "bossgirl-sample.png", 1, 1); //Tag enemy, string fileName, int row, int col
-			boss->setRotation(180);													   //boss->setColor(1.0, 0.0, 0.0);
-			boss->setSize(100, 100);
-			boss->setPosition(glm::vec3(-212, 200, 0));
-			p->setAnimationLoop(1, 1, 0, 1000);
-			objects.push_back(boss); // index 8
+			//Boss1 * boss = new Boss1(Tag::Enemy, "bossgirl-sample.png", 1, 1); //Tag enemy, string fileName, int row, int col
+			//boss->setRotation(180);													   //boss->setColor(1.0, 0.0, 0.0);
+			//boss->setSize(100, 100);
+			//boss->setPosition(glm::vec3(-212, 200, 0));
+			//p->setAnimationLoop(1, 1, 0, 1000);
+			//objects.push_back(boss); // index 8
 
 			SDL_Color color = { 255, 165, 255 };
 
@@ -277,7 +280,7 @@ void Game::update(float deltaTime)
 		PlayerGameObject* p = dynamic_cast<PlayerGameObject *>(player);
 		std::string s = std::to_string(p->score);
 		scoreText->loadText(s, color, 30);
-
+		scoreTemp = p->score;
 		if (playerIsDead)
 		{
 			timer += deltaTime;
@@ -286,8 +289,9 @@ void Game::update(float deltaTime)
 				player = new PlayerGameObject(Tag::Player);
 
 				PlayerGameObject* p = dynamic_cast<PlayerGameObject*>(player);
+				p->score = scoreTemp;
 				p->SetInvincible(true);
-				p->setSize(playerSizeX, playerSizeY);
+				p->setSize(playerSizeX/5, playerSizeY/5);
 				p->setRotation(180);
 				p->setPosition(glm::vec3(-212, -250, 0));
 				p->setAnimationLoop(1, 1, 4, 1000);
@@ -301,6 +305,17 @@ void Game::update(float deltaTime)
 		for (int i = 0; i < spawners.size(); i++)
 		{
 			spawners[i]->update(deltaTime);
+		}
+
+		if (spawners[0]->eNum > 10 && bossSpawn == false)
+		{
+			spawners[0]->SetSpawnRate(2500);
+			Boss1 * boss = new Boss1(Tag::Enemy, "bossgirl-sample.png", 1, 1); //Tag enemy, string fileName, int row, int col
+			boss->setRotation(180);													   //boss->setColor(1.0, 0.0, 0.0);
+			boss->setSize(100, 100);
+			boss->setPosition(glm::vec3(-212, 400, 0));
+			objects.push_back(boss);
+			bossSpawn = true;
 		}
 
 		//e1SpawnRate += deltaTime;

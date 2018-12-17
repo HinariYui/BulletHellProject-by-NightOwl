@@ -341,7 +341,7 @@ void PlayerGameObject::render(glm::mat4 globalModelTransform)
 	}
 
 	glm::mat4 currentMatrix = this->getTransform();
-	//currentMatrix = glm::scale(currentMatrix, glm::vec3(2, 2, 1)); //2 times bigger
+	currentMatrix = glm::scale(currentMatrix, glm::vec3(5, 5, 1)); //5 times bigger
 
 	if (squareMesh != nullptr) {
 

@@ -21,6 +21,8 @@ class Game
 	float e1SpawnRate = 0;
 	TextObject * scoreText;
 
+	bool bossSpawn = false;
+
 public:
 	bool firstRound = true;
 	bool menuIsDestroyed = false;

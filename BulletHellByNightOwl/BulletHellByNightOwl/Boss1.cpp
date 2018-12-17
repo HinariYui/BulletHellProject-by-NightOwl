@@ -7,8 +7,9 @@
 
 Boss1::Boss1(Tag enemy, string fileName, int row, int col) : SpriteObject(fileName, row, col)
 {
+	setVelocity(glm::vec3(0, -1, 0));
 	tag = enemy;
-	state = IDLE;
+	state = MOVEIN;
 	idleTime = rand() % 1000 + 2000;
 	stateTime = 0;
 	rotationMatrix = glm::mat4(1.0f);
@@ -39,6 +40,10 @@ void Boss1::update(float deltaTime)
 	{
 		updateIDLE(deltaTime);
 	}
+	else if (state == MOVEIN)
+	{
+		updateMoveIn(deltaTime);
+	}
 	else if (state == ATK1)
 	{
 		updateATK1(deltaTime);
@@ -60,6 +65,16 @@ void Boss1::updateIDLE(float deltaTime)
 	{
 		stateTime = 0;
 		state = ATK1;
+	}
+}
+
+void Boss1::updateMoveIn(float deltaTime)
+{
+	float y = getPosition().y;
+	if (y <= 200)
+	{
+		state = IDLE;
+		setVelocity(glm::vec3(0, 0, 0));
 	}
 }
 

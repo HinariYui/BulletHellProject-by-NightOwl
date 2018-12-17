@@ -5,6 +5,7 @@
 enum Boss1State
 {
 	IDLE = 0,
+	MOVEIN,
 	ATK1,
 	ATK2,
 	ATK3
@@ -33,6 +34,7 @@ private:
 	glm::mat4 rotationMatrix;
 
 	void updateIDLE(float deltaTime);
+	void updateMoveIn(float deltaTime);
 	void updateATK1(float deltaTime);
 	void updateATK2(float deltaTime);
 	void updateATK3(float deltaTime);
