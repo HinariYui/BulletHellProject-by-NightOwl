@@ -77,7 +77,7 @@ void Boss1::updateATK1(float deltaTime)
 {
 	stateTime += deltaTime;
 	ATKCount += deltaTime;
-	if (ATKCount >= 100)//shoot every 0.1 sec
+	if (ATKCount >= 30)//shoot every 0.03 sec
 	{
 		shoot1();
 		ATKCount = 0;
