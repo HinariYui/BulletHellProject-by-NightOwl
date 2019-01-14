@@ -128,6 +128,7 @@ int main(int argc, char *argv[])
 				case SDLK_UP: game->handleKey('U');   break;
 				case SDLK_DOWN:game->handleKey('D');  break;
 				case SDLK_z: game->handleKey('Z');	  break;
+				case SDLK_LSHIFT: game->handleKey('S'); break;//leftShift not press
 				}
 			}
 			if (sdlEvent.type == SDL_KEYDOWN)
@@ -141,6 +142,9 @@ int main(int argc, char *argv[])
 				case SDLK_UP: game->handleKey('u');   break;
 				case SDLK_DOWN:game->handleKey('d');  break;
 				case SDLK_z: game->handleKey('z');	  break;
+				case SDLK_LSHIFT: game->handleKey('s'); break; //leftShift press
+				case SDLK_ESCAPE: game->handleKey('E'); break; //Esc
+
 				}
 				//switch (sdlEvent.key.keysym.sym)
 				//{

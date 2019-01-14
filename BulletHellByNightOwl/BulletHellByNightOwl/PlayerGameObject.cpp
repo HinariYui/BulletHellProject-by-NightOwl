@@ -10,7 +10,15 @@ void PlayerGameObject::update(float deltaTime)
 
 	if (getVelocity() != glm::vec3(0, 0, 0))
 	{
-		translate(glm::normalize(getVelocity()) * 3.0f);
+		if (Game::getInstance()->shiftPressed == false)
+		{
+			translate(glm::normalize(getVelocity()) * 3.0f);
+		}
+		else
+		{
+			translate(glm::normalize(getVelocity()) * 1.5f);
+		}
+
 	}
 	checkMovement();
 	

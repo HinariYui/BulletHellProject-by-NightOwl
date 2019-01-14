@@ -11,6 +11,7 @@
 #include "Boss1.h"
 #include "Enemy1.h"
 #include "Menu.h"
+#include "PauseMenu.h"
 #include "Spawner.h"
 
 #define MID_PLAYAREA_X -212
@@ -113,8 +114,45 @@ void Game::handleKey(char ch)
 			{
 				p->shoot('Z');
 			}
+			if (ch == 's')
+			{
+				shiftPressed = true;
+			}
+			if (ch == 'S')
+			{
+				shiftPressed = false;
+			}
+			if (ch == 'E')
+			{
+				if (isPaused == false)
+				{
+					pauseMenu = new PauseMenu();
+					pauseMenu->setSize(1280, 720);
+					pauseMenu->setPosition(glm::vec3(0, 0, 0));
+					objects.push_back(pauseMenu); // index 8
+
+					isPaused = true;
+				}
+				else
+				{
+					for (int i = Game::getInstance()->getObjectRef()->size() - 1; i >= 0; i--)
+					{
+						DrawableObject* instance = Game::getInstance()->getObjectRef()->at(i);
+
+						if (instance->getObjId() == pauseMenu->getObjId())
+						{
+							Game::getInstance()->getObjectRef()->erase(Game::getInstance()->getObjectRef()->begin() + i);
+							Game::getInstance()->getObjectRef()->end();
+						}
+					}
+
+					isPaused = false;
+				}
+
+			}
 		}
 	}
+
 
 }
 
@@ -283,6 +321,8 @@ void Game::update(float deltaTime)
 		scoreTemp = p->score;
 		if (playerIsDead)
 		{
+			shiftPressed = false;
+			isPaused = false;
 			timer += deltaTime;
 			if (timer > 1000)
 			{
@@ -331,11 +371,16 @@ void Game::update(float deltaTime)
 		//}
 
 		//for (DrawableObject *obj : this->objects)
-		for (int i = 0; i < objects.size(); i++)
+		
+		if (isPaused == false)
 		{
-			objects[i]->update(deltaTime);
-			//obj->update(deltaTime);
+			for (int i = 0; i < objects.size(); i++)
+			{
+				objects[i]->update(deltaTime);
+				//obj->update(deltaTime);
+			}
 		}
+
 
 
 	}

@@ -17,6 +17,7 @@ class Game
 	GLRenderer *renderer;
 	DrawableObject* player;
 	DrawableObject* menu;
+	DrawableObject* pauseMenu;
 	Game();
 	float e1SpawnRate = 0;
 	TextObject * scoreText;
@@ -24,6 +25,8 @@ class Game
 	bool bossSpawn = false;
 
 public:
+	bool isPaused = false;
+	bool shiftPressed = false;
 	bool firstRound = true;
 	bool menuIsDestroyed = false;
 	bool playerIsDead = true;
