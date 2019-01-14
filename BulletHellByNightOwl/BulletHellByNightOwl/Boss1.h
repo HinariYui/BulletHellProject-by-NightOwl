@@ -21,6 +21,15 @@ private:
 	DrawableObject* enemyBullet2 = NULL;
 	DrawableObject* enemyBullet3 = NULL;
 	DrawableObject* enemyBullet4 = NULL;
+	GameObject* HPbar = NULL;
+
+	float HPsize = 500;
+	float HPpos = -212;
+	float HPpercentage;
+	float missingHP;
+
+	int maxHP = 1000;
+
 	int shootCD = 0;
 	float idleTime;
 	float stateTime;
@@ -45,4 +54,5 @@ public:
 	void move();
 	void shoot1();
 	void update(float deltaTime);
+	virtual void render(glm::mat4 globalModelTransform);
 };

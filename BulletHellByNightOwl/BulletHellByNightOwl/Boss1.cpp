@@ -14,28 +14,22 @@ Boss1::Boss1(Tag enemy, string fileName, int row, int col) : SpriteObject(fileNa
 	stateTime = 0;
 	rotationMatrix = glm::mat4(1.0f);
 	rotationMatrix = glm::rotate(rotationMatrix, 0.25f, glm::vec3(0.0f, 0.0f, 1.0f)); //0.1f -> radiant
-	hp = 1000;
+	hp = maxHP;
+	HPbar = new GameObject(NONE);
+
+	HPbar->setSize(HPsize, 20);
+	HPbar->setPosition(glm::vec3(HPpos, 340, 0));
+	HPbar->setColor(1, 0.85, 0);
 }
 
 void Boss1::update(float deltaTime)
 {
-	//Game*  g = Game::getInstance();
-	//GLuint objNum = g->getObjectRef()->size();
-	//GameObject* obj = NULL;
-	//
-	//obj = dynamic_cast<GameObject*>(g->getObjectRef()->at(7)); // enemy index=7
-	//
-	//if (this->getTag() != obj->getTag())
-	//{
-	//	bool b = checkCollision(obj);
-	//}
+	HPpercentage = (float)hp / (float)maxHP;
+	HPbar->setSize(HPsize * HPpercentage, 20);
+	missingHP = (float)maxHP - (float)hp;
+	HPbar->setPosition(glm::vec3(HPpos - missingHP/4, 340, 0));
 	GameObject::update(deltaTime);
-	//shootCD++;
-	//if (shootCD >= 10)//shoot every 10 frame
-	//{
-	//	shoot1();
-	//	shootCD = 0;
-	//}
+
 	if (state == IDLE)
 	{
 		updateIDLE(deltaTime);
@@ -43,6 +37,7 @@ void Boss1::update(float deltaTime)
 	else if (state == MOVEIN)
 	{
 		updateMoveIn(deltaTime);
+		hp = maxHP;
 	}
 	else if (state == ATK1)
 	{
@@ -175,6 +170,16 @@ void Boss1::shoot1()
 void Boss1::move()
 {
 
+}
+
+
+void Boss1::render(glm::mat4 globalModelTransform)
+{
+	SpriteObject::render(globalModelTransform);
+	if (state != MOVEIN)
+	{
+		HPbar->render(globalModelTransform);
+	}
 }
 
 Boss1::~Boss1()
