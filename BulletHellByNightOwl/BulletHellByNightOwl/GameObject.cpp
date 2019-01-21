@@ -6,10 +6,7 @@ GameObject::GameObject(Tag newTag)
 {
 	color = glm::vec3(0.0, 0.0, 0.0);
 	tag = newTag;
-	if (tag == Tag::pBullet)
-	{
-		setVelocity(glm::vec3(0, 8, 0));
-	}
+
 
 	//Game*  g = Game::getInstance();
 	//GLuint objNum = g->getObjectRef()->size();

@@ -38,7 +38,7 @@ class PlayerGameObject :public GameObject
 public:
 
 	int score = 0;
-
+	float bulletSpeed = 16;
 	PlayerGameObject(Tag player) : GameObject(player) {addSprite("player.png", 2, 4); }; //: GameObject(player) { addSprite("player.png", 2, 4); };
 	~PlayerGameObject();
 	void checkMovement();

@@ -100,21 +100,34 @@ void PlayerGameObject::checkAction()
 {
 	if (isShooting == true)
 	{	
+	
+		glm::vec3 bulletVel[3] = { glm::normalize(glm::vec3(-1, 4, 0)) ,glm::vec3(0, 1, 0) ,glm::normalize(glm::vec3(1, 4, 0)) };
+	
 		//std::cout << "nnnnnnnnnnnnnnnnnnXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXnnn" << isShooting << std::endl;
 
-		DrawableObject* playerBullet= new BulletGameObject(Tag::pBullet);
-		
-		dynamic_cast<GameObject*>(playerBullet)->setColor(1.0, 1.0, 1.0);
-		playerBullet->setSize(5, 5);
-		playerBullet->setPosition(this->getPosition() + glm::vec3(0, 18, 0));
-		
+		if (Game::getInstance()->shiftPressed == true)
+		{
+			bulletVel[0] = glm::normalize(glm::vec3(-0.5, 4, 0));
+			bulletVel[2] = glm::normalize(glm::vec3(0.5, 4, 0));
+		}
+	
+
+		for (int i = 0; i < 3; i++)
+		{
+			DrawableObject* bullet = new BulletGameObject(Tag::pBullet);
+
+			BulletGameObject * playerBullet = dynamic_cast<BulletGameObject*>(bullet);
+			playerBullet->setColor(1.0, 1.0, 1.0);
+			playerBullet->setSize(5, 5);
+			playerBullet->setPosition(this->getPosition());// +glm::vec3(0, 18, 0));
+			playerBullet->setVelocity(bulletSpeed * bulletVel[i]);
+
+			Game::getInstance()->getObjectRef()->push_back(bullet);
+		}
 
 
-		//std::cout << std::endl; std::cout << std::endl; std::cout << std::endl; std::cout << std::endl; std::cout << std::endl;
-		//std::cout << ":::::::::::::::::::::::::::::::::::::::::::::::::" << Game::getInstance()->getObjectRef()->capacity() << std::endl;// always 9
-		//std::cout << std::endl; std::cout << std::endl; std::cout << std::endl; std::cout << std::endl; std::cout << std::endl;
 
-		Game::getInstance()->getObjectRef()->push_back(playerBullet);
+
 
 		//std::cout <<"INDEXXXXXXXXXXXXXXXXXXXXX                  = "<< index << std::endl;
 
