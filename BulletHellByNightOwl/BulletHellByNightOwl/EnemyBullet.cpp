@@ -25,30 +25,4 @@ void EnemyBullet::update(float deltaTime)
 			//cout << "__________________________________________" << Game::getInstance()->getObjectRef()->size() << endl;
 		}
 	}
-
-	//Game*  g = Game::getInstance();
-	//GLuint objNum = g->getObjectRef()->size();
-	//GameObject* obj = NULL;
-	//
-	////left border(-509+131=-378, 0, 0)
-	////right border(381-259=122, 0, 0)
-	////top border(0, 345-15=330, 0)
-	////bottom border(0,-345+15=-330, 0)
-	//
-	//for (int i = objNum - 1; i >= 0; i--)
-	//{
-	//	obj = dynamic_cast<GameObject*>(g->getObjectRef()->at(i));
-	//
-	//	if (this->getTag() != obj->getTag())
-	//	{
-	//		bool b = this->checkCollision(obj);
-	//		//cout << "                           " << b << "    " << endl; //i << endl;
-	//	}
-	//
-	//}
 }
-
-//void EnemyBullet::SetBulletVelocity(glm::vec3 vel)
-//{
-//	bulletVel = vel;
-//}
