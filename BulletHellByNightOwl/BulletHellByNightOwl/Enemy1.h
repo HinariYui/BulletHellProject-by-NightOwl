@@ -16,13 +16,11 @@ private:
 	Enemy1State state;
 	bool isShooting = false;
 	bool reachDestination = false;
-	DrawableObject* enemyBullet1 = NULL;
-	DrawableObject* enemyBullet2 = NULL;
-	DrawableObject* enemyBullet3 = NULL;
 	int shootCD = 0;
-	float idleTime;
-	float stateTime;
+	float idleTime = 0;
+	float stateTime = 0;
 	float ATKCount = 0;
+	float bulletSpeed;
 
 	void updateMOVE(float deltaTime);
 	void updateATK(float deltaTime);
