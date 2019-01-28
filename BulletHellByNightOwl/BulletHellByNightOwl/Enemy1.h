@@ -5,6 +5,7 @@
 
 enum Enemy1State
 {
+
 	MOVE = 0,
 	ATK,
 	EXIT

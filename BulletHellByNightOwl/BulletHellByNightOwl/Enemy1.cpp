@@ -8,7 +8,7 @@
 Enemy1::Enemy1(Tag enemy, string fileName, int row, int col) : SpriteObject(fileName, row, col)
 {
 	tag = enemy;
-	state = MOVE;
+	state = Enemy1State::MOVE;
 	setVelocity(glm::vec3(0, -2, 0));
 	hp = 1;
 	bulletSpeed = 5.0f;
@@ -17,15 +17,15 @@ Enemy1::Enemy1(Tag enemy, string fileName, int row, int col) : SpriteObject(file
 void Enemy1::update(float deltaTime)
 { 
 	GameObject::update(deltaTime);
-	if (state == MOVE)
+	if (state == Enemy1State::MOVE)
 	{
 		updateMOVE(deltaTime);
 	}
-	else if (state == ATK)
+	else if (state == Enemy1State::ATK)
 	{
 		updateATK(deltaTime);
 	}
-	else if (state == EXIT)
+	else if (state == Enemy1State::EXIT)
 	{
 		updateEXIT(deltaTime);
 	}
@@ -36,7 +36,7 @@ void Enemy1::updateMOVE(float deltaTime)
 	float y = getPosition().y;
 	if (y <= 100)
 	{
-		state = ATK;
+		state = Enemy1State::ATK;
 		setVelocity(glm::vec3(0, 0, 0));
 	}
 }
@@ -48,7 +48,7 @@ void Enemy1::updateATK(float deltaTime)
 	{
 		stateTime = 0;
 		shoot1();
-		state = EXIT;
+		state = Enemy1State::EXIT;
 	}
 }
 
