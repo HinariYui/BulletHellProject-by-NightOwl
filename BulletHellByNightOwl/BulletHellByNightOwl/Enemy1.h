@@ -3,9 +3,8 @@
 #include "SpriteObject.h"
 #include "EnemyBullet.h"
 
-enum Enemy1State
+enum EnemyState
 {
-
 	MOVE = 0,
 	ATK,
 	EXIT
@@ -14,7 +13,7 @@ enum Enemy1State
 class Enemy1 :public SpriteObject
 {
 private:
-	Enemy1State state;
+	EnemyState state;
 	bool isShooting = false;
 	bool reachDestination = false;
 	int shootCD = 0;
