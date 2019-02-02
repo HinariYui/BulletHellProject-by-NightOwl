@@ -7,18 +7,23 @@
 
 void PlayerGameObject::update(float deltaTime)
 {
-
+	
 	if (getVelocity() != glm::vec3(0, 0, 0))
 	{
+		float constant;
+
 		if (Game::getInstance()->shiftPressed == false)
 		{
-			translate(glm::normalize(getVelocity()) * 3.0f);
+			constant = deltaTime * 0.2;
+			//translate(glm::normalize(getVelocity()) * 3.0f);
 		}
 		else
 		{
-			translate(glm::normalize(getVelocity()) * 1.5f);
+			constant = deltaTime * 0.1;
+			//translate(glm::normalize(getVelocity()) * 1.5f);
 		}
 
+		translate(glm::normalize(getVelocity()) * constant);
 	}
 	checkMovement();
 	

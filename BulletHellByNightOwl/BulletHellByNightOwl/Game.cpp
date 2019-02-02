@@ -13,8 +13,11 @@
 #include "Menu.h"
 #include "PauseMenu.h"
 #include "Spawner.h"
+#include "tinyxml2.h"
 
 #define MID_PLAYAREA_X -212
+
+using namespace tinyxml2;
 
 Game* Game::instance = nullptr;
 //
@@ -178,6 +181,8 @@ void Game::init(int width, int height)
 	Spawner* e1 = new Spawner();
 	e1->SetSpawnRate(1000);
 	spawners.push_back(e1);
+
+	getXMLspawnData();
 
 
 	//SpriteObject * BG = new SpriteObject("bgBase.png", 1, 1); //BG
@@ -397,7 +402,55 @@ DrawableObject* Game::getPlayerRef()
 	return this->player;
 }
 
+int  Game::getXMLspawnData()
+{
+	//std::cout << "Hello World!\n";
 
+	XMLDocument doc;
+	int errorID = doc.LoadFile("SpawnData.xml");
+
+	if (errorID != 0)
+	{
+		std::cout << "XMLDocument error : " << doc.ErrorName() << std::endl;
+
+		std::cout << errorID << endl;
+		return -1;
+	}
+
+	XMLElement * stageEle = doc.FirstChildElement("Root")->FirstChildElement("Stage1");
+	XMLElement * enemyEle = stageEle->FirstChildElement("Boss");
+	XMLElement * ele = enemyEle->FirstChildElement();
+
+	while (ele != NULL)
+	{
+		const char* text = ele->GetText();
+		cout << "From " << stageEle->Value() << "::" << enemyEle->Value() << "::"<< ele->Value() << " : " << text << endl;
+		ele = ele->NextSiblingElement();
+		if (ele == NULL)
+		{
+			if (enemyEle->NextSiblingElement() != NULL)
+			{
+				enemyEle = enemyEle->NextSiblingElement();
+				ele = enemyEle->FirstChildElement();
+			}
+			else
+			{
+				if (stageEle->NextSiblingElement() != NULL)
+				{
+					stageEle = stageEle->NextSiblingElement();
+					enemyEle = stageEle->FirstChildElement();
+					ele = enemyEle->FirstChildElement();
+				}
+				else
+				{
+					break;
+				}
+			}
+		}
+	}
+	//std::cout << "Finish\n";
+	return 0;
+}
 
 
 

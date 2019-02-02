@@ -6,7 +6,8 @@
 
 void EnemyBullet::update(float deltaTime)
 {
-	translate(velocity);
+	float constant = deltaTime * 0.05;//to scale according to deltaTime
+	translate(constant*velocity);
 
 	float halfSizeX = (size.x * 0.5f) + 4;
 	float halfSizeY = (size.y * 0.5f) + 4;

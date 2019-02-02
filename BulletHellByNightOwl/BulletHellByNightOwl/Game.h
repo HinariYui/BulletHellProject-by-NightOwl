@@ -39,5 +39,6 @@ public:
 	void render();
 	void update(float deltaTime);
 	DrawableObject* getPlayerRef();
+	int getXMLspawnData();
 
 };
