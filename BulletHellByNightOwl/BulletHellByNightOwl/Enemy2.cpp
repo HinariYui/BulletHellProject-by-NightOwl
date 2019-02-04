@@ -93,6 +93,8 @@ void Enemy2::shoot1()
 	glm::vec3 bulDir = glm::normalize(pPos - ePos);
 
 	dynamic_cast<GameObject*>(enemyBullet1)->setVelocity(bulDir * bulletSpeed);
+
+	Game::getInstance()->getObjectRef()->push_back(enemyBullet1);
 }
 
 void Enemy2::move()
