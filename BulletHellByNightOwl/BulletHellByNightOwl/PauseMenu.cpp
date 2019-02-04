@@ -8,6 +8,24 @@ PauseMenu::PauseMenu()
 	addSprite("pauseMenu.png", 1, 1);
 	setAnimationLoop(1, 1, 1, 1000);
 }
+
+PauseMenu::PauseMenu(string fileName, int row, int column)
+{
+	setNumberOfOptions(3);
+
+	for (int i = 0; i < optionNum; i++)
+	{
+		PauseMenu* p = new PauseMenu("boneSprite.png", 1, 1);
+		p->setSize(10.0,10.0);
+		p->setPosition(glm::vec3(0,0+(i*2),0));
+		options.push_back(p);
+		Game::getInstance()->getObjectRef()->push_back(p);
+	}
+
+	addSprite(fileName, row, column);
+	setAnimationLoop(row, column, 1, 1000);
+}
+
 PauseMenu::~PauseMenu()
 {
 
@@ -161,4 +179,10 @@ void PauseMenu::nextAnimation()
 	}
 
 }
+
+void PauseMenu::setNumberOfOptions(int num)
+{
+	optionNum = num;
+}
+
 
