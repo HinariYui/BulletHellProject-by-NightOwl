@@ -5,6 +5,14 @@
 
 class Enemy2 :public SpriteObject
 {
+
+public:
+	enum EnemyState
+	{
+		MOVE = 0,
+		ATK,
+		EXIT
+	};
 private:
 	EnemyState state;
 	bool isShooting = false;

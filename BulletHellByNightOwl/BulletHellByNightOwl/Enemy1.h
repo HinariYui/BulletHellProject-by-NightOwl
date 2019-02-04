@@ -3,15 +3,18 @@
 #include "SpriteObject.h"
 #include "EnemyBullet.h"
 
-enum EnemyState
-{
-	MOVE = 0,
-	ATK,
-	EXIT
-};
+
 
 class Enemy1 :public SpriteObject
 {
+
+public:
+	enum EnemyState
+	{
+		MOVE = 0,
+		ATK,
+		EXIT
+	};
 private:
 	EnemyState state;
 	bool isShooting = false;
@@ -32,4 +35,6 @@ public:
 	void move();
 	void shoot1();
 	void update(float deltaTime);
+
+	
 };
