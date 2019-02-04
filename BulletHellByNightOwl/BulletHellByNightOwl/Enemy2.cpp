@@ -4,11 +4,10 @@
 #include "Game.h"
 
 
-
 Enemy2::Enemy2(Tag enemy, string fileName, int row, int col) : SpriteObject(fileName, row, col)
 {
 	tag = enemy;
-	Enemy2::state = MOVE;
+	state = MOVE;
 	setVelocity(glm::vec3(0, -2, 0));
 	hp = 1;
 	bulletSpeed = 5.0f;
