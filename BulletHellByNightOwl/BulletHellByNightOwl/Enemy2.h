@@ -24,7 +24,7 @@ private:
 	float bulletSpeed;
 
 	//void updateMOVE(float deltaTime);
-	//void updateATK(float deltaTime);
+	void updateATK(float deltaTime);
 	//void updateEXIT(float deltaTime);
 
 	void Behavior1();

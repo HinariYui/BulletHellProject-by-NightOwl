@@ -16,6 +16,14 @@ Enemy2::Enemy2(Tag enemy, string fileName, int row, int col) : SpriteObject(file
 void Enemy2::update(float deltaTime)
 {
 	GameObject::update(deltaTime);
+	if(getPosition().y <= 200 && getPosition().y >= -200)
+	{
+		updateATK(deltaTime);
+	}
+	if (getPosition().y <= -400)
+	{
+		hp = 0;
+	}
 	//if (state == Enemy2State::MOVE)
 	//{
 	//	updateMOVE(deltaTime);
@@ -40,16 +48,16 @@ void Enemy2::update(float deltaTime)
 //	}
 //}
 //
-//void Enemy2::updateATK(float deltaTime)
-//{
-//	stateTime += deltaTime;
-//	if (stateTime >= 1000)
-//	{
-//		stateTime = 0;
-//		shoot1();
-//		state = Enemy2State::EXIT;
-//	}
-//}
+void Enemy2::updateATK(float deltaTime)
+{
+	stateTime += deltaTime;
+	if (stateTime >= 50)
+	{
+		stateTime = 0;
+		shoot1();
+		//state = EXIT;
+	}
+}
 //
 //void Enemy2::updateEXIT(float deltaTime)
 //{
@@ -82,64 +90,11 @@ void Enemy2::shoot1()
 	enemyBullet1->setSize(10, 10);
 	enemyBullet1->setPosition(this->getPosition() + glm::vec3(0, -26, 0));
 
-	glm::vec3 temp = glm::normalize(pPos - ePos);
-	glm::vec4 bulDir(temp.x, temp.y, temp.z, 1);
-	glm::mat4 rotationMatrix(1.0f);
-	rotationMatrix = glm::rotate(rotationMatrix, 7.5f / 180.0f * 3.14f, glm::vec3(0.0f, 0.0f, 1.0f));
-	bulDir = rotationMatrix * bulDir;
-	glm::vec3 realBulDir1 = glm::vec3(bulDir.x, bulDir.y, bulDir.z);
+	glm::vec3 bulDir = glm::normalize(pPos - ePos);
 
-	dynamic_cast<GameObject*>(enemyBullet1)->setVelocity(realBulDir1 * bulletSpeed);
+	dynamic_cast<GameObject*>(enemyBullet1)->setVelocity(bulDir * bulletSpeed);
 
 	Game::getInstance()->getObjectRef()->push_back(enemyBullet1);
-
-	DrawableObject* enemyBullet2 = new EnemyBullet(Tag::eBullet);
-
-	dynamic_cast<GameObject*>(enemyBullet2)->setColor(1.0, 0.0, 0.0);
-	enemyBullet2->setSize(10, 10);
-	enemyBullet2->setPosition(this->getPosition() + glm::vec3(0, -26, 0));
-
-	bulDir = glm::vec4(temp.x, temp.y, temp.z, 1);
-	rotationMatrix = glm::mat4(1.0f);
-	rotationMatrix = glm::rotate(rotationMatrix, -7.5f / 180.0f * 3.14f, glm::vec3(0.0f, 0.0f, 1.0f));
-	bulDir = rotationMatrix * bulDir;
-	glm::vec3 realBulDir2 = glm::vec3(bulDir.x, bulDir.y, bulDir.z);
-
-	dynamic_cast<GameObject*>(enemyBullet2)->setVelocity(realBulDir2 * bulletSpeed);
-
-	Game::getInstance()->getObjectRef()->push_back(enemyBullet2);
-
-	DrawableObject* enemyBullet3 = new EnemyBullet(Tag::eBullet);
-
-	dynamic_cast<GameObject*>(enemyBullet3)->setColor(1.0, 0.0, 0.0);
-	enemyBullet3->setSize(10, 10);
-	enemyBullet3->setPosition(this->getPosition() + glm::vec3(0, -26, 0));
-
-	bulDir = glm::vec4(temp.x, temp.y, temp.z, 1);
-	rotationMatrix = glm::mat4(1.0f);
-	rotationMatrix = glm::rotate(rotationMatrix, 22.5f / 180.0f * 3.14f, glm::vec3(0.0f, 0.0f, 1.0f));
-	bulDir = rotationMatrix * bulDir;
-	glm::vec3 realBulDir3 = glm::vec3(bulDir.x, bulDir.y, bulDir.z);
-
-	dynamic_cast<GameObject*>(enemyBullet3)->setVelocity(realBulDir3 * bulletSpeed);
-
-	Game::getInstance()->getObjectRef()->push_back(enemyBullet3);
-
-	DrawableObject* enemyBullet4 = new EnemyBullet(Tag::eBullet);
-
-	dynamic_cast<GameObject*>(enemyBullet4)->setColor(1.0, 0.0, 0.0);
-	enemyBullet4->setSize(10, 10);
-	enemyBullet4->setPosition(this->getPosition() + glm::vec3(0, -26, 0));
-
-	bulDir = glm::vec4(temp.x, temp.y, temp.z, 1);
-	rotationMatrix = glm::mat4(1.0f);
-	rotationMatrix = glm::rotate(rotationMatrix, -22.5f / 180.0f * 3.14f, glm::vec3(0.0f, 0.0f, 1.0f));
-	bulDir = rotationMatrix * bulDir;
-	glm::vec3 realBulDir4 = glm::vec3(bulDir.x, bulDir.y, bulDir.z);
-
-	dynamic_cast<GameObject*>(enemyBullet4)->setVelocity(realBulDir4 * bulletSpeed);
-
-	Game::getInstance()->getObjectRef()->push_back(enemyBullet4);
 }
 
 void Enemy2::move()
