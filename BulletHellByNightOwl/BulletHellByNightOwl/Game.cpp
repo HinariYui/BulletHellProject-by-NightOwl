@@ -129,7 +129,7 @@ void Game::handleKey(char ch)
 			{
 				if (isPaused == false)
 				{
-					pauseMenu = new PauseMenu();
+					pauseMenu = new PauseMenu("pauseMenu.png",3);
 					pauseMenu->setSize(1280, 720);
 					pauseMenu->setPosition(glm::vec3(0, 0, 0));
 					objects.push_back(pauseMenu); // index 8
@@ -138,6 +138,9 @@ void Game::handleKey(char ch)
 				}
 				else
 				{
+					PauseMenu* p = dynamic_cast<PauseMenu*>(pauseMenu);
+					p->destroyComponents();
+
 					for (int i = Game::getInstance()->getObjectRef()->size() - 1; i >= 0; i--)
 					{
 						DrawableObject* instance = Game::getInstance()->getObjectRef()->at(i);

@@ -9,21 +9,20 @@ PauseMenu::PauseMenu()
 	setAnimationLoop(1, 1, 1, 1000);
 }
 
-PauseMenu::PauseMenu(string fileName, int row, int column)
+PauseMenu::PauseMenu(string fileName,int optNum)
 {
-	setNumberOfOptions(3);
+	addSprite(fileName, 1, 1);
+	setAnimationLoop(1, 1, 1, 1000);
+	setNumberOfOptions(optNum);
 
-	for (int i = 0; i < optionNum; i++)
+	for (int i = 0; i < optNum; i++)
 	{
-		PauseMenu* p = new PauseMenu("boneSprite.png", 1, 1);
-		p->setSize(10.0,10.0);
-		p->setPosition(glm::vec3(0,0+(i*2),0));
+		PauseMenu* p = new PauseMenu(fileName, 0);
+		p->setSize(450.0,50.0);
+		p->setPosition(glm::vec3(0,0+(i*75),0));
 		options.push_back(p);
 		Game::getInstance()->getObjectRef()->push_back(p);
 	}
-
-	addSprite(fileName, row, column);
-	setAnimationLoop(row, column, 1, 1000);
 }
 
 PauseMenu::~PauseMenu()
@@ -184,5 +183,27 @@ void PauseMenu::setNumberOfOptions(int num)
 {
 	optionNum = num;
 }
+
+
+void PauseMenu::destroyComponents()
+{
+	for (int j = options.size() - 1; j >= 0; j--)
+	{
+		for (int i = Game::getInstance()->getObjectRef()->size() - 1; i >= 0; i--)
+		{
+			DrawableObject* instance = Game::getInstance()->getObjectRef()->at(i);
+
+			if (instance->getObjId() == options.at(j)->getObjId())
+			{
+				Game::getInstance()->getObjectRef()->erase(Game::getInstance()->getObjectRef()->begin() + i);
+				Game::getInstance()->getObjectRef()->end();
+			}
+		}
+	}
+
+}
+
+
+
 
 
