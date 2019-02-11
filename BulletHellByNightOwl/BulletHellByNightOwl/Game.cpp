@@ -182,7 +182,7 @@ void Game::init(int width, int height)
 	e1->SetSpawnRate(1000);
 	spawners.push_back(e1);
 
-	getXMLspawnData();
+	//getXMLspawnData();
 
 
 	//SpriteObject * BG = new SpriteObject("bgBase.png", 1, 1); //BG
