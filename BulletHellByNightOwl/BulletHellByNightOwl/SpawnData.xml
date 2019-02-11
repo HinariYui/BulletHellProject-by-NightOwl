@@ -1,42 +1,9 @@
 <?xml version="1.0"?>
 <Root>
-	<Stage1>
-		<Boss>
-			<SpawnTime>5000</SpawnTime>
-			<SpawnPos>1.0</SpawnPos>
-		</Boss>
-		<Enemy1>
-			<SpawnTime>5000</SpawnTime>
-			<SpawnPos>1.0</SpawnPos>
-		</Enemy1>
-		<Enemy2>
-			<SpawnTime>5000</SpawnTime>
-			<SpawnPos>1.0</SpawnPos>
-		</Enemy2>
-		<Enemy3>
-			<SpawnTime>5000</SpawnTime>
-			<SpawnPos>1.0</SpawnPos>
-		</Enemy3>
-	
-	</Stage1>
-	<Stage2>
-		<Boss>
-			<SpawnTime>5000</SpawnTime>
-			<SpawnPos>1.0</SpawnPos>
-		</Boss>
-		<Enemy1>
-			<SpawnTime>5000</SpawnTime>
-			<SpawnPos>1.0</SpawnPos>
-		</Enemy1>
-		<Enemy2>
-			<SpawnTime>5000</SpawnTime>
-			<SpawnPos>1.0</SpawnPos>
-		</Enemy2>
-		<Enemy3>
-			<SpawnTime>5000</SpawnTime>
-			<SpawnPos>1.0</SpawnPos>
-		</Enemy3>
-	
-	</Stage2>
-
+  <Pattern1>
+    <Enemy>1</Enemy>
+    <Number>5</Number>
+    <PosLeft>-450</PosLeft>
+    <DistanceBetween>50</DistanceBetween>
+  </Pattern1>
 </Root>
