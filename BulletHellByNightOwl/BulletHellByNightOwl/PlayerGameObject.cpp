@@ -352,9 +352,6 @@ void PlayerGameObject::render(glm::mat4 globalModelTransform)
 		}
 	}
 
-
-
-
 	SquareMeshVbo *squareMesh = dynamic_cast<SquareMeshVbo *> (Game::getInstance()->getRenderer()->getMesh(SquareMeshVbo::MESH_NAME));
 
 	GLuint modelMatixId = Game::getInstance()->getRenderer()->getModelMatrixAttrId();

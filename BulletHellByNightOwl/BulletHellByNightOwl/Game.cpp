@@ -193,7 +193,8 @@ void Game::init(int width, int height)
 	pMenuSprite.push_back("mainMenu.png");
 	pMenuSprite.push_back("resume.png");
 
-	getXMLspawnData();
+	//getXMLspawnData();
+
 
 
 	//SpriteObject * BG = new SpriteObject("bgBase.png", 1, 1); //BG

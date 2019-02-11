@@ -89,6 +89,19 @@ void PauseMenu::addSprite(string fileName, int row, int column)
 
 void PauseMenu::render(glm::mat4 globalModelTransform)
 {
+	//if (IsInvincible()) //in the process of making blinking selection
+	//{
+	//	if (blinkTime >= 100)
+	//	{
+	//		blinkTime = 0;
+	//		isBlinking = !isBlinking;
+	//	}
+	//	if (!isBlinking)
+	//	{
+	//		return;
+	//	}
+	//}
+
 	SquareMeshVbo *squareMesh = dynamic_cast<SquareMeshVbo *> (Game::getInstance()->getRenderer()->getMesh(SquareMeshVbo::MESH_NAME));
 
 	GLuint modelMatixId = Game::getInstance()->getRenderer()->getModelMatrixAttrId();

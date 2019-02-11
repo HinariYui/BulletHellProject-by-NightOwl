@@ -3,7 +3,7 @@
 #include "Enemy1.h"
 #include "Game.h"
 
-Enemy1::Enemy1(Tag enemy, string fileName, int row, int col) : SpriteObject(fileName, row, col)
+Enemy1::Enemy1(Tag enemy, string fileName, int row, int col) : EnemyBase(enemy, fileName, row, col)
 {
 	tag = enemy;
 	state = MOVE;
