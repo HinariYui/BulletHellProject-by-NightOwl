@@ -129,7 +129,11 @@ void Game::handleKey(char ch)
 			{
 				if (isPaused == false)
 				{
-					pauseMenu = new PauseMenu("pauseMenu.png",3);
+					
+					
+
+
+					pauseMenu = new PauseMenu(pMenuSprite,3);
 					pauseMenu->setSize(1280, 720);
 					pauseMenu->setPosition(glm::vec3(0, 0, 0));
 					objects.push_back(pauseMenu); // index 8
@@ -184,6 +188,10 @@ void Game::init(int width, int height)
 	Spawner* e1 = new Spawner();
 	e1->SetSpawnRate(1000);
 	spawners.push_back(e1);
+
+	pMenuSprite.push_back("pauseMenu.png");
+	pMenuSprite.push_back("mainMenu.png");
+	pMenuSprite.push_back("resume.png");
 
 	getXMLspawnData();
 
@@ -273,6 +281,8 @@ Game::Game()
 
 void Game::update(float deltaTime)
 {
+
+
 	if (menuIsDestroyed == true)
 	{
 		if (firstRound == true)
@@ -350,21 +360,6 @@ void Game::update(float deltaTime)
 			}
 		}
 
-		for (int i = 0; i < spawners.size(); i++)
-		{
-			spawners[i]->update(deltaTime);
-		}
-
-		if (spawners[0]->eNum > 10 && bossSpawn == false)
-		{
-			spawners[0]->SetSpawnRate(2500);
-			Boss1 * boss = new Boss1(Tag::Enemy, "bossgirl-sample.png", 1, 1); //Tag enemy, string fileName, int row, int col
-			boss->setRotation(180);													   //boss->setColor(1.0, 0.0, 0.0);
-			boss->setSize(100, 100);
-			boss->setPosition(glm::vec3(-212, 400, 0));
-			objects.push_back(boss);
-			bossSpawn = true;
-		}
 
 		//e1SpawnRate += deltaTime;
 		//if (e1SpawnRate >= 1000)
@@ -382,11 +377,31 @@ void Game::update(float deltaTime)
 		
 		if (isPaused == false)
 		{
+			for (int i = 0; i < spawners.size(); i++)
+			{
+				spawners[i]->update(deltaTime);
+			}
+
+			if (spawners[0]->eNum > 10 && bossSpawn == false)
+			{
+				spawners[0]->SetSpawnRate(2500);
+				Boss1 * boss = new Boss1(Tag::Enemy, "bossgirl-sample.png", 1, 1); //Tag enemy, string fileName, int row, int col
+				boss->setRotation(180);													   //boss->setColor(1.0, 0.0, 0.0);
+				boss->setSize(100, 100);
+				boss->setPosition(glm::vec3(-212, 400, 0));
+				objects.push_back(boss);
+				bossSpawn = true;
+			}
+
 			for (int i = 0; i < objects.size(); i++)
 			{
 				objects[i]->update(deltaTime);
 				//obj->update(deltaTime);
 			}
+
+			cout << playtime << "      ";
+			playtime += deltaTime;
+			cout << playtime << endl;
 		}
 
 

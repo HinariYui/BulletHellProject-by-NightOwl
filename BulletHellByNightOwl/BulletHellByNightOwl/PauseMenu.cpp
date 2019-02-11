@@ -9,15 +9,21 @@ PauseMenu::PauseMenu()
 	setAnimationLoop(1, 1, 1, 1000);
 }
 
-PauseMenu::PauseMenu(string fileName,int optNum)
+PauseMenu::PauseMenu(string fileName)
 {
 	addSprite(fileName, 1, 1);
 	setAnimationLoop(1, 1, 1, 1000);
-	setNumberOfOptions(optNum);
+}
 
-	for (int i = 0; i < optNum; i++)
+PauseMenu::PauseMenu(vector<string> fileName,int spriteNum)
+{
+	addSprite(fileName.at(0), 1, 1);
+	setAnimationLoop(1, 1, 1, 1000);
+	setNumberOfOptions(spriteNum-1);
+
+	for (int i = 1; i <= optionNum; i++)
 	{
-		PauseMenu* p = new PauseMenu(fileName, 0);
+		PauseMenu* p = new PauseMenu(fileName.at(i));
 		p->setSize(450.0,50.0);
 		p->setPosition(glm::vec3(0,0+(i*75),0));
 		options.push_back(p);
