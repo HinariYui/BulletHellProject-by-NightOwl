@@ -288,12 +288,12 @@ void Game::update(float deltaTime)
 	{
 		if (firstRound == true)
 		{
-			SpriteObject * BG = new SpriteObject("bgBase.png", 1, 1); //BG
+			SpriteObject * BG = new SpriteObject("bg1-3-base.png", 1, 1); //BG
 			BG->setSize(1280, 720);
 			BG->setPosition(glm::vec3(0, 0, 0));
 			objects.push_back(BG);
 
-			SpriteObject * PA = new SpriteObject("bg1.png", 2, 1); //Play Area
+			SpriteObject * PA = new SpriteObject("bg1-3.png", 2, 1); //Play Area
 			PA->setSize(1280, 720);
 			PA->setPosition(glm::vec3(-212, 0, 0));
 			objects.push_back(PA); // index 0
@@ -319,14 +319,14 @@ void Game::update(float deltaTime)
 
 			TextObject * text1 = new TextObject();
 			text1->loadText("SCORE", color, 30);
-			text1->setPosition(glm::vec3(500, 185, 0));
+			text1->setPosition(glm::vec3(535, 185, 0));
 			objects.push_back(text1); // index 8
 
 			std::string s = std::to_string(p->score);
 
 			scoreText = new TextObject();
 			scoreText->loadText(s, color, 30);
-			scoreText->setPosition(glm::vec3(500, 150, 0));
+			scoreText->setPosition(glm::vec3(535, 150, 0));
 			objects.push_back(scoreText);
 
 			playerIsDead = false;
@@ -400,9 +400,9 @@ void Game::update(float deltaTime)
 				//obj->update(deltaTime);
 			}
 
-			cout << playtime << "      ";
+			//cout << playtime << "      ";
 			playtime += deltaTime;
-			cout << playtime << endl;
+			//cout << playtime << endl;
 		}
 
 
