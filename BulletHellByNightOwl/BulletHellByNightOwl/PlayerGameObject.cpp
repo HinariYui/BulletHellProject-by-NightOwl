@@ -119,7 +119,7 @@ void PlayerGameObject::checkAction()
 
 		for (int i = 0; i < 3; i++)
 		{
-			DrawableObject* bullet = new BulletGameObject(Tag::pBullet);
+			DrawableObject* bullet = new BulletGameObject(Tag::pBullet, "player-bullet.png");
 
 			BulletGameObject * playerBullet = dynamic_cast<BulletGameObject*>(bullet);
 			playerBullet->setColor(1.0, 1.0, 1.0);
@@ -351,9 +351,6 @@ void PlayerGameObject::render(glm::mat4 globalModelTransform)
 			return;
 		}
 	}
-
-
-
 
 	SquareMeshVbo *squareMesh = dynamic_cast<SquareMeshVbo *> (Game::getInstance()->getRenderer()->getMesh(SquareMeshVbo::MESH_NAME));
 

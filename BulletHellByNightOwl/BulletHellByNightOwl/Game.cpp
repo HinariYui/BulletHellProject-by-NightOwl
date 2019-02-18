@@ -129,7 +129,11 @@ void Game::handleKey(char ch)
 			{
 				if (isPaused == false)
 				{
-					pauseMenu = new PauseMenu();
+					
+					
+
+
+					pauseMenu = new PauseMenu(pMenuSprite,3);
 					pauseMenu->setSize(1280, 720);
 					pauseMenu->setPosition(glm::vec3(0, 0, 0));
 					objects.push_back(pauseMenu); // index 8
@@ -138,6 +142,9 @@ void Game::handleKey(char ch)
 				}
 				else
 				{
+					PauseMenu* p = dynamic_cast<PauseMenu*>(pauseMenu);
+					p->destroyComponents();
+
 					for (int i = Game::getInstance()->getObjectRef()->size() - 1; i >= 0; i--)
 					{
 						DrawableObject* instance = Game::getInstance()->getObjectRef()->at(i);
@@ -182,7 +189,12 @@ void Game::init(int width, int height)
 	e1->SetSpawnRate(1000);
 	spawners.push_back(e1);
 
+	pMenuSprite.push_back("pauseMenu.png");
+	pMenuSprite.push_back("mainMenu.png");
+	pMenuSprite.push_back("resume.png");
+
 	//getXMLspawnData();
+
 
 
 	//SpriteObject * BG = new SpriteObject("bgBase.png", 1, 1); //BG
@@ -270,16 +282,18 @@ Game::Game()
 
 void Game::update(float deltaTime)
 {
+
+
 	if (menuIsDestroyed == true)
 	{
 		if (firstRound == true)
 		{
-			SpriteObject * BG = new SpriteObject("bgBase.png", 1, 1); //BG
+			SpriteObject * BG = new SpriteObject("bg1-3-base.png", 1, 1); //BG
 			BG->setSize(1280, 720);
 			BG->setPosition(glm::vec3(0, 0, 0));
 			objects.push_back(BG);
 
-			SpriteObject * PA = new SpriteObject("bg1.png", 2, 1); //Play Area
+			SpriteObject * PA = new SpriteObject("bg1-3.png", 2, 1); //Play Area
 			PA->setSize(1280, 720);
 			PA->setPosition(glm::vec3(-212, 0, 0));
 			objects.push_back(PA); // index 0
@@ -305,14 +319,14 @@ void Game::update(float deltaTime)
 
 			TextObject * text1 = new TextObject();
 			text1->loadText("SCORE", color, 30);
-			text1->setPosition(glm::vec3(500, 185, 0));
+			text1->setPosition(glm::vec3(535, 185, 0));
 			objects.push_back(text1); // index 8
 
 			std::string s = std::to_string(p->score);
 
 			scoreText = new TextObject();
 			scoreText->loadText(s, color, 30);
-			scoreText->setPosition(glm::vec3(500, 150, 0));
+			scoreText->setPosition(glm::vec3(535, 150, 0));
 			objects.push_back(scoreText);
 
 			playerIsDead = false;
@@ -347,21 +361,6 @@ void Game::update(float deltaTime)
 			}
 		}
 
-		for (int i = 0; i < spawners.size(); i++)
-		{
-			spawners[i]->update(deltaTime);
-		}
-
-		if (spawners[0]->eNum > 10 && bossSpawn == false)
-		{
-			spawners[0]->SetSpawnRate(2500);
-			Boss1 * boss = new Boss1(Tag::Enemy, "bossgirl-sample.png", 1, 1); //Tag enemy, string fileName, int row, int col
-			boss->setRotation(180);													   //boss->setColor(1.0, 0.0, 0.0);
-			boss->setSize(100, 100);
-			boss->setPosition(glm::vec3(-212, 400, 0));
-			objects.push_back(boss);
-			bossSpawn = true;
-		}
 
 		//e1SpawnRate += deltaTime;
 		//if (e1SpawnRate >= 1000)
@@ -379,11 +378,31 @@ void Game::update(float deltaTime)
 		
 		if (isPaused == false)
 		{
+			for (int i = 0; i < spawners.size(); i++)
+			{
+				spawners[i]->update(deltaTime);
+			}
+
+			if (spawners[0]->eNum > 10 && bossSpawn == false)
+			{
+				spawners[0]->SetSpawnRate(2500);
+				Boss1 * boss = new Boss1(Tag::Enemy, "bossgirl-sample.png", 1, 1); //Tag enemy, string fileName, int row, int col
+				boss->setRotation(180);													   //boss->setColor(1.0, 0.0, 0.0);
+				boss->setSize(100, 100);
+				boss->setPosition(glm::vec3(-212, 400, 0));
+				objects.push_back(boss);
+				bossSpawn = true;
+			}
+
 			for (int i = 0; i < objects.size(); i++)
 			{
 				objects[i]->update(deltaTime);
 				//obj->update(deltaTime);
 			}
+
+			//cout << playtime << "      ";
+			playtime += deltaTime;
+			//cout << playtime << endl;
 		}
 
 

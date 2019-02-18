@@ -70,7 +70,7 @@ void Enemy1::shoot1()
 	glm::vec3 ePos = this->getPosition();
 	glm::vec3 pPos = Game::getInstance()->getPlayerRef()->getPosition();
 
-	DrawableObject* enemyBullet1 = new EnemyBullet(Tag::eBullet);
+	DrawableObject* enemyBullet1 = new EnemyBullet(Tag::eBullet, "Boss1Bullet20x20.png");
 
 	dynamic_cast<GameObject*>(enemyBullet1)->setColor(1.0, 0.0, 0.0);
 	enemyBullet1->setSize(10, 10);
@@ -87,7 +87,7 @@ void Enemy1::shoot1()
 	
 	Game::getInstance()->getObjectRef()->push_back(enemyBullet1);
 
-	DrawableObject* enemyBullet2 = new EnemyBullet(Tag::eBullet);
+	DrawableObject* enemyBullet2 = new EnemyBullet(Tag::eBullet, "Boss1Bullet20x20.png");
 
 	dynamic_cast<GameObject*>(enemyBullet2)->setColor(1.0, 0.0, 0.0);
 	enemyBullet2->setSize(10, 10);
@@ -103,7 +103,7 @@ void Enemy1::shoot1()
 
 	Game::getInstance()->getObjectRef()->push_back(enemyBullet2);
 
-	DrawableObject* enemyBullet3 = new EnemyBullet(Tag::eBullet);
+	DrawableObject* enemyBullet3 = new EnemyBullet(Tag::eBullet, "Boss1Bullet20x20.png");
 
 	dynamic_cast<GameObject*>(enemyBullet3)->setColor(1.0, 0.0, 0.0);
 	enemyBullet3->setSize(10, 10);
@@ -119,7 +119,7 @@ void Enemy1::shoot1()
 
 	Game::getInstance()->getObjectRef()->push_back(enemyBullet3);
 
-	DrawableObject* enemyBullet4 = new EnemyBullet(Tag::eBullet);
+	DrawableObject* enemyBullet4 = new EnemyBullet(Tag::eBullet, "Boss1Bullet20x20.png");
 
 	dynamic_cast<GameObject*>(enemyBullet4)->setColor(1.0, 0.0, 0.0);
 	enemyBullet4->setSize(10, 10);

@@ -7,8 +7,11 @@
 class PauseMenu :public DrawableObject
 {
 private:
-	glm::vec3 color;
 
+	int currentChoice = 0;
+	glm::vec3 color;
+	vector<PauseMenu*> options;
+	int optionNum = 0;
 	//for Sprite
 	unsigned int texture;
 	int rowMax;
@@ -28,6 +31,8 @@ private:
 
 public:
 	PauseMenu();
+	PauseMenu(string fileName);
+	PauseMenu(vector<string> fileName, int optNum);
 	~PauseMenu();
 	void setColor(float r, float g, float b);
 	void update(float deltaTime);
@@ -43,6 +48,8 @@ public:
 	void setAnimationLoop(int row, int column, int loop, int time); // 1000 = 1 secone
 	void nextAnimation();
 
+	void setNumberOfOptions(int num);
+	void destroyComponents();
 };
 
 

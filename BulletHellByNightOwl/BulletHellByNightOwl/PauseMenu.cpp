@@ -8,6 +8,29 @@ PauseMenu::PauseMenu()
 	addSprite("pauseMenu.png", 1, 1);
 	setAnimationLoop(1, 1, 1, 1000);
 }
+
+PauseMenu::PauseMenu(string fileName)
+{
+	addSprite(fileName, 1, 1);
+	setAnimationLoop(1, 1, 1, 1000);
+}
+
+PauseMenu::PauseMenu(vector<string> fileName,int spriteNum)
+{
+	addSprite(fileName.at(0), 1, 1);
+	setAnimationLoop(1, 1, 1, 1000);
+	setNumberOfOptions(spriteNum-1);
+
+	for (int i = 1; i <= optionNum; i++)
+	{
+		PauseMenu* p = new PauseMenu(fileName.at(i));
+		p->setSize(450.0,50.0);
+		p->setPosition(glm::vec3(0,0+(i*75),0));
+		options.push_back(p);
+		Game::getInstance()->getObjectRef()->push_back(p);
+	}
+}
+
 PauseMenu::~PauseMenu()
 {
 
@@ -66,6 +89,19 @@ void PauseMenu::addSprite(string fileName, int row, int column)
 
 void PauseMenu::render(glm::mat4 globalModelTransform)
 {
+	//if (IsInvincible()) //in the process of making blinking selection
+	//{
+	//	if (blinkTime >= 100)
+	//	{
+	//		blinkTime = 0;
+	//		isBlinking = !isBlinking;
+	//	}
+	//	if (!isBlinking)
+	//	{
+	//		return;
+	//	}
+	//}
+
 	SquareMeshVbo *squareMesh = dynamic_cast<SquareMeshVbo *> (Game::getInstance()->getRenderer()->getMesh(SquareMeshVbo::MESH_NAME));
 
 	GLuint modelMatixId = Game::getInstance()->getRenderer()->getModelMatrixAttrId();
@@ -161,4 +197,32 @@ void PauseMenu::nextAnimation()
 	}
 
 }
+
+void PauseMenu::setNumberOfOptions(int num)
+{
+	optionNum = num;
+}
+
+
+void PauseMenu::destroyComponents()
+{
+	for (int j = options.size() - 1; j >= 0; j--)
+	{
+		for (int i = Game::getInstance()->getObjectRef()->size() - 1; i >= 0; i--)
+		{
+			DrawableObject* instance = Game::getInstance()->getObjectRef()->at(i);
+
+			if (instance->getObjId() == options.at(j)->getObjId())
+			{
+				Game::getInstance()->getObjectRef()->erase(Game::getInstance()->getObjectRef()->begin() + i);
+				Game::getInstance()->getObjectRef()->end();
+			}
+		}
+	}
+
+}
+
+
+
+
 

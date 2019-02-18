@@ -136,7 +136,7 @@ void Boss1::updateATK3(float deltaTime)
 
 void Boss1::shoot1() // pattern 2_1C
 {
-	enemyBullet1 = new EnemyBullet(Tag::eBullet);
+	enemyBullet1 = new EnemyBullet(Tag::eBullet, "Boss1Bullet20x20.png");
 	EnemyBullet *eb1 = dynamic_cast<EnemyBullet*>(enemyBullet1);
 	if (eb1)
 	{
@@ -152,7 +152,7 @@ void Boss1::shoot1() // pattern 2_1C
 	}
 	Game::getInstance()->getObjectRef()->push_back(enemyBullet1);
 
-	enemyBullet2 = new EnemyBullet(Tag::eBullet);
+	enemyBullet2 = new EnemyBullet(Tag::eBullet, "Boss1Bullet20x20.png");
 	EnemyBullet *eb2 = dynamic_cast<EnemyBullet*>(enemyBullet2);
 	if (eb2)
 	{
@@ -168,7 +168,7 @@ void Boss1::shoot1() // pattern 2_1C
 	}
 	Game::getInstance()->getObjectRef()->push_back(enemyBullet2);
 
-	enemyBullet3 = new EnemyBullet(Tag::eBullet);
+	enemyBullet3 = new EnemyBullet(Tag::eBullet, "Boss1Bullet20x20.png");
 	EnemyBullet *eb3 = dynamic_cast<EnemyBullet*>(enemyBullet3);
 	if (eb3)
 	{
@@ -184,7 +184,7 @@ void Boss1::shoot1() // pattern 2_1C
 	}
 	Game::getInstance()->getObjectRef()->push_back(enemyBullet3);
 
-	enemyBullet4 = new EnemyBullet(Tag::eBullet);
+	enemyBullet4 = new EnemyBullet(Tag::eBullet, "Boss1Bullet20x20.png");
 	EnemyBullet *eb4 = dynamic_cast<EnemyBullet*>(enemyBullet4);
 	if (eb4)
 	{

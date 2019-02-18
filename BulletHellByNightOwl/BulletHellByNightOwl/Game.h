@@ -9,9 +9,11 @@
 using namespace std;
 class Game
 {	
+	float playtime = 0.0f;
 	float timer = 0.0f;
 	static Game* instance;
 	int winWidth, winHeight;
+	vector<string> pMenuSprite;
 	vector<DrawableObject*> objects;
 	vector<Spawner*> spawners;
 	GLRenderer *renderer;

@@ -18,7 +18,7 @@ public:
 	glm::mat4 getTransform();
 
 	DrawableObject();
-	~DrawableObject();
+	virtual ~DrawableObject();
 	virtual void render(glm::mat4 globalModelTransform) = 0;
 	virtual void update(float deltaTime) = 0;
 	void setSize(float sizeX, float sizeY);
