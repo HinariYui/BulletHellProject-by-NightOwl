@@ -215,9 +215,8 @@ void Boss1::shoot2() // for pattern P1_1A
 
 	// Bullet 1
 
-	enemyBullet1 = new EnemyBullet(Tag::eBullet);
+	enemyBullet1 = new EnemyBullet(Tag::eBullet, "Boss1Bullet20x20.png");
 
-	dynamic_cast<GameObject*>(enemyBullet1)->setColor(1.0, 0.0, 0.0);
 	enemyBullet1->setSize(10, 10);
 	enemyBullet1->setPosition(Drone1->getPosition());
 
@@ -229,9 +228,8 @@ void Boss1::shoot2() // for pattern P1_1A
 
 	// Bullet2
 
-	enemyBullet2 = new EnemyBullet(Tag::eBullet);
+	enemyBullet2 = new EnemyBullet(Tag::eBullet, "Boss1Bullet20x20.png");
 
-	dynamic_cast<GameObject*>(enemyBullet2)->setColor(1.0, 0.0, 0.0);
 	enemyBullet2->setSize(10, 10);
 	enemyBullet2->setPosition(Drone2->getPosition());
 
@@ -243,9 +241,8 @@ void Boss1::shoot2() // for pattern P1_1A
 
 	// Bullet 3
 
-	enemyBullet3 = new EnemyBullet(Tag::eBullet);
+	enemyBullet3 = new EnemyBullet(Tag::eBullet, "Boss1Bullet20x20.png");
 
-	dynamic_cast<GameObject*>(enemyBullet3)->setColor(1.0, 0.0, 0.0);
 	enemyBullet3->setSize(10, 10);
 	enemyBullet3->setPosition(Drone3->getPosition());
 
@@ -257,9 +254,8 @@ void Boss1::shoot2() // for pattern P1_1A
 
 	// Bullet 4
 
-	enemyBullet4 = new EnemyBullet(Tag::eBullet);
+	enemyBullet4 = new EnemyBullet(Tag::eBullet, "Boss1Bullet20x20.png");
 
-	dynamic_cast<GameObject*>(enemyBullet4)->setColor(1.0, 0.0, 0.0);
 	enemyBullet4->setSize(10, 10);
 	enemyBullet4->setPosition(Drone4->getPosition());
 
