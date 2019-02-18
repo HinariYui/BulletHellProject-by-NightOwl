@@ -151,8 +151,8 @@ void Game::handleKey(char ch)
 
 						if (instance->getObjId() == pauseMenu->getObjId())
 						{
-							Game::getInstance()->getObjectRef()->erase(Game::getInstance()->getObjectRef()->begin() + i);
-							Game::getInstance()->getObjectRef()->end();
+							objects.erase(Game::getInstance()->getObjectRef()->begin() + i);
+							objects.end();
 						}
 					}
 

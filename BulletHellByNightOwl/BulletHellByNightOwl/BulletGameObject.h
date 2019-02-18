@@ -22,7 +22,7 @@ class BulletGameObject :public GameObject
 
 public:
 	BulletGameObject(Tag bulletType,string spriteFile) : GameObject(bulletType) { addSprite(spriteFile, 1, 1); bulletNum++;};
-	BulletGameObject(Tag bulletType) : GameObject(bulletType) { bulletNum++;};
+	BulletGameObject(Tag bulletType) : GameObject(bulletType) { bulletNum++; };
 	~BulletGameObject();
 	void update(float deltaTime);
 
