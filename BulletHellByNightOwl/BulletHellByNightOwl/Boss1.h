@@ -22,6 +22,10 @@ private:
 	DrawableObject* enemyBullet3 = NULL;
 	DrawableObject* enemyBullet4 = NULL;
 	GameObject* HPbar = NULL;
+	SpriteObject* Drone1 = NULL; // 24 x 24 px
+	SpriteObject* Drone2 = NULL; // 24 x 24 px
+	SpriteObject* Drone3 = NULL; // 24 x 24 px
+	SpriteObject* Drone4 = NULL; // 24 x 24 px
 
 	float HPsize = 500;
 	float HPpos = -212;
@@ -40,6 +44,8 @@ private:
 	glm::vec3 velU = glm::vec3(0, 5, 0); //shoot up
 	glm::vec3 velL = glm::vec3(-5, 0, 0); //shoot left
 
+	float bulletSpeed;
+
 	glm::mat4 rotationMatrix;
 
 	void updateIDLE(float deltaTime);
@@ -53,6 +59,7 @@ public:
 	~Boss1();
 	void move();
 	void shoot1();
+	void shoot2();
 	void update(float deltaTime);
 	virtual void render(glm::mat4 globalModelTransform);
 };

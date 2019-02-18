@@ -16,10 +16,19 @@ Boss1::Boss1(Tag enemy, string fileName, int row, int col) : SpriteObject(fileNa
 	rotationMatrix = glm::rotate(rotationMatrix, 0.25f, glm::vec3(0.0f, 0.0f, 1.0f)); //0.1f -> radiant
 	hp = maxHP;
 	HPbar = new GameObject(NONE);
-
 	HPbar->setSize(HPsize, 20);
 	HPbar->setPosition(glm::vec3(HPpos, 340, 0));
 	HPbar->setColor(1, 0.85, 0);
+
+	Drone1 = new SpriteObject("Weapon_Drone.png", 1, 1);
+	Drone2 = new SpriteObject("Weapon_Drone.png", 1, 1);
+	Drone3 = new SpriteObject("Weapon_Drone.png", 1, 1);
+	Drone4 = new SpriteObject("Weapon_Drone.png", 1, 1);
+
+	Drone1->setSize(48, 48);
+	Drone2->setSize(48, 48);
+	Drone3->setSize(48, 48);
+	Drone4->setSize(48, 48);
 }
 
 void Boss1::update(float deltaTime)
@@ -59,12 +68,25 @@ void Boss1::updateIDLE(float deltaTime)
 	if (stateTime >= idleTime)
 	{
 		stateTime = 0;
-		state = ATK1;
+		int pattern = rand() % 2 + 1;
+		if (pattern == 1)
+		{
+			state = ATK1;
+		}
+		else if (pattern == 2)
+		{
+			state = ATK2;
+		}
 	}
 }
 
 void Boss1::updateMoveIn(float deltaTime)
 {
+	Drone1->setPosition(getPosition() + glm::vec3(-100, 100, 0));
+	Drone2->setPosition(getPosition() + glm::vec3(-100, -100, 0));
+	Drone3->setPosition(getPosition() + glm::vec3(100, -100, 0));
+	Drone4->setPosition(getPosition() + glm::vec3(100, 100, 0));
+
 	float y = getPosition().y;
 	if (y <= 200)
 	{
@@ -77,7 +99,7 @@ void Boss1::updateATK1(float deltaTime)
 {
 	stateTime += deltaTime;
 	ATKCount += deltaTime;
-	if (ATKCount >= 30)//shoot every 0.03 sec
+	if (ATKCount >= 30) // shoot every 0.03 sec
 	{
 		shoot1();
 		ATKCount = 0;
@@ -92,7 +114,19 @@ void Boss1::updateATK1(float deltaTime)
 
 void Boss1::updateATK2(float deltaTime)
 {
-
+	stateTime += deltaTime;
+	ATKCount += deltaTime;
+	if (ATKCount >= 100) // shoot every 0.1 sec
+	{
+		shoot2();
+		ATKCount = 0;
+	}
+	if (stateTime >= 3000)
+	{
+		stateTime = 0;
+		state = IDLE;
+		idleTime = rand() % 1000 + 3000;
+	}
 }
 
 void Boss1::updateATK3(float deltaTime)
@@ -100,7 +134,7 @@ void Boss1::updateATK3(float deltaTime)
 
 }
 
-void Boss1::shoot1()
+void Boss1::shoot1() // pattern 2_1C
 {
 	enemyBullet1 = new EnemyBullet(Tag::eBullet, "Boss1Bullet20x20.png");
 	EnemyBullet *eb1 = dynamic_cast<EnemyBullet*>(enemyBullet1);
@@ -167,6 +201,75 @@ void Boss1::shoot1()
 	Game::getInstance()->getObjectRef()->push_back(enemyBullet4);
 }
 
+void Boss1::shoot2() // for pattern P1_1A
+{
+	bulletSpeed = 5.0f;
+
+	glm::vec3 ePos1 = Drone1->getPosition();
+	glm::vec3 ePos2 = Drone2->getPosition();
+	glm::vec3 ePos3 = Drone3->getPosition();
+	glm::vec3 ePos4 = Drone4->getPosition();
+	glm::vec3 pPos = Game::getInstance()->getPlayerRef()->getPosition();
+
+	glm::vec3 bulDir;
+
+	// Bullet 1
+
+	enemyBullet1 = new EnemyBullet(Tag::eBullet);
+
+	dynamic_cast<GameObject*>(enemyBullet1)->setColor(1.0, 0.0, 0.0);
+	enemyBullet1->setSize(10, 10);
+	enemyBullet1->setPosition(Drone1->getPosition());
+
+	bulDir = glm::normalize(pPos - ePos1);
+
+	dynamic_cast<GameObject*>(enemyBullet1)->setVelocity(bulDir * bulletSpeed);
+
+	Game::getInstance()->getObjectRef()->push_back(enemyBullet1);
+
+	// Bullet2
+
+	enemyBullet2 = new EnemyBullet(Tag::eBullet);
+
+	dynamic_cast<GameObject*>(enemyBullet2)->setColor(1.0, 0.0, 0.0);
+	enemyBullet2->setSize(10, 10);
+	enemyBullet2->setPosition(Drone2->getPosition());
+
+	bulDir = glm::normalize(pPos - ePos2);
+
+	dynamic_cast<GameObject*>(enemyBullet2)->setVelocity(bulDir * bulletSpeed);
+
+	Game::getInstance()->getObjectRef()->push_back(enemyBullet2);
+
+	// Bullet 3
+
+	enemyBullet3 = new EnemyBullet(Tag::eBullet);
+
+	dynamic_cast<GameObject*>(enemyBullet3)->setColor(1.0, 0.0, 0.0);
+	enemyBullet3->setSize(10, 10);
+	enemyBullet3->setPosition(Drone3->getPosition());
+
+	bulDir = glm::normalize(pPos - ePos3);
+
+	dynamic_cast<GameObject*>(enemyBullet3)->setVelocity(bulDir * bulletSpeed);
+
+	Game::getInstance()->getObjectRef()->push_back(enemyBullet3);
+
+	// Bullet 4
+
+	enemyBullet4 = new EnemyBullet(Tag::eBullet);
+
+	dynamic_cast<GameObject*>(enemyBullet4)->setColor(1.0, 0.0, 0.0);
+	enemyBullet4->setSize(10, 10);
+	enemyBullet4->setPosition(Drone4->getPosition());
+
+	bulDir = glm::normalize(pPos - ePos4);
+
+	dynamic_cast<GameObject*>(enemyBullet4)->setVelocity(bulDir * bulletSpeed);
+
+	Game::getInstance()->getObjectRef()->push_back(enemyBullet4);
+}
+
 void Boss1::move()
 {
 
@@ -180,6 +283,10 @@ void Boss1::render(glm::mat4 globalModelTransform)
 	{
 		HPbar->render(globalModelTransform);
 	}
+	Drone1->render(globalModelTransform);
+	Drone2->render(globalModelTransform);
+	Drone3->render(globalModelTransform);
+	Drone4->render(globalModelTransform);
 }
 
 Boss1::~Boss1()
