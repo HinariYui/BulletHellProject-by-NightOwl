@@ -14,6 +14,8 @@
 #include "GLRendererColor.h"
 #include "SquareMeshVbo.h"
 #include "Game.h"
+
+#include "Audio.h"
 //#include "stdafx.h"
 
 
@@ -47,7 +49,7 @@ int main(int argc, char *argv[])
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 
 	// Initialize video subsystem
-	if (SDL_Init(SDL_INIT_VIDEO) < 0)
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0)
 	{
 		// Display error message
 		cout << "SDL could not initialize! SDL_Error: " << SDL_GetError() << endl;
@@ -55,6 +57,10 @@ int main(int argc, char *argv[])
 	}
 	else
 	{
+		AudioEngine audio;
+		audio.init();
+
+
 		TTF_Init();
 
 		// Create window
@@ -96,6 +102,7 @@ int main(int argc, char *argv[])
 			}
 		}
 	}
+
 
 	float fps = 1000.0f / 60.0f;
 
