@@ -69,16 +69,19 @@ void Boss1::updateIDLE(float deltaTime)
 	if (stateTime >= idleTime)
 	{
 		stateTime = 0;
-		//int pattern = rand() % 2 + 1;
-		//if (pattern == 1)
-		//{
-		//	state = ATK1;
-		//}
-		//else if (pattern == 2)
-		//{
-		//	state = ATK2;
-		//}
-		state = ATK3;
+		int pattern = rand() % 3 + 1;
+		if (pattern == 1)
+		{
+			state = ATK1;
+		}
+		else if (pattern == 2)
+		{
+			state = ATK2;
+		}
+		else
+		{
+			state = ATK3;
+		}
 	}
 }
 
