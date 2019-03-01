@@ -58,8 +58,9 @@ public:
 	Boss1(Tag enemy, string fileName, int row, int col);
 	~Boss1();
 	void move();
-	void shoot1();
-	void shoot2();
+	void shoot2_1C();
+	void shoot1_1A();
+	void shoot2_1D();
 	void update(float deltaTime);
 	virtual void render(glm::mat4 globalModelTransform);
 };

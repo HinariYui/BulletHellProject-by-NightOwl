@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Boss1.h"
 #include "EnemyBullet.h"
+#include "SpecialEnemyBullet.h"
 #include "Game.h"
 
 
@@ -68,7 +69,7 @@ void Boss1::updateIDLE(float deltaTime)
 	if (stateTime >= idleTime)
 	{
 		stateTime = 0;
-		int pattern = rand() % 2 + 1;
+		int pattern = rand() % 3 + 1;
 		if (pattern == 1)
 		{
 			state = ATK1;
@@ -76,6 +77,10 @@ void Boss1::updateIDLE(float deltaTime)
 		else if (pattern == 2)
 		{
 			state = ATK2;
+		}
+		else
+		{
+			state = ATK3;
 		}
 	}
 }
@@ -101,7 +106,7 @@ void Boss1::updateATK1(float deltaTime)
 	ATKCount += deltaTime;
 	if (ATKCount >= 30) // shoot every 0.03 sec
 	{
-		shoot1();
+		shoot2_1C();
 		ATKCount = 0;
 	}
 	if (stateTime >= 4000)
@@ -118,7 +123,7 @@ void Boss1::updateATK2(float deltaTime)
 	ATKCount += deltaTime;
 	if (ATKCount >= 100) // shoot every 0.1 sec
 	{
-		shoot2();
+		shoot1_1A();
 		ATKCount = 0;
 	}
 	if (stateTime >= 3000)
@@ -132,9 +137,22 @@ void Boss1::updateATK2(float deltaTime)
 void Boss1::updateATK3(float deltaTime)
 {
 
+	stateTime += deltaTime;
+	ATKCount += deltaTime;
+	if (ATKCount >= 100) // shoot every 0.1 sec
+	{
+		shoot2_1D();
+		ATKCount = 0;
+	}
+	if (stateTime >= 3000)
+	{
+		stateTime = 0;
+		state = IDLE;
+		idleTime = rand() % 1000 + 3000;
+	}
 }
 
-void Boss1::shoot1() // pattern 2_1C
+void Boss1::shoot2_1C() // pattern 2_1C
 {
 	enemyBullet1 = new EnemyBullet(Tag::eBullet, "Boss1Bullet20x20.png");
 	EnemyBullet *eb1 = dynamic_cast<EnemyBullet*>(enemyBullet1);
@@ -201,7 +219,7 @@ void Boss1::shoot1() // pattern 2_1C
 	Game::getInstance()->getObjectRef()->push_back(enemyBullet4);
 }
 
-void Boss1::shoot2() // for pattern P1_1A
+void Boss1::shoot1_1A() // pattern 1_1A
 {
 	bulletSpeed = 5.0f;
 
@@ -215,9 +233,8 @@ void Boss1::shoot2() // for pattern P1_1A
 
 	// Bullet 1
 
-	enemyBullet1 = new EnemyBullet(Tag::eBullet);
+	enemyBullet1 = new EnemyBullet(Tag::eBullet, "Boss1Bullet20x20.png");
 
-	dynamic_cast<GameObject*>(enemyBullet1)->setColor(1.0, 0.0, 0.0);
 	enemyBullet1->setSize(10, 10);
 	enemyBullet1->setPosition(Drone1->getPosition());
 
@@ -229,9 +246,8 @@ void Boss1::shoot2() // for pattern P1_1A
 
 	// Bullet2
 
-	enemyBullet2 = new EnemyBullet(Tag::eBullet);
+	enemyBullet2 = new EnemyBullet(Tag::eBullet, "Boss1Bullet20x20.png");
 
-	dynamic_cast<GameObject*>(enemyBullet2)->setColor(1.0, 0.0, 0.0);
 	enemyBullet2->setSize(10, 10);
 	enemyBullet2->setPosition(Drone2->getPosition());
 
@@ -243,9 +259,8 @@ void Boss1::shoot2() // for pattern P1_1A
 
 	// Bullet 3
 
-	enemyBullet3 = new EnemyBullet(Tag::eBullet);
+	enemyBullet3 = new EnemyBullet(Tag::eBullet, "Boss1Bullet20x20.png");
 
-	dynamic_cast<GameObject*>(enemyBullet3)->setColor(1.0, 0.0, 0.0);
 	enemyBullet3->setSize(10, 10);
 	enemyBullet3->setPosition(Drone3->getPosition());
 
@@ -257,9 +272,8 @@ void Boss1::shoot2() // for pattern P1_1A
 
 	// Bullet 4
 
-	enemyBullet4 = new EnemyBullet(Tag::eBullet);
+	enemyBullet4 = new EnemyBullet(Tag::eBullet, "Boss1Bullet20x20.png");
 
-	dynamic_cast<GameObject*>(enemyBullet4)->setColor(1.0, 0.0, 0.0);
 	enemyBullet4->setSize(10, 10);
 	enemyBullet4->setPosition(Drone4->getPosition());
 
@@ -268,6 +282,14 @@ void Boss1::shoot2() // for pattern P1_1A
 	dynamic_cast<GameObject*>(enemyBullet4)->setVelocity(bulDir * bulletSpeed);
 
 	Game::getInstance()->getObjectRef()->push_back(enemyBullet4);
+}
+
+void Boss1::shoot2_1D()
+{
+	DrawableObject* specialBullet1 = new SpecialEnemyBullet(Tag::eBullet, "Boss1Bullet20x20.png");
+	specialBullet1->setSize(30, 30);
+	specialBullet1->setPosition(this->getPosition());
+	Game::getInstance()->getObjectRef()->push_back(specialBullet1);
 }
 
 void Boss1::move()
