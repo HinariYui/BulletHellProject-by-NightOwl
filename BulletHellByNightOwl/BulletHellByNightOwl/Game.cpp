@@ -69,6 +69,11 @@ void Game::handleKey(char ch)
 		}
 	}
 
+	if (isPaused == true)
+	{
+		checkPauseMenuInput(ch);
+	}
+
 	if (!playerIsDead)
 	{
 
@@ -129,10 +134,6 @@ void Game::handleKey(char ch)
 			{
 				if (isPaused == false)
 				{
-					
-					
-
-
 					pauseMenu = new PauseMenu(pMenuSprite,3);
 					pauseMenu->setSize(1280, 720);
 					pauseMenu->setPosition(glm::vec3(0, 0, 0));
@@ -404,9 +405,6 @@ void Game::update(float deltaTime)
 			playtime += deltaTime;
 			//cout << playtime << endl;
 		}
-
-
-
 	}
 
 }
@@ -471,5 +469,80 @@ int  Game::getXMLspawnData()
 	return 0;
 }
 
+void Game::checkPauseMenuInput(char input)
+{
+	PauseMenu* p = dynamic_cast<PauseMenu*>(pauseMenu);
+
+
+	if (pMenuCurrentSelection <= 0) //on resume
+	{
+		if (input == 'u')
+		{
+			pMenuCurrentSelection = 0;
+			p->setCurrentSelection(pMenuCurrentSelection);
+		}
+		else if (input == 'd')
+		{
+			pMenuCurrentSelection = 1;
+			p->setCurrentSelection(pMenuCurrentSelection);
+		}
+	}
+	else if (pMenuCurrentSelection == 1) // on main menu
+	{
+		if (input == 'u')
+		{
+			pMenuCurrentSelection = 0;
+			p->setCurrentSelection(pMenuCurrentSelection);
+		}
+		else if (input == 'd')
+		{
+			pMenuCurrentSelection = 2;
+			p->setCurrentSelection(pMenuCurrentSelection);
+		}
+	}
+	else if (pMenuCurrentSelection == 2) // on setting?
+	{
+		if (input == 'u')
+		{
+			pMenuCurrentSelection = 1;
+			p->setCurrentSelection(pMenuCurrentSelection);
+		}
+		else if (input == 'd')
+		{
+			pMenuCurrentSelection = 3;
+			p->setCurrentSelection(pMenuCurrentSelection);
+		}
+	}
+	else // on quit 
+	{
+		if (input == 'u')
+		{
+			pMenuCurrentSelection = 2;
+			p->setCurrentSelection(pMenuCurrentSelection);
+		}
+		else if (input == 'd')
+		{
+			pMenuCurrentSelection = 3;
+			p->setCurrentSelection(pMenuCurrentSelection);
+		}
+
+	}
+
+	cout << "PMenuCurrentSelection " << pMenuCurrentSelection << endl;
+}
+
+Game::~Game()
+{
+	//cout << "destroying game" << endl;
+	//delete instance;
+	//delete scoreText;
+	//delete pauseMenu;
+	//delete menu;
+	//delete player;
+	//delete renderer;
+	//spawners.clear();
+	//objects.clear();
+	//pMenuSprite.clear();
+}
 
 

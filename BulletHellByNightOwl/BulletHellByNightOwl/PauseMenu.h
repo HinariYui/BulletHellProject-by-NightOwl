@@ -25,8 +25,7 @@ private:
 	int loopCount;
 	int animationTime;
 	int timeCount;
-	float blinkTime = 0;
-	bool isBlinking = false;
+
 
 
 public:
@@ -50,6 +49,9 @@ public:
 
 	void setNumberOfOptions(int num);
 	void destroyComponents();
+
+	void setCurrentSelection(int num);
+
 };
 
 

@@ -43,6 +43,22 @@ void PauseMenu::setColor(float r, float g, float b)
 
 void PauseMenu::update(float deltaTime)
 {
+	if (currentChoice <= 0)
+	{
+		//update option 0 animation
+	}
+	else if (currentChoice == 1)
+	{
+		//update option 1 animation
+	}
+	else if (currentChoice == 2)
+	{
+		//update option 2  animation
+	}
+	else
+	{
+		//update option 3 animation
+	}
 
 }
 
@@ -89,19 +105,6 @@ void PauseMenu::addSprite(string fileName, int row, int column)
 
 void PauseMenu::render(glm::mat4 globalModelTransform)
 {
-	//if (IsInvincible()) //in the process of making blinking selection
-	//{
-	//	if (blinkTime >= 100)
-	//	{
-	//		blinkTime = 0;
-	//		isBlinking = !isBlinking;
-	//	}
-	//	if (!isBlinking)
-	//	{
-	//		return;
-	//	}
-	//}
-
 	SquareMeshVbo *squareMesh = dynamic_cast<SquareMeshVbo *> (Game::getInstance()->getRenderer()->getMesh(SquareMeshVbo::MESH_NAME));
 
 	GLuint modelMatixId = Game::getInstance()->getRenderer()->getModelMatrixAttrId();
@@ -222,7 +225,10 @@ void PauseMenu::destroyComponents()
 
 }
 
-
+void PauseMenu::setCurrentSelection(int num)
+{
+	currentChoice = num;
+}
 
 
 

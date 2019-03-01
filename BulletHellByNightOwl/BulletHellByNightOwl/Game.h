@@ -9,6 +9,7 @@
 using namespace std;
 class Game
 {	
+	int pMenuCurrentSelection = 0;
 	float playtime = 0.0f;
 	float timer = 0.0f;
 	static Game* instance;
@@ -27,6 +28,8 @@ class Game
 	bool bossSpawn = false;
 
 public:
+	~Game();
+
 	bool isPaused = false;
 	bool shiftPressed = false;
 	bool firstRound = true;
@@ -42,5 +45,7 @@ public:
 	void update(float deltaTime);
 	DrawableObject* getPlayerRef();
 	int getXMLspawnData();
+
+	void checkPauseMenuInput(char input);
 
 };

@@ -99,7 +99,7 @@ int main(int argc, char *argv[])
 
 	float fps = 1000.0f / 60.0f;
 
-	// Game loop
+	//// Game loop
 	while (!quit)
 	{
 		float currentFrame = SDL_GetTicks();
@@ -226,6 +226,8 @@ int main(int argc, char *argv[])
 
 		SDL_GL_SwapWindow(window);
 	}
+
+	delete game;
 
 	//Destroy window
 	SDL_DestroyWindow(window);
