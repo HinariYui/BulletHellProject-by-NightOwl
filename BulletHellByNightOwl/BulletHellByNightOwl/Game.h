@@ -45,7 +45,6 @@ public:
 	void update(float deltaTime);
 	DrawableObject* getPlayerRef();
 	int getXMLspawnData();
-
 	void checkPauseMenuInput(char input);
 
 };

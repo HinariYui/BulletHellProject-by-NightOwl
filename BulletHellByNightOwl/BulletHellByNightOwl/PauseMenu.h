@@ -1,4 +1,4 @@
-#include "GameObject.h"
+#include "SpriteObject.h"
 #include "stdafx.h"
 #include "SquareMeshVbo.h"
 #include "gtc/matrix_transform.hpp"
@@ -10,7 +10,7 @@ private:
 
 	int currentChoice = 0;
 	glm::vec3 color;
-	vector<PauseMenu*> options;
+	vector<SpriteObject*> options;
 	int optionNum = 0;
 	//for Sprite
 	unsigned int texture;

@@ -23,12 +23,19 @@ PauseMenu::PauseMenu(vector<string> fileName,int spriteNum)
 
 	for (int i = 1; i <= optionNum; i++)
 	{
-		PauseMenu* p = new PauseMenu(fileName.at(i));
+		SpriteObject* p = new SpriteObject(fileName.at(i), 1, 1);
 		p->setSize(450.0,50.0);
 		p->setPosition(glm::vec3(0,0+(i*75),0));
 		options.push_back(p);
 		Game::getInstance()->getObjectRef()->push_back(p);
 	}
+
+	GameObject* c1 = new GameObject(Tag::NONE);
+	c1->setColor(0, 0, 1);
+	c1->setSize(8, 8);
+	c1->setPosition(glm::vec3(-205, 75, 0));
+
+	Game::getInstance()->getObjectRef()->push_back(c1);
 }
 
 PauseMenu::~PauseMenu()
@@ -45,19 +52,43 @@ void PauseMenu::update(float deltaTime)
 {
 	if (currentChoice <= 0)
 	{
-		//update option 0 animation
+		//update option 0 (Resume) animation 
+
+		glPointSize(8.0); glColor3f(1, 0, 0);
+		glBegin(GL_POINTS);
+		glVertex3f(-5,75,0);
+		glVertex3f(5, 75, 0);
+		glEnd();
+
 	}
 	else if (currentChoice == 1)
 	{
-		//update option 1 animation
+		//update option 1 (MainMenu) animation
+
+		glPointSize(8.0); glColor3f(1, 0, 0);
+		glBegin(GL_POINTS);
+		glVertex3f(-5, 150, 0);
+		glVertex3f(5, 150, 0);
+		glEnd();
 	}
 	else if (currentChoice == 2)
 	{
 		//update option 2  animation
+
+		glPointSize(8.0); glColor3f(1, 0, 0);
+		glBegin(GL_POINTS);
+		glVertex3f(-5, 225, 0);
+		glVertex3f(5, 225, 0);
+		glEnd();
 	}
 	else
 	{
-		//update option 3 animation
+		//update option 3 (Quit) animation
+		glPointSize(8.0); glColor3f(1, 0, 0);
+		glBegin(GL_POINTS);
+		glVertex3f(-5, 300, 0);
+		glVertex3f(5, 300, 0);
+		glEnd();
 	}
 
 }

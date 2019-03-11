@@ -283,8 +283,6 @@ Game::Game()
 
 void Game::update(float deltaTime)
 {
-
-
 	if (menuIsDestroyed == true)
 	{
 		if (firstRound == true)
@@ -473,6 +471,8 @@ void Game::checkPauseMenuInput(char input)
 {
 	PauseMenu* p = dynamic_cast<PauseMenu*>(pauseMenu);
 
+	
+
 
 	if (pMenuCurrentSelection <= 0) //on resume
 	{
@@ -480,6 +480,9 @@ void Game::checkPauseMenuInput(char input)
 		{
 			pMenuCurrentSelection = 0;
 			p->setCurrentSelection(pMenuCurrentSelection);
+
+
+
 		}
 		else if (input == 'd')
 		{
