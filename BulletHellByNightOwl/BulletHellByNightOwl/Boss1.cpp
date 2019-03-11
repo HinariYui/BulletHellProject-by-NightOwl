@@ -107,6 +107,7 @@ void Boss1::updateATK1(float deltaTime)
 	if (ATKCount >= 30) // shoot every 0.03 sec
 	{
 		shoot2_1C();
+		shootSound.play();
 		ATKCount = 0;
 	}
 	if (stateTime >= 4000)
@@ -123,7 +124,9 @@ void Boss1::updateATK2(float deltaTime)
 	ATKCount += deltaTime;
 	if (ATKCount >= 100) // shoot every 0.1 sec
 	{
+		DroneMove1();
 		shoot1_1A();
+		shootSound.play();
 		ATKCount = 0;
 	}
 	if (stateTime >= 3000)
@@ -142,6 +145,7 @@ void Boss1::updateATK3(float deltaTime)
 	if (ATKCount >= 100) // shoot every 0.1 sec
 	{
 		shoot2_1D();
+		shootSound.play();
 		ATKCount = 0;
 	}
 	if (stateTime >= 3000)
@@ -290,6 +294,15 @@ void Boss1::shoot2_1D()
 	specialBullet1->setSize(30, 30);
 	specialBullet1->setPosition(this->getPosition());
 	Game::getInstance()->getObjectRef()->push_back(specialBullet1);
+}
+
+void Boss1::DroneMove1()
+{
+	//Drone1->setVelocity(glm::vec3(0, -2, 0));
+	//Drone2->setVelocity(glm::vec3(0, -2, 0));
+	//Drone3->setVelocity(glm::vec3(0, -2, 0));
+	//Drone4->setVelocity(glm::vec3(0, -2, 0));
+	//if(Drone1->getPosition == )
 }
 
 void Boss1::move()

@@ -76,11 +76,11 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>./Library/SDL2-2.0.5/include;./Library/SDL2_ttf/include;./Library/glm;./Library/SDL2/include;./Library/glew/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./Library/SDL2-2.0.5/include;./Library/SDL2_ttf/include;./Library/glm;./Library/SDL2/include;./Library/glew/include;./Library/sdl_mixer/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>./Library/SDL2/lib/x86;./Library/glm;./Library/glew/lib/Release/Win32;./Library/SDL2-2.0.5/lib/x86;./Library/SDL2_ttf/lib/x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;SDL2.lib;SDL2main.lib;glew32.lib;SDL2test.lib;SDL2_ttf.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>./Library/SDL2/lib/x86;./Library/glm;./Library/glew/lib/Release/Win32;./Library/SDL2-2.0.5/lib/x86;./Library/SDL2_ttf/lib/x86;./Library/sdl_mixer/lib/x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;SDL2.lib;SDL2main.lib;glew32.lib;SDL2test.lib;SDL2_ttf.lib;SDL2_image.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
