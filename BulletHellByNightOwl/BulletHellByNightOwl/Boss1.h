@@ -1,6 +1,7 @@
 #pragma once
 
 #include "SpriteObject.h"
+#include "Audio.h"
 
 enum Boss1State
 {
@@ -26,6 +27,10 @@ private:
 	SpriteObject* Drone2 = NULL; // 24 x 24 px
 	SpriteObject* Drone3 = NULL; // 24 x 24 px
 	SpriteObject* Drone4 = NULL; // 24 x 24 px
+
+	AudioEngine audio;
+
+	SoundEffect shootSound = audio.loadSoundEffect("Attack1.mp3");
 
 	float HPsize = 500;
 	float HPpos = -212;
@@ -61,6 +66,7 @@ public:
 	void shoot2_1C();
 	void shoot1_1A();
 	void shoot2_1D();
+	void DroneMove1();
 	void update(float deltaTime);
 	virtual void render(glm::mat4 globalModelTransform);
 };
