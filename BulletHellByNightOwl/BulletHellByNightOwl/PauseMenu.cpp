@@ -20,22 +20,22 @@ PauseMenu::PauseMenu(vector<string> fileName,int spriteNum)
 	addSprite(fileName.at(0), 1, 1);
 	setAnimationLoop(1, 1, 1, 1000);
 	setNumberOfOptions(spriteNum-1);
+	Game::getInstance()->getObjectRef()->push_back(this);
+	
+	c1 = new GameObject(Tag::NONE);
+	c1->setColor(0.5,0.7,1);
+	c1->setSize(460,60);
+	c1->setPosition(glm::vec3(-205, 75, 0));
+	Game::getInstance()->getObjectRef()->push_back(c1);
 
 	for (int i = 1; i <= optionNum; i++)
 	{
 		SpriteObject* p = new SpriteObject(fileName.at(i), 1, 1);
 		p->setSize(450.0,50.0);
-		p->setPosition(glm::vec3(0,0+(i*75),0));
+		p->setPosition(glm::vec3(0,150+(i*-75),0));
 		options.push_back(p);
 		Game::getInstance()->getObjectRef()->push_back(p);
 	}
-
-	GameObject* c1 = new GameObject(Tag::NONE);
-	c1->setColor(0, 0, 1);
-	c1->setSize(8, 8);
-	c1->setPosition(glm::vec3(-205, 75, 0));
-
-	Game::getInstance()->getObjectRef()->push_back(c1);
 }
 
 PauseMenu::~PauseMenu()
@@ -50,46 +50,7 @@ void PauseMenu::setColor(float r, float g, float b)
 
 void PauseMenu::update(float deltaTime)
 {
-	if (currentChoice <= 0)
-	{
-		//update option 0 (Resume) animation 
 
-		glPointSize(8.0); glColor3f(1, 0, 0);
-		glBegin(GL_POINTS);
-		glVertex3f(-5,75,0);
-		glVertex3f(5, 75, 0);
-		glEnd();
-
-	}
-	else if (currentChoice == 1)
-	{
-		//update option 1 (MainMenu) animation
-
-		glPointSize(8.0); glColor3f(1, 0, 0);
-		glBegin(GL_POINTS);
-		glVertex3f(-5, 150, 0);
-		glVertex3f(5, 150, 0);
-		glEnd();
-	}
-	else if (currentChoice == 2)
-	{
-		//update option 2  animation
-
-		glPointSize(8.0); glColor3f(1, 0, 0);
-		glBegin(GL_POINTS);
-		glVertex3f(-5, 225, 0);
-		glVertex3f(5, 225, 0);
-		glEnd();
-	}
-	else
-	{
-		//update option 3 (Quit) animation
-		glPointSize(8.0); glColor3f(1, 0, 0);
-		glBegin(GL_POINTS);
-		glVertex3f(-5, 300, 0);
-		glVertex3f(5, 300, 0);
-		glEnd();
-	}
 
 }
 
@@ -136,6 +97,25 @@ void PauseMenu::addSprite(string fileName, int row, int column)
 
 void PauseMenu::render(glm::mat4 globalModelTransform)
 {
+
+
+	if (currentChoice <= 0) //subSprite=1 (y = 150 +  1*-75)
+	{
+		c1->setPosition(glm::vec3(0, 75,0)); 
+	}
+	else if (currentChoice == 1)
+	{
+		c1->setPosition(glm::vec3(0, 0, 0));
+	}
+	else if (currentChoice == 2)
+	{
+		c1->setPosition(glm::vec3(0, -75, 0));
+	}
+	else
+	{
+		c1->setPosition(glm::vec3(0, -150, 0));
+	}
+
 	SquareMeshVbo *squareMesh = dynamic_cast<SquareMeshVbo *> (Game::getInstance()->getRenderer()->getMesh(SquareMeshVbo::MESH_NAME));
 
 	GLuint modelMatixId = Game::getInstance()->getRenderer()->getModelMatrixAttrId();
@@ -240,11 +220,13 @@ void PauseMenu::setNumberOfOptions(int num)
 
 void PauseMenu::destroyComponents()
 {
+	DrawableObject* instance;
+
 	for (int j = options.size() - 1; j >= 0; j--)
 	{
 		for (int i = Game::getInstance()->getObjectRef()->size() - 1; i >= 0; i--)
 		{
-			DrawableObject* instance = Game::getInstance()->getObjectRef()->at(i);
+			instance = Game::getInstance()->getObjectRef()->at(i);
 
 			if (instance->getObjId() == options.at(j)->getObjId())
 			{
@@ -254,11 +236,27 @@ void PauseMenu::destroyComponents()
 		}
 	}
 
+	for (int i = Game::getInstance()->getObjectRef()->size() - 1; i >= 0; i--)
+	{
+		instance = Game::getInstance()->getObjectRef()->at(i);
+
+		if (instance->getObjId() == c1->getObjId())
+		{
+			Game::getInstance()->getObjectRef()->erase(Game::getInstance()->getObjectRef()->begin() + i);
+			Game::getInstance()->getObjectRef()->end();
+		}
+	}
+
 }
 
 void PauseMenu::setCurrentSelection(int num)
 {
 	currentChoice = num;
+}
+
+int PauseMenu::getCurrentSelection()
+{
+	return currentChoice;
 }
 
 

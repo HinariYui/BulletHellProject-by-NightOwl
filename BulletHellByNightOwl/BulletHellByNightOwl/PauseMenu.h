@@ -7,7 +7,7 @@
 class PauseMenu :public DrawableObject
 {
 private:
-
+	GameObject * c1;//choiceIndicator
 	int currentChoice = 0;
 	glm::vec3 color;
 	vector<SpriteObject*> options;
@@ -51,6 +51,7 @@ public:
 	void destroyComponents();
 
 	void setCurrentSelection(int num);
+	int getCurrentSelection();
 
 };
 

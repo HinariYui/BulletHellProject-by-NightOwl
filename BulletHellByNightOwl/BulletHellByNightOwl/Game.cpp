@@ -67,6 +67,38 @@ void Game::handleKey(char ch)
 			objects.pop_back();
 			menuIsDestroyed = true;
 		}
+		else
+		{
+			if (isPaused == true)
+			{
+				PauseMenu* p = dynamic_cast<PauseMenu*>(pauseMenu);
+				if (p->getCurrentSelection() <= 0)
+				{
+					handleKey('E');//resume
+				}
+				else if (p->getCurrentSelection() == 1)
+				{
+					menu = new Menu();
+					menu->setSize(1280, 720);
+					menu->setPosition(glm::vec3(0, 0, 0));
+					objects.clear();
+					objects.push_back(menu);
+					menuIsDestroyed = false;
+					handleKey('E');
+					firstRound = true;
+					spawners[0]->eNum = 0;
+					bossSpawn = false;
+				}
+				else if (p->getCurrentSelection() == 1)
+				{
+					exit(0);
+				}
+				else
+				{
+					exit(0);
+				}
+			}
+		}
 	}
 
 	if (isPaused == true)
@@ -132,14 +164,18 @@ void Game::handleKey(char ch)
 			}
 			if (ch == 'E')
 			{
+
 				if (isPaused == false)
 				{
-					pauseMenu = new PauseMenu(pMenuSprite,3);
-					pauseMenu->setSize(1280, 720);
-					pauseMenu->setPosition(glm::vec3(0, 0, 0));
-					objects.push_back(pauseMenu); // index 8
+					if (menuIsDestroyed == true)
+					{
+						pauseMenu = new PauseMenu(pMenuSprite, 3);
+						pauseMenu->setSize(1280, 720);
+						pauseMenu->setPosition(glm::vec3(0, 0, 0));
+						//objects.push_back(pauseMenu); // index 8
 
-					isPaused = true;
+						isPaused = true;
+					}
 				}
 				else
 				{
@@ -191,8 +227,8 @@ void Game::init(int width, int height)
 	spawners.push_back(e1);
 
 	pMenuSprite.push_back("pauseMenu.png");
-	pMenuSprite.push_back("mainMenu.png");
 	pMenuSprite.push_back("resume.png");
+	pMenuSprite.push_back("mainMenu.png");
 
 	//getXMLspawnData();
 

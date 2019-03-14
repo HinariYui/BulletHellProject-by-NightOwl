@@ -162,16 +162,16 @@ bool GameObject::checkCollision(GameObject* obj)
 				cout << p->score << endl;
 			}
 		}
-		//for (int i = Game::getInstance()->getObjectRef()->size()-1; i >= 0; i--)
-		//{
-		//	DrawableObject* instance = Game::getInstance()->getObjectRef()->at(i);
+		for (int i = Game::getInstance()->getObjectRef()->size()-1; i >= 0; i--)
+		{
+			DrawableObject* instance = Game::getInstance()->getObjectRef()->at(i);
 
-		//	if (instance->getObjId() == this->objID)
-		//	{		
-		//		Game::getInstance()->getObjectRef()->erase(Game::getInstance()->getObjectRef()->begin() + i);
-		//		Game::getInstance()->getObjectRef()->end();
-		//	}
-		//}
+			if (instance->getObjId() == this->objID)
+			{		
+				Game::getInstance()->getObjectRef()->erase(Game::getInstance()->getObjectRef()->begin() + i);
+				Game::getInstance()->getObjectRef()->end();
+			}
+		}
 	}
 	if (this->tag == Player && (obj->tag == Enemy || obj->tag == eBullet))
 	{
