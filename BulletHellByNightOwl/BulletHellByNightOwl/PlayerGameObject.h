@@ -36,7 +36,7 @@ class PlayerGameObject :public GameObject
 	bool isBlinking = false;
 
 public:
-
+	int life = 3;
 	int score = 0;
 	float bulletSpeed = 16;
 	PlayerGameObject(Tag player) : GameObject(player) {addSprite("player.png", 2, 4); }; //: GameObject(player) { addSprite("player.png", 2, 4); };

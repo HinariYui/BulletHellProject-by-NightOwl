@@ -175,9 +175,14 @@ bool GameObject::checkCollision(GameObject* obj)
 	}
 	if (this->tag == Player && (obj->tag == Enemy || obj->tag == eBullet))
 	{
-		isCollide = true;
+		if ( Game::getInstance()->godMode == false)
+		{
+			isCollide = true;
 
-		Game::getInstance()->playerIsDead = true;
+			PlayerGameObject* p = dynamic_cast<PlayerGameObject*>(Game::getInstance()->getPlayerRef());
+			(p->life)--;
+			Game::getInstance()->playerIsDead = true;
+		}
 	}
 
 	return true;

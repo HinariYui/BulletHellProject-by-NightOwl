@@ -12,6 +12,7 @@ private:
 	glm::vec3 color;
 	vector<SpriteObject*> options;
 	int optionNum = 0;
+	int spriteNum = 0;
 	//for Sprite
 	unsigned int texture;
 	int rowMax;
@@ -31,7 +32,7 @@ private:
 public:
 	PauseMenu();
 	PauseMenu(string fileName);
-	PauseMenu(vector<string> fileName, int optNum);
+	PauseMenu(vector<string> fileName, int spriteNum, int optNum);
 	~PauseMenu();
 	void setColor(float r, float g, float b);
 	void update(float deltaTime);

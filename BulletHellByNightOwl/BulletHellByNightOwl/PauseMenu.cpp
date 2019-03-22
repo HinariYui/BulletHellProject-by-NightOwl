@@ -15,11 +15,13 @@ PauseMenu::PauseMenu(string fileName)
 	setAnimationLoop(1, 1, 1, 1000);
 }
 
-PauseMenu::PauseMenu(vector<string> fileName,int spriteNum)
+PauseMenu::PauseMenu(vector<string> fileName,int spriteNum,int optNum)
 {
+	optionNum = optNum;
+	this->spriteNum = spriteNum;
 	addSprite(fileName.at(0), 1, 1);
 	setAnimationLoop(1, 1, 1, 1000);
-	setNumberOfOptions(spriteNum-1);
+	setNumberOfOptions(optionNum);
 	Game::getInstance()->getObjectRef()->push_back(this);
 	
 	c1 = new GameObject(Tag::NONE);
@@ -97,7 +99,6 @@ void PauseMenu::addSprite(string fileName, int row, int column)
 
 void PauseMenu::render(glm::mat4 globalModelTransform)
 {
-
 
 	if (currentChoice <= 0) //subSprite=1 (y = 150 +  1*-75)
 	{

@@ -14,7 +14,7 @@ class Game
 	float timer = 0.0f;
 	static Game* instance;
 	int winWidth, winHeight;
-	vector<string> pMenuSprite;
+	GameObject* life[3];
 	vector<DrawableObject*> objects;
 	vector<Spawner*> spawners;
 	GLRenderer *renderer;
@@ -24,11 +24,16 @@ class Game
 	Game();
 	float e1SpawnRate = 0;
 	TextObject * scoreText;
+	TextObject * godModeIndicator;
+
 
 	bool bossSpawn = false;
 
 public:
 	~Game();
+	bool godMode = false;
+	vector<string> pMenuSprite;
+
 
 	bool isPaused = false;
 	bool shiftPressed = false;
