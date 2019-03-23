@@ -27,6 +27,7 @@ float playerSizeX = 40;
 float playerSizeY = 40;
 
 int scoreTemp;
+int lifeTemp;
 
 Game * Game::getInstance()
 {
@@ -89,7 +90,7 @@ void Game::handleKey(char ch)
 					spawners[0]->eNum = 0;
 					bossSpawn = false;
 				}
-				else if (p->getCurrentSelection() == 1)
+				else if (p->getCurrentSelection() == 2)
 				{
 					exit(0);
 				}
@@ -114,6 +115,33 @@ void Game::handleKey(char ch)
 
 			PlayerGameObject *p = dynamic_cast<PlayerGameObject*>(this->player);
 
+			if (ch == 'g')
+			{
+				if (godMode == false)
+				{
+					SDL_Color color = { 0, 165, 255 };
+
+					godMode = true;
+					godModeIndicator = new TextObject();
+					godModeIndicator->loadText("G", color, 10);
+					godModeIndicator->setPosition(glm::vec3(-615, 325, 0));
+					objects.push_back(godModeIndicator);
+				}
+				else
+				{
+					godMode = false;
+					for (int i = objects.size() - 1; i >= 0; i--)
+					{
+						DrawableObject* instance = objects.at(i);
+
+						if (instance->getObjId() == godModeIndicator->getObjId())
+						{
+							objects.erase(objects.begin() + i);
+							objects.end();
+						}
+					}
+				}
+			}
 			if (ch == 'l')
 			{
 				p->move('l');
@@ -169,7 +197,8 @@ void Game::handleKey(char ch)
 				{
 					if (menuIsDestroyed == true)
 					{
-						pauseMenu = new PauseMenu(pMenuSprite, 3);
+						pMenuCurrentSelection = 0;
+						pauseMenu = new PauseMenu(pMenuSprite, 10, 3);
 						pauseMenu->setSize(1280, 720);
 						pauseMenu->setPosition(glm::vec3(0, 0, 0));
 						//objects.push_back(pauseMenu); // index 8
@@ -182,13 +211,13 @@ void Game::handleKey(char ch)
 					PauseMenu* p = dynamic_cast<PauseMenu*>(pauseMenu);
 					p->destroyComponents();
 
-					for (int i = Game::getInstance()->getObjectRef()->size() - 1; i >= 0; i--)
+					for (int i = objects.size() - 1; i >= 0; i--)
 					{
-						DrawableObject* instance = Game::getInstance()->getObjectRef()->at(i);
+						DrawableObject* instance = objects.at(i);
 
 						if (instance->getObjId() == pauseMenu->getObjId())
 						{
-							objects.erase(Game::getInstance()->getObjectRef()->begin() + i);
+							objects.erase(objects.begin() + i);
 							objects.end();
 						}
 					}
@@ -227,9 +256,15 @@ void Game::init(int width, int height)
 	spawners.push_back(e1);
 
 	pMenuSprite.push_back("pauseMenu.png");
-	pMenuSprite.push_back("resume.png");
-	pMenuSprite.push_back("mainMenu.png");
-
+	pMenuSprite.push_back("Buttons/Idle_Resume_160x72.png");
+	pMenuSprite.push_back("Buttons/Idle_Mainmenu_160x72.png");
+	pMenuSprite.push_back("Buttons/Idle_Quit_160x72.png");
+	pMenuSprite.push_back("Buttons/Hover_Resume_128x219.png");
+	pMenuSprite.push_back("Buttons/Hover_Mainmenu_128x219.png");
+	pMenuSprite.push_back("Buttons/Hover_Quit_128x219.png");
+	pMenuSprite.push_back("Buttons/Pressed_Resume_128x219.png");
+	pMenuSprite.push_back("Buttons/Pressed_Mainmenu1_128x219.png");
+	pMenuSprite.push_back("Buttons/Pressed_Quit_128x219.png");
 	//getXMLspawnData();
 
 
@@ -350,6 +385,15 @@ void Game::update(float deltaTime)
 			//p->setAnimationLoop(1, 1, 0, 1000);
 			//objects.push_back(boss); // index 8
 
+			for (int i = 0; i < p->life; i++)
+			{
+				life[i] = new GameObject(Tag::NONE);
+				life[i]->setColor(0.7, 0, 0);
+				life[i]->setSize(20, 20);
+				life[i]->setPosition(glm::vec3(485 + 50*i, 250, 0));
+				objects.push_back(life[i]);
+			}
+
 			SDL_Color color = { 255, 165, 255 };
 
 			TextObject * text1 = new TextObject();
@@ -373,6 +417,8 @@ void Game::update(float deltaTime)
 		std::string s = std::to_string(p->score);
 		scoreText->loadText(s, color, 30);
 		scoreTemp = p->score;
+		lifeTemp = p->life;
+
 		if (playerIsDead)
 		{
 			shiftPressed = false;
@@ -384,12 +430,40 @@ void Game::update(float deltaTime)
 
 				PlayerGameObject* p = dynamic_cast<PlayerGameObject*>(player);
 				p->score = scoreTemp;
+				p->life = lifeTemp;
 				p->SetInvincible(true);
 				p->setSize(playerSizeX/5, playerSizeY/5);
 				p->setRotation(180);
 				p->setPosition(glm::vec3(-212, -250, 0));
 				p->setAnimationLoop(1, 1, 4, 1000);
 				objects.push_back(player);
+
+				if (p->life > 0)
+				{
+					for (int i = objects.size() - 1; i >= 0; i--)
+					{
+						DrawableObject* instance = objects.at(i);
+
+						if (instance->getObjId() == life[(p->life)]->getObjId())
+						{
+							objects.erase(objects.begin() + i);
+							objects.end();
+						}
+					}
+				}
+				else
+				{
+					menu = new Menu();
+					menu->setSize(1280, 720);
+					menu->setPosition(glm::vec3(0, 0, 0));
+					objects.clear();
+					objects.push_back(menu);
+					menuIsDestroyed = false;
+					handleKey('E');
+					firstRound = true;
+					spawners[0]->eNum = 0;
+					bossSpawn = false;
+				}
 
 				playerIsDead = false;
 				timer = 0;

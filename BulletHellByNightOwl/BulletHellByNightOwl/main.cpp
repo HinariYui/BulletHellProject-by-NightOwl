@@ -149,6 +149,7 @@ int main(int argc, char *argv[])
 				case SDLK_UP: game->handleKey('u');   break;
 				case SDLK_DOWN:game->handleKey('d');  break;
 				case SDLK_z: game->handleKey('z');	  break;
+				case SDLK_g: game->handleKey('g');	  break; //toggle godMode
 				case SDLK_LSHIFT: game->handleKey('s'); break; //leftShift press
 				case SDLK_ESCAPE: game->handleKey('E'); break; //Esc
 
