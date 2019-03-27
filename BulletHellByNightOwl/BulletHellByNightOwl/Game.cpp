@@ -9,6 +9,7 @@
 #include "CircleMeshVbo.h"
 #include "TextObject.h" 
 #include "Boss1.h"
+#include "Boss2.h"
 #include "Enemy1.h"
 #include "Menu.h"
 #include "PauseMenu.h"
@@ -492,10 +493,10 @@ void Game::update(float deltaTime)
 				spawners[i]->update(deltaTime);
 			}
 
-			if (spawners[0]->eNum > 10 && bossSpawn == false)
+			if (spawners[0]->eNum > 1 && bossSpawn == false)
 			{
 				spawners[0]->SetSpawnRate(2500);
-				Boss1 * boss = new Boss1(Tag::Enemy, "bossgirl-sample.png", 1, 1); //Tag enemy, string fileName, int row, int col
+				Boss2 * boss = new Boss2(Tag::Enemy, "bossgirl-sample.png", 1, 1); //Tag enemy, string fileName, int row, int col
 				boss->setRotation(180);													   //boss->setColor(1.0, 0.0, 0.0);
 				boss->setSize(100, 100);
 				boss->setPosition(glm::vec3(-212, 400, 0));

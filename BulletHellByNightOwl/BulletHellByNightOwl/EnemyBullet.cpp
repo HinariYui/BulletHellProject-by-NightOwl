@@ -14,6 +14,7 @@ void EnemyBullet::update(float deltaTime)
 
 	if ((pos.x > RIGHTBORDER + halfSizeX) || (pos.x < LEFTBORDER - halfSizeX) || (pos.y > 330 + halfSizeY) || (pos.y < -330 - halfSizeY))
 	{
+		oob = true;
 		for (int i = Game::getInstance()->getObjectRef()->size() - 1; i >= 0; i--)
 		{
 			DrawableObject* instance = Game::getInstance()->getObjectRef()->at(i);

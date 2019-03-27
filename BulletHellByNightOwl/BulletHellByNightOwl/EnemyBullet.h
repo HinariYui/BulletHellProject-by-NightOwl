@@ -9,4 +9,6 @@ public:
 	EnemyBullet(Tag bulletType) : BulletGameObject(bulletType) {setVelocity(glm::vec3(0, -5, 0));};
 	//~EnemyBullet();
 	void update(float deltaTime);
+
+	bool oob = false; // oob = out of bound
 };
