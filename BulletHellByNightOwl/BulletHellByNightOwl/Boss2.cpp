@@ -321,8 +321,8 @@ void Boss2::shoot1_2A() // pattern 1_2A
 		enemyBullet1_1->setPosition(bul1PosTemp);
 		enemyBullet1_2->setPosition(bul1PosTemp);
 
-		bulDir2 = glm::normalize(glm::vec3(1, -0.5f, 0));
-		bulDir3 = glm::normalize(glm::vec3(1, -0.8f, 0));
+		bulDir2 = glm::normalize(glm::vec3(1, -0.3f, 0));
+		bulDir3 = glm::normalize(glm::vec3(1, -0.5f, 0));
 
 		dynamic_cast<GameObject*>(enemyBullet1_1)->setVelocity(bulDir2 * bulletSpeed2);
 		dynamic_cast<GameObject*>(enemyBullet1_2)->setVelocity(bulDir3 * bulletSpeed2);
@@ -347,8 +347,8 @@ void Boss2::shoot1_2A() // pattern 1_2A
 		enemyBullet2_1->setPosition(bul2PosTemp);
 		enemyBullet2_2->setPosition(bul2PosTemp);
 
-		bulDir2 = glm::normalize(glm::vec3(-1, -0.5f, 0));
-		bulDir3 = glm::normalize(glm::vec3(-1, -0.8f, 0));
+		bulDir2 = glm::normalize(glm::vec3(-1, -0.3f, 0));
+		bulDir3 = glm::normalize(glm::vec3(-1, -0.5f, 0));
 
 		dynamic_cast<GameObject*>(enemyBullet2_1)->setVelocity(bulDir2 * bulletSpeed2);
 		dynamic_cast<GameObject*>(enemyBullet2_2)->setVelocity(bulDir3 * bulletSpeed2);
@@ -358,56 +358,56 @@ void Boss2::shoot1_2A() // pattern 1_2A
 
 		isShooting3 = true;
 	}
-	////Bullet3 OOB
-	//if (dynamic_cast<EnemyBullet*>(enemyBullet1)->oob == true && isShooting2 == false)
-	//{
-	//	bul1PosTemp = enemyBullet1->getPosition();
-	//	bul1PosTemp.x = -462 - 20;
-	//	DrawableObject* enemyBullet1_1 = new EnemyBullet(Tag::eBullet, "Boss1Bullet20x20.png");
-	//	DrawableObject* enemyBullet1_2 = new EnemyBullet(Tag::eBullet, "Boss1Bullet20x20.png");
-	//
-	//	enemyBullet1_1->setSize(40, 40);
-	//	enemyBullet1_2->setSize(40, 40);
-	//
-	//	enemyBullet1_1->setPosition(bul1PosTemp);
-	//	enemyBullet1_2->setPosition(bul1PosTemp);
-	//
-	//	bulDir2 = glm::normalize(glm::vec3(1, -0.5f, 0));
-	//	bulDir3 = glm::normalize(glm::vec3(1, -0.8f, 0));
-	//
-	//	dynamic_cast<GameObject*>(enemyBullet1_1)->setVelocity(bulDir2 * bulletSpeed2);
-	//	dynamic_cast<GameObject*>(enemyBullet1_2)->setVelocity(bulDir3 * bulletSpeed2);
-	//
-	//	Game::getInstance()->getObjectRef()->push_back(enemyBullet1_1);
-	//	Game::getInstance()->getObjectRef()->push_back(enemyBullet1_2);
-	//
-	//	isShooting2 = true;
-	//}
-	////Bullet4 OOB
-	//if (dynamic_cast<EnemyBullet*>(enemyBullet1)->oob == true && isShooting2 == false)
-	//{
-	//	bul1PosTemp = enemyBullet1->getPosition();
-	//	bul1PosTemp.x = -462 - 20;
-	//	DrawableObject* enemyBullet1_1 = new EnemyBullet(Tag::eBullet, "Boss1Bullet20x20.png");
-	//	DrawableObject* enemyBullet1_2 = new EnemyBullet(Tag::eBullet, "Boss1Bullet20x20.png");
-	//
-	//	enemyBullet1_1->setSize(40, 40);
-	//	enemyBullet1_2->setSize(40, 40);
-	//
-	//	enemyBullet1_1->setPosition(bul1PosTemp);
-	//	enemyBullet1_2->setPosition(bul1PosTemp);
-	//
-	//	bulDir2 = glm::normalize(glm::vec3(1, -0.5f, 0));
-	//	bulDir3 = glm::normalize(glm::vec3(1, -0.8f, 0));
-	//
-	//	dynamic_cast<GameObject*>(enemyBullet1_1)->setVelocity(bulDir2 * bulletSpeed2);
-	//	dynamic_cast<GameObject*>(enemyBullet1_2)->setVelocity(bulDir3 * bulletSpeed2);
-	//
-	//	Game::getInstance()->getObjectRef()->push_back(enemyBullet1_1);
-	//	Game::getInstance()->getObjectRef()->push_back(enemyBullet1_2);
-	//
-	//	isShooting2 = true;
-	//}
+	//Bullet3 OOB
+	if (dynamic_cast<EnemyBullet*>(enemyBullet3)->oob == true && isShooting4 == false)
+	{
+		bul3PosTemp = enemyBullet3->getPosition();
+		bul3PosTemp.x = -462 - 20;
+		DrawableObject* enemyBullet3_1 = new EnemyBullet(Tag::eBullet, "Boss1Bullet20x20.png");
+		DrawableObject* enemyBullet3_2 = new EnemyBullet(Tag::eBullet, "Boss1Bullet20x20.png");
+	
+		enemyBullet3_1->setSize(40, 40);
+		enemyBullet3_2->setSize(40, 40);
+	
+		enemyBullet3_1->setPosition(bul3PosTemp);
+		enemyBullet3_2->setPosition(bul3PosTemp);
+	
+		bulDir2 = glm::normalize(glm::vec3(1, -0.5f, 0));
+		bulDir3 = glm::normalize(glm::vec3(1, -0.7f, 0));
+	
+		dynamic_cast<GameObject*>(enemyBullet3_1)->setVelocity(bulDir2 * bulletSpeed2);
+		dynamic_cast<GameObject*>(enemyBullet3_2)->setVelocity(bulDir3 * bulletSpeed2);
+	
+		Game::getInstance()->getObjectRef()->push_back(enemyBullet3_1);
+		Game::getInstance()->getObjectRef()->push_back(enemyBullet3_2);
+	
+		isShooting4 = true;
+	}
+	//Bullet4 OOB
+	if (dynamic_cast<EnemyBullet*>(enemyBullet4)->oob == true && isShooting5 == false)
+	{
+		bul4PosTemp = enemyBullet4->getPosition();
+		bul4PosTemp.x = 38 + 20;
+		DrawableObject* enemyBullet4_1 = new EnemyBullet(Tag::eBullet, "Boss1Bullet20x20.png");
+		DrawableObject* enemyBullet4_2 = new EnemyBullet(Tag::eBullet, "Boss1Bullet20x20.png");
+	
+		enemyBullet4_1->setSize(40, 40);
+		enemyBullet4_2->setSize(40, 40);
+	
+		enemyBullet4_1->setPosition(bul4PosTemp);
+		enemyBullet4_2->setPosition(bul4PosTemp);
+	
+		bulDir2 = glm::normalize(glm::vec3(-1, -0.5f, 0));
+		bulDir3 = glm::normalize(glm::vec3(-1, -0.8f, 0));
+	
+		dynamic_cast<GameObject*>(enemyBullet4_1)->setVelocity(bulDir2 * bulletSpeed2);
+		dynamic_cast<GameObject*>(enemyBullet4_2)->setVelocity(bulDir3 * bulletSpeed2);
+	
+		Game::getInstance()->getObjectRef()->push_back(enemyBullet4_1);
+		Game::getInstance()->getObjectRef()->push_back(enemyBullet4_2);
+	
+		isShooting5 = true;
+	}
 	//// Bullet5 OOB
 	//if (dynamic_cast<EnemyBullet*>(enemyBullet1)->oob == true && isShooting2 == false)
 	//{

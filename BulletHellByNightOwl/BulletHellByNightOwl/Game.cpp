@@ -24,8 +24,8 @@ Game* Game::instance = nullptr;
 //
 //float playerSizeX = 35;
 //float playerSizeY = 35;
-float playerSizeX = 40;
-float playerSizeY = 40;
+float playerSizeX = 35;
+float playerSizeY = 60;
 
 int scoreTemp;
 int lifeTemp;
@@ -373,7 +373,7 @@ void Game::update(float deltaTime)
 			player = new PlayerGameObject(Tag::Player);
 			PlayerGameObject* p = dynamic_cast<PlayerGameObject *>(player);
 
-			p->setSize(playerSizeX/5, playerSizeY/5);
+			p->setSize(playerSizeX/7, playerSizeY/12);
 			p->setRotation(180);
 			p->setPosition(glm::vec3(-212, -250, 0));
 			p->setAnimationLoop(1, 1, 4, 1000);
@@ -433,7 +433,7 @@ void Game::update(float deltaTime)
 				p->score = scoreTemp;
 				p->life = lifeTemp;
 				p->SetInvincible(true);
-				p->setSize(playerSizeX/5, playerSizeY/5);
+				p->setSize(playerSizeX/7, playerSizeY/12);
 				p->setRotation(180);
 				p->setPosition(glm::vec3(-212, -250, 0));
 				p->setAnimationLoop(1, 1, 4, 1000);
