@@ -127,6 +127,8 @@
   <ItemGroup>
     <ClCompile Include="Audio.cpp" />
     <ClCompile Include="Boss1.cpp" />
+    <ClCompile Include="Boss2.cpp" />
+    <ClCompile Include="Boss2.h" />
     <ClCompile Include="BulletGameObject.cpp" />
     <ClCompile Include="CircleMeshVbo.cpp" />
     <ClCompile Include="CustomMeshVbo.cpp" />
