@@ -15,6 +15,8 @@
 #include "Spawner.h"
 #include "tinyxml2.h"
 
+#include <fstream>
+
 #define MID_PLAYAREA_X -212
 
 using namespace tinyxml2;
@@ -241,6 +243,8 @@ void Game::init(int width, int height)
 	renderer->setOrthoProjection(-640, 640, -360, 360);
 	renderer->setClearColor(1.0f, 1.0f, 200.0f / 255);
 
+	readHighScore();//get saved highScore
+
 	//PA = Play Area
 	SquareMeshVbo * squareMesh = new SquareMeshVbo();
 	squareMesh->loadData();
@@ -354,6 +358,14 @@ Game::Game()
 
 void Game::update(float deltaTime)
 {
+
+	//PlayerGameObject* p = dynamic_cast<PlayerGameObject *>(player);
+	//if (p->score > highScore)
+	//{
+	//	highScore = p->score;
+	//	writeHighScore();
+	//}
+
 	if (menuIsDestroyed == true)
 	{
 		if (firstRound == true)
@@ -408,6 +420,19 @@ void Game::update(float deltaTime)
 			scoreText->setPosition(glm::vec3(535, 150, 0));
 			objects.push_back(scoreText);
 
+			color = { 255, 165, 0 };
+			TextObject * text2 = new TextObject();
+			text2->loadText("HIGHSCORE", color, 20);
+			text2->setPosition(glm::vec3(535, -300, 0));
+			objects.push_back(text2); // index 8
+
+			std::string s2 = std::to_string(highScore);
+
+			highScoreText = new TextObject();
+			highScoreText->loadText(s2, color, 20);
+			highScoreText->setPosition(glm::vec3(535, -325, 0));
+			objects.push_back(highScoreText);
+
 			playerIsDead = false;
 			firstRound = false;
 		}
@@ -418,6 +443,15 @@ void Game::update(float deltaTime)
 		scoreText->loadText(s, color, 30);
 		scoreTemp = p->score;
 		lifeTemp = p->life;
+
+		if (p->score > highScore)
+		{
+			highScore = p->score;
+			writeHighScore();
+			SDL_Color color = { 255, 165, 0 };
+			std::string s = std::to_string(highScore);
+			highScoreText->loadText(s, color, 20);
+		}
 
 		if (playerIsDead)
 		{
@@ -656,6 +690,37 @@ Game::~Game()
 	//spawners.clear();
 	//objects.clear();
 	//pMenuSprite.clear();
+}
+
+
+void Game::writeHighScore()
+{
+	ofstream myfile("highScore.txt");
+	if (myfile.is_open())
+	{
+		myfile << highScore;
+		myfile.close();
+	}
+	else cout << "Unable to open file";
+
+}
+void Game::readHighScore()
+{
+	string line;
+	ifstream myfile("highScore.txt");
+	if (myfile.is_open())
+	{
+		while (getline(myfile, line))
+		{
+			cout << line << '\n';
+			highScore = stoi(line);
+			cout << highScore << ":)\n";
+		}
+		myfile.close();
+	}
+	else cout << "Unable to open file";
+
+
 }
 
 

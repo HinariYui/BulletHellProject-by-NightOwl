@@ -9,6 +9,7 @@
 using namespace std;
 class Game
 {	
+	unsigned int highScore = 0;
 	int pMenuCurrentSelection = 0;
 	float playtime = 0.0f;
 	float timer = 0.0f;
@@ -24,6 +25,7 @@ class Game
 	Game();
 	float e1SpawnRate = 0;
 	TextObject * scoreText;
+	TextObject * highScoreText;
 	TextObject * godModeIndicator;
 
 
@@ -51,5 +53,8 @@ public:
 	DrawableObject* getPlayerRef();
 	int getXMLspawnData();
 	void checkPauseMenuInput(char input);
+
+	void writeHighScore();
+	void readHighScore();
 
 };

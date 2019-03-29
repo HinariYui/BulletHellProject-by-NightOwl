@@ -22,6 +22,8 @@ private:
 public:
 	SpriteObject(string fileName, int row, int column);
 	~SpriteObject();
+
+	void addSprite(string fileName, int row, int column);
 	void render(glm::mat4 globalModelTransform);
 	void update(float deltaTime);
 	void setRow(int r);

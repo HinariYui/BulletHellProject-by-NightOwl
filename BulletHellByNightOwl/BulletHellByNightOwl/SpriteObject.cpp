@@ -6,6 +6,12 @@
 
 SpriteObject::SpriteObject(string fileName, int row, int column) : GameObject(NONE)
 {
+	addSprite(fileName,  row,  column);
+}
+
+
+void SpriteObject::addSprite(string fileName, int row, int column)
+{
 	glActiveTexture(GL_TEXTURE0);
 	SDL_Surface *image = IMG_Load(fileName.c_str());
 	if (image == NULL)
@@ -23,7 +29,7 @@ SpriteObject::SpriteObject(string fileName, int row, int column) : GameObject(NO
 	}
 
 	glTexImage2D(GL_TEXTURE_2D, 0, Mode, image->w, image->h, 0, Mode, GL_UNSIGNED_BYTE, image->pixels);
-	
+
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);

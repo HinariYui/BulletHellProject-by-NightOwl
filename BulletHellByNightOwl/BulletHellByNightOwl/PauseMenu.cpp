@@ -23,12 +23,12 @@ PauseMenu::PauseMenu(vector<string> fileName,int spriteNum,int optNum)
 	setAnimationLoop(1, 1, 1, 1000);
 	setNumberOfOptions(optionNum);
 	Game::getInstance()->getObjectRef()->push_back(this);
-	
-	c1 = new GameObject(Tag::NONE);
-	c1->setColor(0.5,0.7,1);
-	c1->setSize(460,60);
-	c1->setPosition(glm::vec3(-205, 75, 0));
-	Game::getInstance()->getObjectRef()->push_back(c1);
+
+	//c1 = new GameObject(Tag::NONE);
+	//c1->setColor(0.5, 0.7, 1);
+	//c1->setSize(460, 60);
+	//c1->setPosition(glm::vec3(-205, 75, 0));
+	//Game::getInstance()->getObjectRef()->push_back(c1);
 
 	for (int i = 1; i <= optionNum; i++)
 	{
@@ -38,6 +38,14 @@ PauseMenu::PauseMenu(vector<string> fileName,int spriteNum,int optNum)
 		options.push_back(p);
 		Game::getInstance()->getObjectRef()->push_back(p);
 	}
+
+	c1 = new SpriteObject(fileName.at(4),1,5);
+	c1->setSize(460, 60);
+	c1->setPosition(glm::vec3(-205, 75, 0));
+	//c1->setAnimationLoop(1, 1, 5, 1000);
+	Game::getInstance()->getObjectRef()->push_back(c1);
+
+
 }
 
 PauseMenu::~PauseMenu()
@@ -52,8 +60,13 @@ void PauseMenu::setColor(float r, float g, float b)
 
 void PauseMenu::update(float deltaTime)
 {
-
-
+	timeCount += deltaTime;
+	if (timeCount > animationTime / loopMax)
+	{
+		c1->nextAnimation();
+		//c1->genUV();
+		timeCount = 0;
+	}
 }
 
 void PauseMenu::addSprite(string fileName, int row, int column)
@@ -102,14 +115,17 @@ void PauseMenu::render(glm::mat4 globalModelTransform)
 
 	if (currentChoice <= 0) //subSprite=1 (y = 150 +  1*-75)
 	{
+		c1->addSprite(Game::getInstance()->pMenuSprite.at(4), 1, 5);
 		c1->setPosition(glm::vec3(0, 75,0)); 
 	}
 	else if (currentChoice == 1)
 	{
+		c1->addSprite(Game::getInstance()->pMenuSprite.at(5), 1, 5);
 		c1->setPosition(glm::vec3(0, 0, 0));
 	}
 	else if (currentChoice == 2)
 	{
+		c1->addSprite(Game::getInstance()->pMenuSprite.at(6), 1, 5);
 		c1->setPosition(glm::vec3(0, -75, 0));
 	}
 	else
