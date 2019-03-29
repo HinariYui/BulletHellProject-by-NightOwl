@@ -360,13 +360,6 @@ Game::Game()
 void Game::update(float deltaTime)
 {
 
-	//PlayerGameObject* p = dynamic_cast<PlayerGameObject *>(player);
-	//if (p->score > highScore)
-	//{
-	//	highScore = p->score;
-	//	writeHighScore();
-	//}
-
 	if (menuIsDestroyed == true)
 	{
 		if (firstRound == true)
