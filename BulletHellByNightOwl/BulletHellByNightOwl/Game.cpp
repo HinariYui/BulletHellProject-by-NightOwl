@@ -32,6 +32,13 @@ float playerSizeY = 60;
 int scoreTemp;
 int lifeTemp;
 
+bool spawnBoss1 = false;
+bool spawnBoss2 = false;
+int bossIndex;
+
+Boss1* boss1;
+Boss2* boss2;
+
 Game * Game::getInstance()
 {
 	if (instance == nullptr) {
@@ -112,8 +119,6 @@ void Game::handleKey(char ch)
 
 	if (!playerIsDead)
 	{
-
-		//cout << ch << endl;
 		if (this->objects.size() > 0) {
 
 			PlayerGameObject *p = dynamic_cast<PlayerGameObject*>(this->player);
@@ -231,8 +236,18 @@ void Game::handleKey(char ch)
 			}
 		}
 	}
-
-
+	if (ch == 'o')
+	{
+		spawnBoss1 = true;
+		spawnBoss2 = false;
+		bossSpawn = false;
+	}
+	if (ch == 'p')
+	{
+		spawnBoss2 = true;
+		spawnBoss1 = false;
+		bossSpawn = false;
+	}
 }
 
 void Game::init(int width, int height)
@@ -515,19 +530,93 @@ void Game::update(float deltaTime)
 		
 		if (isPaused == false)
 		{
-			for (int i = 0; i < spawners.size(); i++)
-			{
-				spawners[i]->update(deltaTime);
-			}
+			//for (int i = 0; i < spawners.size(); i++)
+			//{
+			//	spawners[i]->update(deltaTime);
+			//}
+			//
+			//if (spawners[0]->eNum > 1 && bossSpawn == false)
+			//{
+			//	spawners[0]->SetSpawnRate(2500);
+			//	Boss2 * boss = new Boss2(Tag::Enemy, "bossgirl-sample.png", 1, 1); //Tag enemy, string fileName, int row, int col
+			//	boss->setRotation(180);													   //boss->setColor(1.0, 0.0, 0.0);
+			//	boss->setSize(100, 100);
+			//	boss->setPosition(glm::vec3(-212, 400, 0));
+			//	objects.push_back(boss);
+			//	bossSpawn = true;
+			//}
 
-			if (spawners[0]->eNum > 1 && bossSpawn == false)
+			if (spawnBoss1 && !bossSpawn)
 			{
-				spawners[0]->SetSpawnRate(2500);
-				Boss2 * boss = new Boss2(Tag::Enemy, "bossgirl-sample.png", 1, 1); //Tag enemy, string fileName, int row, int col
-				boss->setRotation(180);													   //boss->setColor(1.0, 0.0, 0.0);
-				boss->setSize(100, 100);
-				boss->setPosition(glm::vec3(-212, 400, 0));
-				objects.push_back(boss);
+
+				if (boss1 != nullptr)
+				{
+					for (int i = objects.size() - 1; i >= 0; i--)
+					{
+						DrawableObject* instance = objects.at(i);
+
+						if (instance->getObjId() == boss1->getObjId())
+						{
+							objects.erase(objects.begin() + i);
+							objects.end();
+						}
+					}
+				}
+				if (boss2 != nullptr)
+				{
+					for (int i = objects.size() - 1; i >= 0; i--)
+					{
+						DrawableObject* instance = objects.at(i);
+
+						if (instance->getObjId() == boss2->getObjId())
+						{
+							objects.erase(objects.begin() + i);
+							objects.end();
+						}
+					}
+				}
+
+				boss1 = new Boss1(Tag::Enemy, "bossgirl-sample.png", 1, 1); //Tag enemy, string fileName, int row, int col
+				boss1->setRotation(180);													   //boss->setColor(1.0, 0.0, 0.0);
+				boss1->setSize(100, 100);
+				boss1->setPosition(glm::vec3(-212, 400, 0));
+				objects.push_back(boss1);
+				bossSpawn = true;
+			}
+			if (spawnBoss2 && !bossSpawn)
+			{
+				if (boss1 != nullptr)
+				{
+					for (int i = objects.size() - 1; i >= 0; i--)
+					{
+						DrawableObject* instance = objects.at(i);
+
+						if (instance->getObjId() == boss1->getObjId())
+						{
+							objects.erase(objects.begin() + i);
+							objects.end();
+						}
+					}
+				}
+				if (boss2 != nullptr)
+				{
+					for (int i = objects.size() - 1; i >= 0; i--)
+					{
+						DrawableObject* instance = objects.at(i);
+
+						if (instance->getObjId() == boss2->getObjId())
+						{
+							objects.erase(objects.begin() + i);
+							objects.end();
+						}
+					}
+				}
+
+				boss2 = new Boss2(Tag::Enemy, "bossgirl-sample.png", 1, 1); //Tag enemy, string fileName, int row, int col
+				boss2->setRotation(180);													   //boss->setColor(1.0, 0.0, 0.0);
+				boss2->setSize(100, 100);
+				boss2->setPosition(glm::vec3(-212, 400, 0));
+				objects.push_back(boss2);
 				bossSpawn = true;
 			}
 
