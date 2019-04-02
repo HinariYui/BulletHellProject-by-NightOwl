@@ -21,10 +21,10 @@ Boss1::Boss1(Tag enemy, string fileName, int row, int col) : SpriteObject(fileNa
 	HPbar->setPosition(glm::vec3(HPpos, 340, 0));
 	HPbar->setColor(1, 0.85, 0);
 
-	Drone1 = new SpriteObject("Weapon_Drone.png", 1, 1);
-	Drone2 = new SpriteObject("Weapon_Drone.png", 1, 1);
-	Drone3 = new SpriteObject("Weapon_Drone.png", 1, 1);
-	Drone4 = new SpriteObject("Weapon_Drone.png", 1, 1);
+	Drone1 = new SpriteObject("WeaponDrone_48x48.png", 1, 1);
+	Drone2 = new SpriteObject("WeaponDrone_48x48.png", 1, 1);
+	Drone3 = new SpriteObject("WeaponDrone_48x48.png", 1, 1);
+	Drone4 = new SpriteObject("WeaponDrone_48x48.png", 1, 1);
 
 	Drone1->setSize(48, 48);
 	Drone2->setSize(48, 48);

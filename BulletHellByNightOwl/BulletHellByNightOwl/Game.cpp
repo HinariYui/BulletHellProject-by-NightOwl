@@ -384,7 +384,7 @@ void Game::update(float deltaTime)
 			BG->setPosition(glm::vec3(0, 0, 0));
 			objects.push_back(BG);
 
-			SpriteObject * PA = new SpriteObject("bg1-3.png", 2, 1); //Play Area
+			SpriteObject * PA = new SpriteObject("Map2-1.png", 2, 1); //Play Area
 			PA->setSize(1280, 720);
 			PA->setPosition(glm::vec3(-212, 0, 0));
 			objects.push_back(PA); // index 0
@@ -576,9 +576,9 @@ void Game::update(float deltaTime)
 					}
 				}
 
-				boss1 = new Boss1(Tag::Enemy, "bossgirl-sample.png", 1, 1); //Tag enemy, string fileName, int row, int col
+				boss1 = new Boss1(Tag::Enemy, "Boss1_Idle_ColorVer3_82x100.png", 1, 1); //Tag enemy, string fileName, int row, int col
 				boss1->setRotation(180);													   //boss->setColor(1.0, 0.0, 0.0);
-				boss1->setSize(100, 100);
+				boss1->setSize(100, 120);
 				boss1->setPosition(glm::vec3(-212, 400, 0));
 				objects.push_back(boss1);
 				bossSpawn = true;
