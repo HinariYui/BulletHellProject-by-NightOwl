@@ -8,7 +8,7 @@ class PauseMenu :public DrawableObject
 {
 private:
 	
-	AnimatedSelection * c1;
+	AnimatedSelection *c1, *c2, *c3;
 	//GameObject * c1;//choiceIndicator
 	int currentChoice = 0;
 	glm::vec3 color;

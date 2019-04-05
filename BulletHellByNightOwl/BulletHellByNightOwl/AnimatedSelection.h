@@ -20,6 +20,8 @@ private:
 	int timeCount;
 
 public:
+
+	bool enable = true;
 	AnimatedSelection(string fileName, int row, int column);
 	~AnimatedSelection();
 

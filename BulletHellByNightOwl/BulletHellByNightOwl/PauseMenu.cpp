@@ -41,10 +41,21 @@ PauseMenu::PauseMenu(vector<string> fileName,int spriteNum,int optNum)
 
 	c1 = new AnimatedSelection(fileName.at(4),1,5);
 	c1->setSize(438, 129);
-
 	c1->setPosition(glm::vec3(0, 75, 0));
-	//c1->setAnimationLoop(1, 5, 5, 1000);
+	c1->setAnimationLoop(1, 5, 5, 1000);
 	Game::getInstance()->getObjectRef()->push_back(c1);
+
+	c2 = new AnimatedSelection(fileName.at(5), 1, 5);
+	c2->setSize(438, 129);
+	c2->setPosition(glm::vec3(0, 0, 0));
+	c2->setAnimationLoop(1, 5, 5, 1000);
+	Game::getInstance()->getObjectRef()->push_back(c2);
+	
+	c3 = new AnimatedSelection(fileName.at(6), 1, 5);
+	c3->setSize(438, 129);
+	c3->setPosition(glm::vec3(0, -75, 0));
+	c3->setAnimationLoop(1, 5, 5, 1000);
+	Game::getInstance()->getObjectRef()->push_back(c3);
 
 
 }
@@ -64,26 +75,36 @@ void PauseMenu::update(float deltaTime)
 
 	if (currentChoice <= 0) //subSprite=1 (y = 150 +  1*-75)
 	{
-		c1->addSprite(Game::getInstance()->pMenuSprite.at(4), 1, 5);
-		c1->setPosition(glm::vec3(0, 75, 0));
-		//c1->setAnimationLoop(1, 5, 5, 1000);
+		c1->enable = true;
+		c2->enable = false;
+		c3->enable = false;
+		//c1->addSprite(Game::getInstance()->pMenuSprite.at(4), 1, 5);
+		//c1->setPosition(glm::vec3(0, 75, 0));
 	}
 	else if (currentChoice == 1)
 	{
-		c1->addSprite(Game::getInstance()->pMenuSprite.at(5), 1, 5);
-		c1->setPosition(glm::vec3(0, 0, 0));
-	}
-	else if (currentChoice == 2)
-	{
-		c1->addSprite(Game::getInstance()->pMenuSprite.at(6), 1, 5);
-		c1->setPosition(glm::vec3(0, -75, 0));
-	}
-	else
-	{
-		c1->setPosition(glm::vec3(0, -150, 0));
-	}
+		c1->enable = false;
+		c2->enable = true;
+		c3->enable = false;
 
+		//c1->addSprite(Game::getInstance()->pMenuSprite.at(5), 1, 5);
+		//c1->setPosition(glm::vec3(0, 0, 0));
+	}
+	else// if (currentChoice == 2)
+	{
+		c1->enable = false;
+		c2->enable = false;
+		c3->enable = true;
+		//c1->addSprite(Game::getInstance()->pMenuSprite.at(6), 1, 5);
+		//c1->setPosition(glm::vec3(0, -75, 0));
+	}
+	//else
+	//{
+	//	//c1->setPosition(glm::vec3(0, -150, 0));
+	//}
 	c1->update(deltaTime);
+	c2->update(deltaTime);
+	c3->update(deltaTime);
 
 }
 
@@ -275,7 +296,7 @@ void PauseMenu::destroyComponents()
 	{
 		instance = Game::getInstance()->getObjectRef()->at(i);
 
-		if (instance->getObjId() == c1->getObjId())
+		if (instance->getObjId() == c1->getObjId() || instance->getObjId() == c2->getObjId() || instance->getObjId() == c3->getObjId())
 		{
 			Game::getInstance()->getObjectRef()->erase(Game::getInstance()->getObjectRef()->begin() + i);
 			Game::getInstance()->getObjectRef()->end();
