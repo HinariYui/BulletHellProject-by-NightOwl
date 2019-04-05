@@ -32,17 +32,18 @@ PauseMenu::PauseMenu(vector<string> fileName,int spriteNum,int optNum)
 
 	for (int i = 1; i <= optionNum; i++)
 	{
-		SpriteObject* p = new SpriteObject(fileName.at(i), 1, 1);
-		p->setSize(450.0,50.0);
+		AnimatedSelection* p = new AnimatedSelection(fileName.at(i), 1, 1);
+		p->setSize(438,129);
 		p->setPosition(glm::vec3(0,150+(i*-75),0));
 		options.push_back(p);
 		Game::getInstance()->getObjectRef()->push_back(p);
 	}
 
-	c1 = new SpriteObject(fileName.at(4),1,5);
-	c1->setSize(460, 60);
-	c1->setPosition(glm::vec3(-205, 75, 0));
-	//c1->setAnimationLoop(1, 1, 5, 1000);
+	c1 = new AnimatedSelection(fileName.at(4),1,5);
+	c1->setSize(438, 129);
+
+	c1->setPosition(glm::vec3(0, 75, 0));
+	//c1->setAnimationLoop(1, 5, 5, 1000);
 	Game::getInstance()->getObjectRef()->push_back(c1);
 
 
@@ -60,13 +61,30 @@ void PauseMenu::setColor(float r, float g, float b)
 
 void PauseMenu::update(float deltaTime)
 {
-	timeCount += deltaTime;
-	if (timeCount > animationTime / loopMax)
+
+	if (currentChoice <= 0) //subSprite=1 (y = 150 +  1*-75)
 	{
-		c1->nextAnimation();
-		//c1->genUV();
-		timeCount = 0;
+		c1->addSprite(Game::getInstance()->pMenuSprite.at(4), 1, 5);
+		c1->setPosition(glm::vec3(0, 75, 0));
+		//c1->setAnimationLoop(1, 5, 5, 1000);
 	}
+	else if (currentChoice == 1)
+	{
+		c1->addSprite(Game::getInstance()->pMenuSprite.at(5), 1, 5);
+		c1->setPosition(glm::vec3(0, 0, 0));
+	}
+	else if (currentChoice == 2)
+	{
+		c1->addSprite(Game::getInstance()->pMenuSprite.at(6), 1, 5);
+		c1->setPosition(glm::vec3(0, -75, 0));
+	}
+	else
+	{
+		c1->setPosition(glm::vec3(0, -150, 0));
+	}
+
+	c1->update(deltaTime);
+
 }
 
 void PauseMenu::addSprite(string fileName, int row, int column)
@@ -113,25 +131,25 @@ void PauseMenu::addSprite(string fileName, int row, int column)
 void PauseMenu::render(glm::mat4 globalModelTransform)
 {
 
-	if (currentChoice <= 0) //subSprite=1 (y = 150 +  1*-75)
-	{
-		c1->addSprite(Game::getInstance()->pMenuSprite.at(4), 1, 5);
-		c1->setPosition(glm::vec3(0, 75,0)); 
-	}
-	else if (currentChoice == 1)
-	{
-		c1->addSprite(Game::getInstance()->pMenuSprite.at(5), 1, 5);
-		c1->setPosition(glm::vec3(0, 0, 0));
-	}
-	else if (currentChoice == 2)
-	{
-		c1->addSprite(Game::getInstance()->pMenuSprite.at(6), 1, 5);
-		c1->setPosition(glm::vec3(0, -75, 0));
-	}
-	else
-	{
-		c1->setPosition(glm::vec3(0, -150, 0));
-	}
+	//if (currentChoice <= 0) //subSprite=1 (y = 150 +  1*-75)
+	//{
+	//	c1->addSprite(Game::getInstance()->pMenuSprite.at(4), 1, 5);
+	//	c1->setPosition(glm::vec3(0, 75,0)); 
+	//}
+	//else if (currentChoice == 1)
+	//{
+	//	c1->addSprite(Game::getInstance()->pMenuSprite.at(5), 1, 5);
+	//	c1->setPosition(glm::vec3(0, 0, 0));
+	//}
+	//else if (currentChoice == 2)
+	//{
+	//	c1->addSprite(Game::getInstance()->pMenuSprite.at(6), 1, 5);
+	//	c1->setPosition(glm::vec3(0, -75, 0));
+	//}
+	//else
+	//{
+	//	c1->setPosition(glm::vec3(0, -150, 0));
+	//}
 
 	SquareMeshVbo *squareMesh = dynamic_cast<SquareMeshVbo *> (Game::getInstance()->getRenderer()->getMesh(SquareMeshVbo::MESH_NAME));
 

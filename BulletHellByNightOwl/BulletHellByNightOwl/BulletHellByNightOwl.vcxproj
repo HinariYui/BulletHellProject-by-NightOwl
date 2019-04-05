@@ -125,6 +125,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AnimatedSelection.cpp" />
     <ClCompile Include="Audio.cpp" />
     <ClCompile Include="Boss1.cpp" />
     <ClCompile Include="Boss2.cpp" />
@@ -158,6 +159,7 @@
     <ClCompile Include="tinyxml2.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AnimatedSelection.h" />
     <ClInclude Include="Audio.h" />
     <ClInclude Include="Boss1.h" />
     <ClInclude Include="BulletGameObject.h" />

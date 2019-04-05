@@ -1,4 +1,4 @@
-#include "SpriteObject.h"
+#include "AnimatedSelection.h"
 #include "stdafx.h"
 #include "SquareMeshVbo.h"
 #include "gtc/matrix_transform.hpp"
@@ -8,11 +8,11 @@ class PauseMenu :public DrawableObject
 {
 private:
 	
-	SpriteObject * c1;
+	AnimatedSelection * c1;
 	//GameObject * c1;//choiceIndicator
 	int currentChoice = 0;
 	glm::vec3 color;
-	vector<SpriteObject*> options;
+	vector<AnimatedSelection*> options;
 	int optionNum = 0;
 	int spriteNum = 0;
 	//for Sprite

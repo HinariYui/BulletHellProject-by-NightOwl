@@ -261,15 +261,15 @@ void Game::init(int width, int height)
 	spawners.push_back(e1);
 
 	pMenuSprite.push_back("pauseMenu.png");
-	pMenuSprite.push_back("Buttons/Idle_Resume_160x72.png");
-	pMenuSprite.push_back("Buttons/Idle_Mainmenu_160x72.png");
-	pMenuSprite.push_back("Buttons/Idle_Quit_160x72.png");
-	pMenuSprite.push_back("Buttons/Hover_Resume_128x219.png");
-	pMenuSprite.push_back("Buttons/Hover_Mainmenu_128x219.png");
-	pMenuSprite.push_back("Buttons/Hover_Quit_128x219.png");
-	pMenuSprite.push_back("Buttons/Pressed_Resume_128x219.png");
-	pMenuSprite.push_back("Buttons/Pressed_Mainmenu1_128x219.png");
-	pMenuSprite.push_back("Buttons/Pressed_Quit_128x219.png");
+	pMenuSprite.push_back("Buttons/Idle_ResumeFIX_219x129.png");
+	pMenuSprite.push_back("Buttons/Idle_MainmenuFIX_219x129.png");
+	pMenuSprite.push_back("Buttons/Idle_QuitFIX_219x129.png");
+	pMenuSprite.push_back("Buttons/Hovered_ResumeFIX_219x129.png");
+	pMenuSprite.push_back("Buttons/Hovered_MainmenuFIX_219x129.png");
+	pMenuSprite.push_back("Buttons/Hovered_QuitFIX_219x129.png");
+	pMenuSprite.push_back("Buttons/Press_ResumeFIX_219x129.png");
+	pMenuSprite.push_back("Buttons/Pressed_MainmenuFIX_219x129.png");
+	pMenuSprite.push_back("Buttons/Pressed_QuitFIX_219x129.png");
 	//getXMLspawnData();
 
 
@@ -541,6 +541,10 @@ void Game::update(float deltaTime)
 			playtime += deltaTime;
 			//cout << playtime << endl;
 		}
+		else
+		{
+			pauseMenu->update(deltaTime);
+		}
 	}
 
 }
@@ -641,7 +645,7 @@ void Game::checkPauseMenuInput(char input)
 			p->setCurrentSelection(pMenuCurrentSelection);
 		}
 	}
-	else if (pMenuCurrentSelection == 2) // on setting?
+	else // on quit 
 	{
 		if (input == 'u')
 		{
@@ -650,24 +654,39 @@ void Game::checkPauseMenuInput(char input)
 		}
 		else if (input == 'd')
 		{
-			pMenuCurrentSelection = 3;
-			p->setCurrentSelection(pMenuCurrentSelection);
-		}
-	}
-	else // on quit 
-	{
-		if (input == 'u')
-		{
 			pMenuCurrentSelection = 2;
-			p->setCurrentSelection(pMenuCurrentSelection);
-		}
-		else if (input == 'd')
-		{
-			pMenuCurrentSelection = 3;
 			p->setCurrentSelection(pMenuCurrentSelection);
 		}
 
 	}
+
+	//else if (pMenuCurrentSelection == 2) // on setting?
+	//{
+	//	if (input == 'u')
+	//	{
+	//		pMenuCurrentSelection = 1;
+	//		p->setCurrentSelection(pMenuCurrentSelection);
+	//	}
+	//	else if (input == 'd')
+	//	{
+	//		pMenuCurrentSelection = 3;
+	//		p->setCurrentSelection(pMenuCurrentSelection);
+	//	}
+	//}
+	//else // on quit 
+	//{
+	//	if (input == 'u')
+	//	{
+	//		pMenuCurrentSelection = 2;
+	//		p->setCurrentSelection(pMenuCurrentSelection);
+	//	}
+	//	else if (input == 'd')
+	//	{
+	//		pMenuCurrentSelection = 3;
+	//		p->setCurrentSelection(pMenuCurrentSelection);
+	//	}
+
+	//}
 
 	cout << "PMenuCurrentSelection " << pMenuCurrentSelection << endl;
 }
