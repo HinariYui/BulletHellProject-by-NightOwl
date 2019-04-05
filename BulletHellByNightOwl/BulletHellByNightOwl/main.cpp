@@ -130,12 +130,12 @@ int main(int argc, char *argv[])
 				keyHeld = false;
 				switch (sdlEvent.key.keysym.sym)
 				{
-				case SDLK_LEFT: game->handleKey('L'); break;
-				case SDLK_RIGHT:game->handleKey('R'); break;
-				case SDLK_UP: game->handleKey('U');   break;
-				case SDLK_DOWN:game->handleKey('D');  break;
-				case SDLK_z: game->handleKey('Z');	  break;
-				case SDLK_LSHIFT: game->handleKey('S'); break;//leftShift not press
+					case SDLK_LEFT: game->handleKey('L'); break;
+					case SDLK_RIGHT:game->handleKey('R'); break;
+					case SDLK_UP: game->handleKey('U');   break;
+					case SDLK_DOWN:game->handleKey('D');  break;
+					case SDLK_z: game->handleKey('Z');	  break;
+					case SDLK_LSHIFT: game->handleKey('S'); break;//leftShift not press
 				}
 			}
 			if (sdlEvent.type == SDL_KEYDOWN)
@@ -143,16 +143,17 @@ int main(int argc, char *argv[])
 				keyHeld = true;
 				switch (sdlEvent.key.keysym.sym)
 				{
-				case SDLK_RETURN: game->handleKey('e'); break;//press enter
-				case SDLK_LEFT: game->handleKey('l'); break;
-				case SDLK_RIGHT:game->handleKey('r'); break;
-				case SDLK_UP: game->handleKey('u');   break;
-				case SDLK_DOWN:game->handleKey('d');  break;
-				case SDLK_z: game->handleKey('z');	  break;
-				case SDLK_g: game->handleKey('g');	  break; //toggle godMode
-				case SDLK_LSHIFT: game->handleKey('s'); break; //leftShift press
-				case SDLK_ESCAPE: game->handleKey('E'); break; //Esc
-
+					case SDLK_RETURN: game->handleKey('e'); break;//press enter
+					case SDLK_LEFT: game->handleKey('l'); break;
+					case SDLK_RIGHT:game->handleKey('r'); break;
+					case SDLK_UP: game->handleKey('u');   break;
+					case SDLK_DOWN:game->handleKey('d');  break;
+					case SDLK_z: game->handleKey('z');	  break;
+					case SDLK_g: game->handleKey('g');	  break; //toggle godMode
+					case SDLK_LSHIFT: game->handleKey('s'); break; //leftShift press
+					case SDLK_ESCAPE: game->handleKey('E'); break; //Esc
+					case SDLK_o: game->handleKey('o'); break;
+					case SDLK_p: game->handleKey('p'); break;
 				}
 				//switch (sdlEvent.key.keysym.sym)
 				//{
