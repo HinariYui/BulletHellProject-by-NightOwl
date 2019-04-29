@@ -4,8 +4,6 @@
 #include "SpecialEnemyBullet.h"
 #include "Game.h"
 
-
-
 Boss1::Boss1(Tag enemy, string fileName, int row, int col) : SpriteObject(fileName, row, col)
 {
 	setVelocity(glm::vec3(0, -1, 0));
@@ -34,6 +32,11 @@ Boss1::Boss1(Tag enemy, string fileName, int row, int col) : SpriteObject(fileNa
 
 void Boss1::update(float deltaTime)
 {
+	drone1DefaultPos = getPosition() + glm::vec3(-100, 70, 0);
+	drone2DefaultPos = getPosition() + glm::vec3(100, 70, 0);
+	drone3DefaultPos = getPosition() + glm::vec3(-100, -70, 0);
+	drone4DefaultPos = getPosition() + glm::vec3(100, -70, 0);
+
 	HPpercentage = (float)hp / (float)maxHP;
 	HPbar->setSize(HPsize * HPpercentage, 20);
 	missingHP = (float)maxHP - (float)hp;
@@ -66,10 +69,20 @@ void Boss1::update(float deltaTime)
 void Boss1::updateIDLE(float deltaTime)
 {
 	stateTime += deltaTime;
+	if (Drone1->getPosition() != drone1DefaultPos)
+	{
+		DroneMoveBack(deltaTime / (idleTime - 1000));
+		droneIsMovingBack = true;
+	}
+	if (stateTime >= idleTime - 1000)
+	{
+		droneIsMovingBack = false;
+	}
 	if (stateTime >= idleTime)
 	{
 		stateTime = 0;
 		int pattern = rand() % 3 + 1;
+		pattern = 2;
 		if (pattern == 1)
 		{
 			state = ATK1;
@@ -87,10 +100,10 @@ void Boss1::updateIDLE(float deltaTime)
 
 void Boss1::updateMoveIn(float deltaTime)
 {
-	Drone1->setPosition(getPosition() + glm::vec3(-100, 100, 0));
-	Drone2->setPosition(getPosition() + glm::vec3(-100, -100, 0));
-	Drone3->setPosition(getPosition() + glm::vec3(100, -100, 0));
-	Drone4->setPosition(getPosition() + glm::vec3(100, 100, 0));
+	Drone1->setPosition(drone1DefaultPos);
+	Drone2->setPosition(drone2DefaultPos);
+	Drone3->setPosition(drone3DefaultPos);
+	Drone4->setPosition(drone4DefaultPos);
 
 	float y = getPosition().y;
 	if (y <= 200)
@@ -122,18 +135,35 @@ void Boss1::updateATK2(float deltaTime)
 {
 	stateTime += deltaTime;
 	ATKCount += deltaTime;
-	if (ATKCount >= 100) // shoot every 0.1 sec
+	if (ATKCount >= 100 && stateTime < 3000) // shoot every 0.1 sec
 	{
-		DroneMove1();
 		shoot1_1A();
 		shootSound.play();
 		ATKCount = 0;
 	}
-	if (stateTime >= 3000)
+	if (stateTime < 3000)
 	{
+		DroneMove1(deltaTime / 3000);
+		droneIsMoving1 = true;
+	}
+	else if (stateTime >= 4000 && stateTime < 6000)
+	{
+		droneIsMoving1 = false;
+		DroneMove2(deltaTime / 2000);
+		droneIsMoving2 = true;
+	}
+	else if (stateTime >= 8000 && stateTime < 14000)
+	{
+		shoot1_1B(deltaTime * 0.15f, deltaTime);
+		droneIsMoving1 = true;
+	}
+	else if (stateTime >= 14000)
+	{
+		droneIsMoving1 = false;
+		droneIsMoving2 = false;
 		stateTime = 0;
 		state = IDLE;
-		idleTime = rand() % 1000 + 3000;
+		idleTime = rand() % 1000 + 4000;
 	}
 }
 
@@ -225,7 +255,7 @@ void Boss1::shoot2_1C() // pattern 2_1C
 
 void Boss1::shoot1_1A() // pattern 1_1A
 {
-	bulletSpeed = 5.0f;
+	bulletSpeed = 7.0f;
 
 	glm::vec3 ePos1 = Drone1->getPosition();
 	glm::vec3 ePos2 = Drone2->getPosition();
@@ -288,6 +318,45 @@ void Boss1::shoot1_1A() // pattern 1_1A
 	Game::getInstance()->getObjectRef()->push_back(enemyBullet4);
 }
 
+void Boss1::shoot1_1B(float constant, float deltaTime)
+{
+	glm::vec3 pPos = Game::getInstance()->getPlayerRef()->getPosition();
+
+	drone1MoveToPos = pPos;
+	drone2MoveToPos = pPos;
+	drone3MoveToPos = pPos;
+	drone4MoveToPos = pPos;
+
+	if (!droneIsMoving1)
+	{
+		drone1MoveDir = glm::normalize(drone1MoveToPos - Drone1->getPosition());
+		drone2MoveDir = glm::normalize(drone2MoveToPos - Drone2->getPosition());
+		drone3MoveDir = glm::normalize(drone3MoveToPos - Drone3->getPosition());
+		drone4MoveDir = glm::normalize(drone4MoveToPos - Drone4->getPosition());
+
+		//drone1MoveSpeed = sqrt(((drone1MoveToPos.x - Drone1->getPosition().x) * (drone1MoveToPos.x - Drone1->getPosition().x)) + ((drone1MoveToPos.y - Drone1->getPosition().y) * (drone1MoveToPos.y - Drone1->getPosition().y))) * constant;
+		//drone2MoveSpeed = sqrt(((drone2MoveToPos.x - Drone2->getPosition().x) * (drone2MoveToPos.x - Drone2->getPosition().x)) + ((drone2MoveToPos.y - Drone2->getPosition().y) * (drone2MoveToPos.y - Drone2->getPosition().y))) * constant;
+		//drone3MoveSpeed = sqrt(((drone3MoveToPos.x - Drone3->getPosition().x) * (drone3MoveToPos.x - Drone3->getPosition().x)) + ((drone3MoveToPos.y - Drone3->getPosition().y) * (drone3MoveToPos.y - Drone3->getPosition().y))) * constant;
+		//drone4MoveSpeed = sqrt(((drone4MoveToPos.x - Drone4->getPosition().x) * (drone4MoveToPos.x - Drone4->getPosition().x)) + ((drone4MoveToPos.y - Drone4->getPosition().y) * (drone4MoveToPos.y - Drone4->getPosition().y))) * constant;
+	}
+	if (Drone1->getPosition().x > -442 && Drone1->getPosition().x < 18 && Drone1->getPosition().y > - 310 && Drone1->getPosition().y < 310)
+	{
+		dynamic_cast<GameObject*>(Drone1)->translate(drone1MoveDir * constant);
+	}
+	if (Drone2->getPosition().x > -442 && Drone2->getPosition().x < 18 && Drone2->getPosition().y > -310 && Drone2->getPosition().y < 310)
+	{
+		dynamic_cast<GameObject*>(Drone2)->translate(drone2MoveDir * constant);
+	}
+	if (Drone3->getPosition().x > -442 && Drone3->getPosition().x < 18 && Drone3->getPosition().y > -310 && Drone3->getPosition().y < 310)
+	{
+		dynamic_cast<GameObject*>(Drone3)->translate(drone3MoveDir * constant);
+	}
+	if (Drone4->getPosition().x > -442 && Drone4->getPosition().x < 18 && Drone4->getPosition().y > -310 && Drone4->getPosition().y < 310)
+	{
+		dynamic_cast<GameObject*>(Drone4)->translate(drone4MoveDir * constant);
+	}
+}
+
 void Boss1::shoot2_1D()
 {
 	DrawableObject* specialBullet1 = new SpecialEnemyBullet(Tag::eBullet, "Boss1Bullet20x20.png");
@@ -296,13 +365,77 @@ void Boss1::shoot2_1D()
 	Game::getInstance()->getObjectRef()->push_back(specialBullet1);
 }
 
-void Boss1::DroneMove1()
+void Boss1::DroneMove1(float constant)
 {
-	//Drone1->setVelocity(glm::vec3(0, -2, 0));
-	//Drone2->setVelocity(glm::vec3(0, -2, 0));
-	//Drone3->setVelocity(glm::vec3(0, -2, 0));
-	//Drone4->setVelocity(glm::vec3(0, -2, 0));
-	//if(Drone1->getPosition == )
+	drone1MoveToPos = glm::vec3(-252, 40, 0);
+	drone2MoveToPos = glm::vec3(-172, 40, 0);
+	drone3MoveToPos = glm::vec3(-252, -40, 0);
+	drone4MoveToPos = glm::vec3(-172, -40, 0);
+	
+	if (!droneIsMoving1)
+	{
+		drone1MoveDir = glm::normalize(drone1MoveToPos - Drone1->getPosition());
+		drone2MoveDir = glm::normalize(drone2MoveToPos - Drone2->getPosition());
+		drone3MoveDir = glm::normalize(drone3MoveToPos - Drone3->getPosition());
+		drone4MoveDir = glm::normalize(drone4MoveToPos - Drone4->getPosition());
+	
+		drone1MoveSpeed = sqrt(((drone1MoveToPos.x - Drone1->getPosition().x) * (drone1MoveToPos.x - Drone1->getPosition().x)) + ((drone1MoveToPos.y - Drone1->getPosition().y) * (drone1MoveToPos.y - Drone1->getPosition().y))) * constant;
+		drone2MoveSpeed = sqrt(((drone2MoveToPos.x - Drone2->getPosition().x) * (drone2MoveToPos.x - Drone2->getPosition().x)) + ((drone2MoveToPos.y - Drone2->getPosition().y) * (drone2MoveToPos.y - Drone2->getPosition().y))) * constant;
+		drone3MoveSpeed = sqrt(((drone3MoveToPos.x - Drone3->getPosition().x) * (drone3MoveToPos.x - Drone3->getPosition().x)) + ((drone3MoveToPos.y - Drone3->getPosition().y) * (drone3MoveToPos.y - Drone3->getPosition().y))) * constant;
+		drone4MoveSpeed = sqrt(((drone4MoveToPos.x - Drone4->getPosition().x) * (drone4MoveToPos.x - Drone4->getPosition().x)) + ((drone4MoveToPos.y - Drone4->getPosition().y) * (drone4MoveToPos.y - Drone4->getPosition().y))) * constant;
+	}
+	
+	dynamic_cast<GameObject*>(Drone1)->translate(drone1MoveDir * drone1MoveSpeed);
+	dynamic_cast<GameObject*>(Drone2)->translate(drone2MoveDir * drone2MoveSpeed);
+	dynamic_cast<GameObject*>(Drone3)->translate(drone3MoveDir * drone3MoveSpeed);
+	dynamic_cast<GameObject*>(Drone4)->translate(drone4MoveDir * drone4MoveSpeed);
+}
+
+void Boss1::DroneMove2(float constant)
+{
+	drone1MoveToPos = glm::vec3(-422, 290, 0); // top left
+	drone2MoveToPos = glm::vec3(-2, 290, 0); // top right
+	drone3MoveToPos = glm::vec3(-422, -290, 0); // bottom left
+	drone4MoveToPos = glm::vec3(-2, -290, 0); // bottom right
+
+	if (!droneIsMoving2)
+	{
+		drone1MoveDir = glm::normalize(drone1MoveToPos - Drone1->getPosition());
+		drone2MoveDir = glm::normalize(drone2MoveToPos - Drone2->getPosition());
+		drone3MoveDir = glm::normalize(drone3MoveToPos - Drone3->getPosition());
+		drone4MoveDir = glm::normalize(drone4MoveToPos - Drone4->getPosition());
+
+		drone1MoveSpeed = sqrt(((drone1MoveToPos.x - Drone1->getPosition().x) * (drone1MoveToPos.x - Drone1->getPosition().x)) + ((drone1MoveToPos.y - Drone1->getPosition().y) * (drone1MoveToPos.y - Drone1->getPosition().y))) * constant;
+		drone2MoveSpeed = sqrt(((drone2MoveToPos.x - Drone2->getPosition().x) * (drone2MoveToPos.x - Drone2->getPosition().x)) + ((drone2MoveToPos.y - Drone2->getPosition().y) * (drone2MoveToPos.y - Drone2->getPosition().y))) * constant;
+		drone3MoveSpeed = sqrt(((drone3MoveToPos.x - Drone3->getPosition().x) * (drone3MoveToPos.x - Drone3->getPosition().x)) + ((drone3MoveToPos.y - Drone3->getPosition().y) * (drone3MoveToPos.y - Drone3->getPosition().y))) * constant;
+		drone4MoveSpeed = sqrt(((drone4MoveToPos.x - Drone4->getPosition().x) * (drone4MoveToPos.x - Drone4->getPosition().x)) + ((drone4MoveToPos.y - Drone4->getPosition().y) * (drone4MoveToPos.y - Drone4->getPosition().y))) * constant;
+	}
+
+	dynamic_cast<GameObject*>(Drone1)->translate(drone1MoveDir * drone1MoveSpeed);
+	dynamic_cast<GameObject*>(Drone2)->translate(drone2MoveDir * drone2MoveSpeed);
+	dynamic_cast<GameObject*>(Drone3)->translate(drone3MoveDir * drone3MoveSpeed);
+	dynamic_cast<GameObject*>(Drone4)->translate(drone4MoveDir * drone4MoveSpeed);
+}
+
+void Boss1::DroneMoveBack(float constant)
+{
+	if (!droneIsMovingBack)
+	{
+		drone1MoveDir = glm::normalize(drone1DefaultPos - Drone1->getPosition());
+		drone2MoveDir = glm::normalize(drone2DefaultPos - Drone2->getPosition());
+		drone3MoveDir = glm::normalize(drone3DefaultPos - Drone3->getPosition());
+		drone4MoveDir = glm::normalize(drone4DefaultPos - Drone4->getPosition());
+
+		drone1MoveSpeed = sqrt(((drone1DefaultPos.x - Drone1->getPosition().x) * (drone1DefaultPos.x - Drone1->getPosition().x)) + ((drone1DefaultPos.y - Drone1->getPosition().y) * (drone1DefaultPos.y - Drone1->getPosition().y))) * constant;
+		drone2MoveSpeed = sqrt(((drone2DefaultPos.x - Drone2->getPosition().x) * (drone2DefaultPos.x - Drone2->getPosition().x)) + ((drone2DefaultPos.y - Drone2->getPosition().y) * (drone2DefaultPos.y - Drone2->getPosition().y))) * constant;
+		drone3MoveSpeed = sqrt(((drone3DefaultPos.x - Drone3->getPosition().x) * (drone3DefaultPos.x - Drone3->getPosition().x)) + ((drone3DefaultPos.y - Drone3->getPosition().y) * (drone3DefaultPos.y - Drone3->getPosition().y))) * constant;
+		drone4MoveSpeed = sqrt(((drone4DefaultPos.x - Drone4->getPosition().x) * (drone4DefaultPos.x - Drone4->getPosition().x)) + ((drone4DefaultPos.y - Drone4->getPosition().y) * (drone4DefaultPos.y - Drone4->getPosition().y))) * constant;
+	}
+
+	dynamic_cast<GameObject*>(Drone1)->translate(drone1MoveDir * drone1MoveSpeed);
+	dynamic_cast<GameObject*>(Drone2)->translate(drone2MoveDir * drone2MoveSpeed);
+	dynamic_cast<GameObject*>(Drone3)->translate(drone3MoveDir * drone3MoveSpeed);
+	dynamic_cast<GameObject*>(Drone4)->translate(drone4MoveDir * drone4MoveSpeed);
 }
 
 void Boss1::move()

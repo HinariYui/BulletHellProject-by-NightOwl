@@ -23,10 +23,26 @@ private:
 	DrawableObject* enemyBullet3 = NULL;
 	DrawableObject* enemyBullet4 = NULL;
 	GameObject* HPbar = NULL;
-	SpriteObject* Drone1 = NULL; // 24 x 24 px
-	SpriteObject* Drone2 = NULL; // 24 x 24 px
-	SpriteObject* Drone3 = NULL; // 24 x 24 px
-	SpriteObject* Drone4 = NULL; // 24 x 24 px
+	SpriteObject* Drone1 = NULL; // 48 x 48 px , top left
+	SpriteObject* Drone2 = NULL; // 48 x 48 px , top right
+	SpriteObject* Drone3 = NULL; // 48 x 48 px , bottom left
+	SpriteObject* Drone4 = NULL; // 48 x 48 px , bottom right
+
+	glm::vec3 drone1DefaultPos;
+	glm::vec3 drone2DefaultPos;
+	glm::vec3 drone3DefaultPos;
+	glm::vec3 drone4DefaultPos;
+
+	glm::vec3 drone1MoveToPos;
+	glm::vec3 drone2MoveToPos;
+	glm::vec3 drone3MoveToPos;
+	glm::vec3 drone4MoveToPos;
+
+	bool droneIsMoving1 = false;
+	bool droneIsMoving2 = false;
+	bool droneIsMovingBack = false;
+	glm::vec3 drone1MoveDir, drone2MoveDir, drone3MoveDir, drone4MoveDir;
+	float drone1MoveSpeed, drone2MoveSpeed, drone3MoveSpeed, drone4MoveSpeed;
 
 	AudioEngine audio;
 
@@ -65,8 +81,11 @@ public:
 	void move();
 	void shoot2_1C();
 	void shoot1_1A();
+	void shoot1_1B(float constant, float deltaTime);
 	void shoot2_1D();
-	void DroneMove1();
+	void DroneMove1(float constant);
+	void DroneMove2(float constant);
+	void DroneMoveBack(float constant);
 	void update(float deltaTime);
 	virtual void render(glm::mat4 globalModelTransform);
 };

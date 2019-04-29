@@ -716,10 +716,7 @@ void Boss2::shoot1_2A() // pattern 1_2A
 
 void Boss2::shoot2_1D()
 {
-	DrawableObject* specialBullet1 = new SpecialEnemyBullet(Tag::eBullet, "Boss1Bullet20x20.png");
-	specialBullet1->setSize(30, 30);
-	specialBullet1->setPosition(this->getPosition());
-	Game::getInstance()->getObjectRef()->push_back(specialBullet1);
+	
 }
 
 void Boss2::move()
