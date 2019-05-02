@@ -36,6 +36,8 @@ public:
 	bool godMode = false;
 	vector<string> pMenuSprite;
 
+	bool bombAvailable = true;
+	SpriteObject * bomb;
 
 	bool isPaused = false;
 	bool shiftPressed = false;

@@ -20,6 +20,8 @@
 
 #define MID_PLAYAREA_X -212
 
+int bombSize = 5;
+
 using namespace tinyxml2;
 
 Game* Game::instance = nullptr;
@@ -79,10 +81,13 @@ void Game::handleKey(char ch)
 			menuIsDestroyed = true;
 		}
 		else
-		{
+		{	
 			if (isPaused == true)
 			{
 				PauseMenu* p = dynamic_cast<PauseMenu*>(pauseMenu);
+				cout << p->pressed << endl;
+				p->pressed = true;
+				cout << p->pressed << endl;
 				if (p->getCurrentSelection() <= 0)
 				{
 					handleKey('E');//resume
@@ -102,12 +107,15 @@ void Game::handleKey(char ch)
 				}
 				else if (p->getCurrentSelection() == 2)
 				{
-					exit(0);
+					//optionMenu
 				}
 				else
 				{
 					exit(0);
 				}
+
+				//p->pressed = false;
+
 			}
 		}
 	}
@@ -123,6 +131,21 @@ void Game::handleKey(char ch)
 
 			PlayerGameObject *p = dynamic_cast<PlayerGameObject*>(this->player);
 
+			if (ch == ' ')
+			{
+				//SPACEBAR = bomb trigger
+				if (bombAvailable == true)
+				{
+					//create bomb + clear all minion
+					bomb = new SpriteObject(" ", 1, 1); //BG
+					bomb->setSize(bombSize, bombSize);
+					bomb->setPosition(glm::vec3(-212, 0, 0));
+					objects.push_back(bomb);
+
+					bombAvailable = false;
+				}
+
+			}
 			if (ch == 'g')
 			{
 				if (godMode == false)
@@ -206,7 +229,7 @@ void Game::handleKey(char ch)
 					if (menuIsDestroyed == true)
 					{
 						pMenuCurrentSelection = 0;
-						pauseMenu = new PauseMenu(pMenuSprite, 10, 3);
+						pauseMenu = new PauseMenu(pMenuSprite, 13, 4);
 						pauseMenu->setSize(1280, 720);
 						pauseMenu->setPosition(glm::vec3(0, 0, 0));
 						//objects.push_back(pauseMenu); // index 8
@@ -216,13 +239,12 @@ void Game::handleKey(char ch)
 				}
 				else
 				{
+					
 					PauseMenu* p = dynamic_cast<PauseMenu*>(pauseMenu);
 					p->destroyComponents();
-
 					for (int i = objects.size() - 1; i >= 0; i--)
 					{
 						DrawableObject* instance = objects.at(i);
-
 						if (instance->getObjId() == pauseMenu->getObjId())
 						{
 							objects.erase(objects.begin() + i);
@@ -230,7 +252,7 @@ void Game::handleKey(char ch)
 						}
 					}
 
-					isPaused = false;
+					isPaused = false;	
 				}
 
 			}
@@ -278,13 +300,19 @@ void Game::init(int width, int height)
 	pMenuSprite.push_back("pauseMenu.png");
 	pMenuSprite.push_back("Buttons/Idle_ResumeFIX_219x129.png");
 	pMenuSprite.push_back("Buttons/Idle_MainmenuFIX_219x129.png");
+	pMenuSprite.push_back("Buttons/Idle_Option_219x129.png");
 	pMenuSprite.push_back("Buttons/Idle_QuitFIX_219x129.png");
+
 	pMenuSprite.push_back("Buttons/Hovered_ResumeFIX_219x129.png");
 	pMenuSprite.push_back("Buttons/Hovered_MainmenuFIX_219x129.png");
+	pMenuSprite.push_back("Buttons/Hovered_Option_219x129.png");
 	pMenuSprite.push_back("Buttons/Hovered_QuitFIX_219x129.png");
+
 	pMenuSprite.push_back("Buttons/Press_ResumeFIX_219x129.png");
 	pMenuSprite.push_back("Buttons/Pressed_MainmenuFIX_219x129.png");
+	pMenuSprite.push_back("Buttons/Press_Option_219x129.png");
 	pMenuSprite.push_back("Buttons/Pressed_QuitFIX_219x129.png");
+
 	//getXMLspawnData();
 
 
@@ -374,6 +402,26 @@ Game::Game()
 
 void Game::update(float deltaTime)
 {
+	if (bomb != NULL)
+	{
+		bombSize = bombSize * 1.2 ;
+		bomb->setSize(bombSize, bombSize);
+
+		if (bombSize > 720)
+		{
+			for (int i = objects.size() - 1; i >= 0; i--)
+			{
+				DrawableObject* instance = objects.at(i);
+
+				if (instance->getObjId() == bomb->getObjId())
+				{
+					objects.erase(objects.begin() + i);
+					objects.end();
+				}
+			}
+		}
+	}
+
 
 	if (menuIsDestroyed == true)
 	{
@@ -622,6 +670,7 @@ void Game::update(float deltaTime)
 
 			for (int i = 0; i < objects.size(); i++)
 			{
+				
 				objects[i]->update(deltaTime);
 				//obj->update(deltaTime);
 			}
@@ -734,7 +783,7 @@ void Game::checkPauseMenuInput(char input)
 			p->setCurrentSelection(pMenuCurrentSelection);
 		}
 	}
-	else // on quit 
+	else if (pMenuCurrentSelection == 2) // on setting?
 	{
 		if (input == 'u')
 		{
@@ -743,39 +792,23 @@ void Game::checkPauseMenuInput(char input)
 		}
 		else if (input == 'd')
 		{
+			pMenuCurrentSelection = 3;
+			p->setCurrentSelection(pMenuCurrentSelection);
+		}
+	}
+	else // on quit 
+	{
+		if (input == 'u')
+		{
 			pMenuCurrentSelection = 2;
 			p->setCurrentSelection(pMenuCurrentSelection);
 		}
-
+		else if (input == 'd')
+		{
+			pMenuCurrentSelection = 3;
+			p->setCurrentSelection(pMenuCurrentSelection);
+		}
 	}
-
-	//else if (pMenuCurrentSelection == 2) // on setting?
-	//{
-	//	if (input == 'u')
-	//	{
-	//		pMenuCurrentSelection = 1;
-	//		p->setCurrentSelection(pMenuCurrentSelection);
-	//	}
-	//	else if (input == 'd')
-	//	{
-	//		pMenuCurrentSelection = 3;
-	//		p->setCurrentSelection(pMenuCurrentSelection);
-	//	}
-	//}
-	//else // on quit 
-	//{
-	//	if (input == 'u')
-	//	{
-	//		pMenuCurrentSelection = 2;
-	//		p->setCurrentSelection(pMenuCurrentSelection);
-	//	}
-	//	else if (input == 'd')
-	//	{
-	//		pMenuCurrentSelection = 3;
-	//		p->setCurrentSelection(pMenuCurrentSelection);
-	//	}
-
-	//}
 
 	cout << "PMenuCurrentSelection " << pMenuCurrentSelection << endl;
 }

@@ -95,8 +95,6 @@ void AnimatedSelection::update(float deltaTime)
 		this->genUV();
 		timeCount = 0;
 	}
-
-	this->loopUV(deltaTime);
 }
 
 void AnimatedSelection::setRow(int r)

@@ -39,23 +39,51 @@ PauseMenu::PauseMenu(vector<string> fileName,int spriteNum,int optNum)
 		Game::getInstance()->getObjectRef()->push_back(p);
 	}
 
-	c1 = new AnimatedSelection(fileName.at(4),1,5);
+	c1 = new AnimatedSelection(fileName.at(5),1,5);
 	c1->setSize(438, 129);
 	c1->setPosition(glm::vec3(0, 75, 0));
 	c1->setAnimationLoop(1, 5, 5, 1000);
 	Game::getInstance()->getObjectRef()->push_back(c1);
-
-	c2 = new AnimatedSelection(fileName.at(5), 1, 5);
+	c2 = new AnimatedSelection(fileName.at(6), 1, 5);
 	c2->setSize(438, 129);
 	c2->setPosition(glm::vec3(0, 0, 0));
 	c2->setAnimationLoop(1, 5, 5, 1000);
 	Game::getInstance()->getObjectRef()->push_back(c2);
-	
-	c3 = new AnimatedSelection(fileName.at(6), 1, 5);
+	c3 = new AnimatedSelection(fileName.at(7), 1, 5);
 	c3->setSize(438, 129);
 	c3->setPosition(glm::vec3(0, -75, 0));
 	c3->setAnimationLoop(1, 5, 5, 1000);
 	Game::getInstance()->getObjectRef()->push_back(c3);
+	c4 = new AnimatedSelection(fileName.at(8), 1, 5);
+	c4->setSize(438, 129);
+	c4->setPosition(glm::vec3(0, -150, 0));
+	c4->setAnimationLoop(1, 5, 5, 1000);
+	Game::getInstance()->getObjectRef()->push_back(c4);
+
+	p1 = new AnimatedSelection(fileName.at(9), 1, 7);
+	p1->setSize(438, 129);
+	p1->setPosition(glm::vec3(0, 75, 0));
+	p1->setAnimationLoop(1, 7, 7, 500);
+	p1->enable = false;
+	Game::getInstance()->getObjectRef()->push_back(p1);
+	p2 = new AnimatedSelection(fileName.at(10), 1, 7);
+	p2->setSize(438, 129);
+	p2->setPosition(glm::vec3(0, 0, 0));
+	p2->setAnimationLoop(1, 7, 7, 500);
+	p2->enable = false;
+	Game::getInstance()->getObjectRef()->push_back(p2);
+	p3 = new AnimatedSelection(fileName.at(11), 1, 7);
+	p3->setSize(438, 129);
+	p3->setPosition(glm::vec3(0, -75, 0));
+	p3->setAnimationLoop(1, 7, 7, 500);
+	p3->enable = false;
+	Game::getInstance()->getObjectRef()->push_back(p3);
+	p4 = new AnimatedSelection(fileName.at(12), 1, 7);
+	p4->setSize(438, 129);
+	p4->setPosition(glm::vec3(0, -150, 0));
+	p4->setAnimationLoop(1, 7, 7, 500);
+	p4->enable = false;
+	Game::getInstance()->getObjectRef()->push_back(p4);
 
 
 }
@@ -78,33 +106,86 @@ void PauseMenu::update(float deltaTime)
 		c1->enable = true;
 		c2->enable = false;
 		c3->enable = false;
-		//c1->addSprite(Game::getInstance()->pMenuSprite.at(4), 1, 5);
-		//c1->setPosition(glm::vec3(0, 75, 0));
+		c4->enable = false;
+		p1->enable = false;
+		p2->enable = false;
+		p3->enable = false;
+		p4->enable = false;
+
+
+		if (pressed == true)
+		{
+			c1->enable = false;
+			p1->enable = true;
+			p1->update(deltaTime);
+		}
 	}
 	else if (currentChoice == 1)
 	{
 		c1->enable = false;
 		c2->enable = true;
 		c3->enable = false;
+		c4->enable = false;
+		p1->enable = false;
+		p2->enable = false;
+		p3->enable = false;
+		p4->enable = false;
 
-		//c1->addSprite(Game::getInstance()->pMenuSprite.at(5), 1, 5);
-		//c1->setPosition(glm::vec3(0, 0, 0));
+		
+		if (pressed == true)
+		{
+			c2->enable = false;
+			p2->enable = true;
+			p2->update(deltaTime);
+		}
 	}
-	else// if (currentChoice == 2)
+	else if (currentChoice == 2)
 	{
 		c1->enable = false;
 		c2->enable = false;
 		c3->enable = true;
-		//c1->addSprite(Game::getInstance()->pMenuSprite.at(6), 1, 5);
-		//c1->setPosition(glm::vec3(0, -75, 0));
+		c4->enable = false;
+		p1->enable = false;
+		p2->enable = false;
+		p3->enable = false;
+		p4->enable = false;
+
+
+		if (pressed == true)
+		{
+			cout << "whyyyy" << endl;
+
+			c3->enable = false;
+			p3->enable = true;
+			p3->setAnimationLoop(1, 7, 7, 500);
+
+			p3->update(deltaTime);
+		}
 	}
-	//else
-	//{
-	//	//c1->setPosition(glm::vec3(0, -150, 0));
-	//}
+	else
+	{
+		c1->enable = false;
+		c2->enable = false;
+		c3->enable = false;
+		c4->enable = true;
+		p1->enable = false;
+		p2->enable = false;
+		p3->enable = false;
+		p4->enable = false;
+
+		if (pressed == true)
+		{
+			c4->enable = false;
+			p4->enable = true;
+			p4->update(deltaTime);
+		}
+	}
+
 	c1->update(deltaTime);
 	c2->update(deltaTime);
 	c3->update(deltaTime);
+	c4->update(deltaTime);
+
 
 }
 

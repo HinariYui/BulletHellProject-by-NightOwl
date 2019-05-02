@@ -8,7 +8,7 @@ class PauseMenu :public DrawableObject
 {
 private:
 	
-	AnimatedSelection *c1, *c2, *c3;
+	AnimatedSelection *c1, *c2, *c3, *c4, *p1, *p2, *p3, *p4;
 	//GameObject * c1;//choiceIndicator
 	int currentChoice = 0;
 	glm::vec3 color;
@@ -32,6 +32,8 @@ private:
 
 
 public:
+	bool pressed = false;
+
 	PauseMenu();
 	PauseMenu(string fileName);
 	PauseMenu(vector<string> fileName, int spriteNum, int optNum);
