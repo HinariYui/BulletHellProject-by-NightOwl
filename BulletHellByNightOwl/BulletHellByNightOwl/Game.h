@@ -21,6 +21,7 @@ class Game
 	GLRenderer *renderer;
 	DrawableObject* player;
 	DrawableObject* menu;
+	DrawableObject* optionMenu;
 	DrawableObject* pauseMenu;
 	Game();
 	float e1SpawnRate = 0;
@@ -39,6 +40,7 @@ public:
 	bool bombAvailable = true;
 	SpriteObject * bomb;
 
+	bool isOptionMenu = false;
 	bool isPaused = false;
 	bool shiftPressed = false;
 	bool firstRound = true;

@@ -85,44 +85,59 @@ void Game::handleKey(char ch)
 			if (isPaused == true)
 			{
 				PauseMenu* p = dynamic_cast<PauseMenu*>(pauseMenu);
-				cout << p->pressed << endl;
-				p->pressed = true;
-				cout << p->pressed << endl;
-				if (p->getCurrentSelection() <= 0)
+				
+				if (isOptionMenu == false)
 				{
-					handleKey('E');//resume
-				}
-				else if (p->getCurrentSelection() == 1)
-				{
-					menu = new Menu();
-					menu->setSize(1280, 720);
-					menu->setPosition(glm::vec3(0, 0, 0));
-					objects.clear();
-					objects.push_back(menu);
-					menuIsDestroyed = false;
-					handleKey('E');
-					firstRound = true;
-					spawners[0]->eNum = 0;
-					bossSpawn = false;
-				}
-				else if (p->getCurrentSelection() == 2)
-				{
-					//optionMenu
+					if (p->getCurrentSelection() <= 0)
+					{
+						handleKey('E');//resume
+					}
+					else if (p->getCurrentSelection() == 1)
+					{
+						menu = new Menu();
+						menu->setSize(1280, 720);
+						menu->setPosition(glm::vec3(0, 0, 0));
+						objects.clear();
+						objects.push_back(menu);
+						menuIsDestroyed = false;
+						handleKey('E');
+						firstRound = true;
+						spawners[0]->eNum = 0;
+						bossSpawn = false;
+					}
+					else if (p->getCurrentSelection() == 2)
+					{
+						//optionMenu
+						optionMenu = new PauseMenu("tempOptMenu.jpg");
+						optionMenu->setSize(500, 500);
+						optionMenu->setPosition(glm::vec3(0, 0, 0));
+						objects.push_back(optionMenu);
+						isOptionMenu = true;
+					}
+					else
+					{
+						exit(0);
+					}
 				}
 				else
 				{
-					exit(0);
+					//in optionMenu
+
 				}
-
-				//p->pressed = false;
-
 			}
 		}
 	}
 
 	if (isPaused == true)
 	{
-		checkPauseMenuInput(ch);
+		if (isOptionMenu == false)
+		{
+			checkPauseMenuInput(ch);
+		}
+		else
+		{
+
+		}
 	}
 
 	if (!playerIsDead)
@@ -223,7 +238,6 @@ void Game::handleKey(char ch)
 			}
 			if (ch == 'E')
 			{
-
 				if (isPaused == false)
 				{
 					if (menuIsDestroyed == true)
@@ -239,20 +253,40 @@ void Game::handleKey(char ch)
 				}
 				else
 				{
-					
-					PauseMenu* p = dynamic_cast<PauseMenu*>(pauseMenu);
-					p->destroyComponents();
-					for (int i = objects.size() - 1; i >= 0; i--)
+					if (isOptionMenu == false)
 					{
-						DrawableObject* instance = objects.at(i);
-						if (instance->getObjId() == pauseMenu->getObjId())
+						PauseMenu* p = dynamic_cast<PauseMenu*>(pauseMenu);
+						p->destroyComponents();
+						for (int i = objects.size() - 1; i >= 0; i--)
 						{
-							objects.erase(objects.begin() + i);
-							objects.end();
+							DrawableObject* instance = objects.at(i);
+							if (instance->getObjId() == pauseMenu->getObjId())
+							{
+								objects.erase(objects.begin() + i);
+								objects.end();
+							}
 						}
-					}
 
-					isPaused = false;	
+						isPaused = false;
+					}
+					else
+					{
+						//to exit optionMenu
+						PauseMenu* opt = dynamic_cast<PauseMenu*>(optionMenu);
+						opt->destroyComponents();
+						for (int i = objects.size() - 1; i >= 0; i--)
+						{
+							DrawableObject* instance = objects.at(i);
+							if (instance->getObjId() == optionMenu->getObjId())
+							{
+								objects.erase(objects.begin() + i);
+								objects.end();
+							}
+						}
+
+						isOptionMenu = false;
+					}
+	
 				}
 
 			}

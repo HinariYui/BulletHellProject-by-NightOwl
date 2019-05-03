@@ -100,93 +100,93 @@ void PauseMenu::setColor(float r, float g, float b)
 
 void PauseMenu::update(float deltaTime)
 {
-
-	if (currentChoice <= 0) //subSprite=1 (y = 150 +  1*-75)
+	if(CheckIfAllComponentNotNull() == true)
 	{
-		c1->enable = true;
-		c2->enable = false;
-		c3->enable = false;
-		c4->enable = false;
-		p1->enable = false;
-		p2->enable = false;
-		p3->enable = false;
-		p4->enable = false;
+		if (currentChoice <= 0) //subSprite=1 (y = 150 +  1*-75)
+		{
+			c1->enable = true;
+			c2->enable = false;
+			c3->enable = false;
+			c4->enable = false;
+			p1->enable = false;
+			p2->enable = false;
+			p3->enable = false;
+			p4->enable = false;
 
 
-		if (pressed == true)
+			if (pressed == true)
+			{
+				c1->enable = false;
+				p1->enable = true;
+				p1->update(deltaTime);
+			}
+		}
+		else if (currentChoice == 1)
 		{
 			c1->enable = false;
-			p1->enable = true;
-			p1->update(deltaTime);
-		}
-	}
-	else if (currentChoice == 1)
-	{
-		c1->enable = false;
-		c2->enable = true;
-		c3->enable = false;
-		c4->enable = false;
-		p1->enable = false;
-		p2->enable = false;
-		p3->enable = false;
-		p4->enable = false;
+			c2->enable = true;
+			c3->enable = false;
+			c4->enable = false;
+			p1->enable = false;
+			p2->enable = false;
+			p3->enable = false;
+			p4->enable = false;
 
 		
-		if (pressed == true)
+			if (pressed == true)
+			{
+				c2->enable = false;
+				p2->enable = true;
+				p2->update(deltaTime);
+			}
+		}
+		else if (currentChoice == 2)
 		{
+			c1->enable = false;
 			c2->enable = false;
-			p2->enable = true;
-			p2->update(deltaTime);
-		}
-	}
-	else if (currentChoice == 2)
-	{
-		c1->enable = false;
-		c2->enable = false;
-		c3->enable = true;
-		c4->enable = false;
-		p1->enable = false;
-		p2->enable = false;
-		p3->enable = false;
-		p4->enable = false;
-
-
-		if (pressed == true)
-		{
-			cout << "whyyyy" << endl;
-
-			c3->enable = false;
-			p3->enable = true;
-			p3->setAnimationLoop(1, 7, 7, 500);
-
-			p3->update(deltaTime);
-		}
-	}
-	else
-	{
-		c1->enable = false;
-		c2->enable = false;
-		c3->enable = false;
-		c4->enable = true;
-		p1->enable = false;
-		p2->enable = false;
-		p3->enable = false;
-		p4->enable = false;
-
-		if (pressed == true)
-		{
+			c3->enable = true;
 			c4->enable = false;
-			p4->enable = true;
-			p4->update(deltaTime);
+			p1->enable = false;
+			p2->enable = false;
+			p3->enable = false;
+			p4->enable = false;
+
+
+			if (pressed == true)
+			{
+				cout << "whyyyy" << endl;
+
+				c3->enable = false;
+				p3->enable = true;
+				//p3->setAnimationLoop(1, 7, 7, 500);
+
+				p3->update(deltaTime);
+			}
 		}
+		else
+		{
+			c1->enable = false;
+			c2->enable = false;
+			c3->enable = false;
+			c4->enable = true;
+			p1->enable = false;
+			p2->enable = false;
+			p3->enable = false;
+			p4->enable = false;
+
+			if (pressed == true)
+			{
+				c4->enable = false;
+				p4->enable = true;
+				p4->update(deltaTime);
+			}
+		}
+
+		c1->update(deltaTime);
+		c2->update(deltaTime);
+		c3->update(deltaTime);
+		c4->update(deltaTime);
 	}
-
-	c1->update(deltaTime);
-	c2->update(deltaTime);
-	c3->update(deltaTime);
-	c4->update(deltaTime);
-
-
 }
 
 void PauseMenu::addSprite(string fileName, int row, int column)
@@ -373,17 +373,31 @@ void PauseMenu::destroyComponents()
 		}
 	}
 
-	for (int i = Game::getInstance()->getObjectRef()->size() - 1; i >= 0; i--)
+	if (CheckIfAllComponentNotNull() == true)
 	{
-		instance = Game::getInstance()->getObjectRef()->at(i);
-
-		if (instance->getObjId() == c1->getObjId() || instance->getObjId() == c2->getObjId() || instance->getObjId() == c3->getObjId())
+		for (int i = Game::getInstance()->getObjectRef()->size() - 1; i >= 0; i--)
 		{
-			Game::getInstance()->getObjectRef()->erase(Game::getInstance()->getObjectRef()->begin() + i);
-			Game::getInstance()->getObjectRef()->end();
+			instance = Game::getInstance()->getObjectRef()->at(i);
+
+			if (instance->getObjId() == c1->getObjId() || instance->getObjId() == c2->getObjId() || instance->getObjId() == c3->getObjId() || instance->getObjId() == c4->getObjId())
+			{
+				Game::getInstance()->getObjectRef()->erase(Game::getInstance()->getObjectRef()->begin() + i);
+				Game::getInstance()->getObjectRef()->end();
+			}
 		}
 	}
+}
 
+bool PauseMenu::CheckIfAllComponentNotNull()
+{
+	if (c1!=NULL && c2 != NULL&& c3 != NULL&& c4 != NULL && p1 != NULL && p2 != NULL && p3 != NULL && p4 != NULL)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }
 
 void PauseMenu::setCurrentSelection(int num)

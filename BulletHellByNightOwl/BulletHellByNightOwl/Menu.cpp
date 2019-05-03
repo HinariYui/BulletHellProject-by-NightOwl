@@ -8,6 +8,12 @@ Menu::Menu()
 	addSprite("tempMenu.png", 1, 1);
 	setAnimationLoop(1, 1, 1, 1000);
 }
+Menu::Menu(string sprite)
+{
+	addSprite(sprite, 1, 1);
+	setAnimationLoop(1, 1, 1, 1000);
+}
+
 Menu::~Menu()
 {
 

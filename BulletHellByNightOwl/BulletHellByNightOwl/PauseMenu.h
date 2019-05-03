@@ -58,6 +58,8 @@ public:
 	void setCurrentSelection(int num);
 	int getCurrentSelection();
 
+	bool CheckIfAllComponentNotNull();
+
 };
 
 

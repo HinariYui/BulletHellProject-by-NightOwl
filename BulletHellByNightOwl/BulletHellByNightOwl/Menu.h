@@ -28,6 +28,7 @@ private:
 
 public:
 	Menu();
+	Menu(string sprite);
 	~Menu();
 	void setColor(float r, float g, float b);
 	void update(float deltaTime);
