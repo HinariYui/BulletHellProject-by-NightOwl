@@ -11,6 +11,7 @@ class Game
 {	
 	unsigned int highScore = 0;
 	int pMenuCurrentSelection = 0;
+	int optionCurrentSelection = 0;
 	float playtime = 0.0f;
 	float timer = 0.0f;
 	static Game* instance;
@@ -36,10 +37,14 @@ public:
 	~Game();
 	bool godMode = false;
 	vector<string> pMenuSprite;
+	vector<string> optMenuSprite;
+
 
 	bool bombAvailable = true;
 	SpriteObject * bomb;
 
+	bool SFXon = true;
+	bool BGMon = true;
 	bool isOptionMenu = false;
 	bool isPaused = false;
 	bool shiftPressed = false;
@@ -57,6 +62,7 @@ public:
 	DrawableObject* getPlayerRef();
 	int getXMLspawnData();
 	void checkPauseMenuInput(char input);
+	void checkOptionMenuInput(char input);
 
 	void writeHighScore();
 	void readHighScore();

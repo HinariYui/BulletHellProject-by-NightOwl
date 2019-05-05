@@ -13,6 +13,7 @@
 #include "Enemy1.h"
 #include "Menu.h"
 #include "PauseMenu.h"
+#include "OptionMenu.h"
 #include "Spawner.h"
 #include "tinyxml2.h"
 
@@ -108,10 +109,10 @@ void Game::handleKey(char ch)
 					else if (p->getCurrentSelection() == 2)
 					{
 						//optionMenu
-						optionMenu = new PauseMenu("tempOptMenu.jpg");
+						optionCurrentSelection = 0;
+						optionMenu = new OptionMenu(optMenuSprite, 3, 2);
 						optionMenu->setSize(500, 500);
 						optionMenu->setPosition(glm::vec3(0, 0, 0));
-						objects.push_back(optionMenu);
 						isOptionMenu = true;
 					}
 					else
@@ -122,6 +123,7 @@ void Game::handleKey(char ch)
 				else
 				{
 					//in optionMenu
+					checkOptionMenuInput('e');
 
 				}
 			}
@@ -191,18 +193,34 @@ void Game::handleKey(char ch)
 			if (ch == 'l')
 			{
 				p->move('l');
+				if (isOptionMenu == true)
+				{
+					checkOptionMenuInput('l');
+				}
 			}
 			if (ch == 'r')
 			{
 				p->move('r');
+				if (isOptionMenu == true)
+				{
+					checkOptionMenuInput('r');
+				}
 			}
 			if (ch == 'u')
 			{
 				p->move('u');
+				if (isOptionMenu == true)
+				{
+					checkOptionMenuInput('u');
+				}
 			}
 			if (ch == 'd')
 			{
 				p->move('d');
+				if (isOptionMenu == true)
+				{
+					checkOptionMenuInput('d');
+				}
 			}
 			if (ch == 'L')//release button
 			{
@@ -272,7 +290,7 @@ void Game::handleKey(char ch)
 					else
 					{
 						//to exit optionMenu
-						PauseMenu* opt = dynamic_cast<PauseMenu*>(optionMenu);
+						OptionMenu* opt = dynamic_cast<OptionMenu*>(optionMenu);
 						opt->destroyComponents();
 						for (int i = objects.size() - 1; i >= 0; i--)
 						{
@@ -332,21 +350,35 @@ void Game::init(int width, int height)
 	spawners.push_back(e1);
 
 	pMenuSprite.push_back("pauseMenu.png");
-	pMenuSprite.push_back("Buttons/Idle_ResumeFIX_219x129.png");
+	pMenuSprite.push_back("Buttons/Idle_ResumeFIX_219x129.png");//idle
 	pMenuSprite.push_back("Buttons/Idle_MainmenuFIX_219x129.png");
 	pMenuSprite.push_back("Buttons/Idle_Option_219x129.png");
 	pMenuSprite.push_back("Buttons/Idle_QuitFIX_219x129.png");
-
-	pMenuSprite.push_back("Buttons/Hovered_ResumeFIX_219x129.png");
+	pMenuSprite.push_back("Buttons/Hovered_ResumeFIX_219x129.png");//hover
 	pMenuSprite.push_back("Buttons/Hovered_MainmenuFIX_219x129.png");
 	pMenuSprite.push_back("Buttons/Hovered_Option_219x129.png");
 	pMenuSprite.push_back("Buttons/Hovered_QuitFIX_219x129.png");
-
-	pMenuSprite.push_back("Buttons/Press_ResumeFIX_219x129.png");
+	pMenuSprite.push_back("Buttons/Press_ResumeFIX_219x129.png");//press
 	pMenuSprite.push_back("Buttons/Pressed_MainmenuFIX_219x129.png");
 	pMenuSprite.push_back("Buttons/Press_Option_219x129.png");
 	pMenuSprite.push_back("Buttons/Pressed_QuitFIX_219x129.png");
 
+	optMenuSprite.push_back("pauseMenu.png");
+	optMenuSprite.push_back("Option/BGM.png");
+	optMenuSprite.push_back("Option/SFX.png");	
+	optMenuSprite.push_back("Option/ON.png");
+	optMenuSprite.push_back("Option/OFF.png");
+	optMenuSprite.push_back("Option/vol0.png");
+	optMenuSprite.push_back("Option/vol25.png");
+	optMenuSprite.push_back("Option/vol50.png");
+	optMenuSprite.push_back("Option/vol75.png");
+	optMenuSprite.push_back("Option/vol100.png");
+
+
+
+
+	//optMenuSprite.push_back("tempSFXSelection");
+	//optMenuSprite.push_back("tempBGMSelection");
 	//getXMLspawnData();
 
 
@@ -716,6 +748,10 @@ void Game::update(float deltaTime)
 		else
 		{
 			pauseMenu->update(deltaTime);
+			if (isOptionMenu == true)
+			{
+				optionMenu->update(deltaTime);
+			}
 		}
 	}
 
@@ -785,18 +821,12 @@ void Game::checkPauseMenuInput(char input)
 {
 	PauseMenu* p = dynamic_cast<PauseMenu*>(pauseMenu);
 
-	
-
-
 	if (pMenuCurrentSelection <= 0) //on resume
 	{
 		if (input == 'u')
 		{
 			pMenuCurrentSelection = 0;
 			p->setCurrentSelection(pMenuCurrentSelection);
-
-
-
 		}
 		else if (input == 'd')
 		{
@@ -846,6 +876,68 @@ void Game::checkPauseMenuInput(char input)
 
 	cout << "PMenuCurrentSelection " << pMenuCurrentSelection << endl;
 }
+
+void Game::checkOptionMenuInput(char input)
+{
+	OptionMenu* opt = dynamic_cast<OptionMenu*>(optionMenu);
+
+	if (optionCurrentSelection <= 0) //on resume
+	{
+		if (input == 'u')
+		{
+			optionCurrentSelection = 0;
+			opt->setCurrentSelection(optionCurrentSelection);
+
+		}
+		else if (input == 'd')
+		{
+			optionCurrentSelection = 1;
+			opt->setCurrentSelection(optionCurrentSelection);
+		}
+		else if (input == 'l')
+		{
+			opt->decreaseVol();
+		}
+		else if (input == 'r')
+		{
+			opt->increaseVol();
+
+		}
+		else if (input == 'e')
+		{
+			opt->toggleOnOff();
+		}
+
+	}
+	else 
+	{
+		if (input == 'u')
+		{
+			optionCurrentSelection = 0;
+			opt->setCurrentSelection(optionCurrentSelection);
+		}
+		else if (input == 'd')
+		{
+			optionCurrentSelection = 1;
+			opt->setCurrentSelection(optionCurrentSelection);
+		}
+		else if (input == 'l')
+		{
+			opt->decreaseVol();
+		}
+		else if (input == 'r')
+		{
+			opt->increaseVol();
+		}
+		else if (input == 'e')
+		{
+			opt->toggleOnOff();
+		}
+	}
+
+	cout << "optionCurrentSelection " << optionCurrentSelection << endl;
+}
+
 
 Game::~Game()
 {

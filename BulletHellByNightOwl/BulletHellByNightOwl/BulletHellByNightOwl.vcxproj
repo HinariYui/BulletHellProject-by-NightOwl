@@ -146,6 +146,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="MeshVbo.cpp" />
+    <ClCompile Include="OptionMenu.cpp" />
     <ClCompile Include="PauseMenu.cpp" />
     <ClCompile Include="PlayerGameObject.cpp" />
     <ClCompile Include="Shader.cpp" />
@@ -177,6 +178,7 @@
     <ClInclude Include="HexagonMeshVbo.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="MeshVbo.h" />
+    <ClInclude Include="OptionMenu.h" />
     <ClInclude Include="PauseMenu.h" />
     <ClInclude Include="PlayerGameObject.h" />
     <ClInclude Include="Shader.h" />
