@@ -363,7 +363,7 @@ void Game::init(int width, int height)
 	pMenuSprite.push_back("Buttons/Press_Option_219x129.png");
 	pMenuSprite.push_back("Buttons/Pressed_QuitFIX_219x129.png");
 
-	optMenuSprite.push_back("pauseMenu.png");
+	optMenuSprite.push_back("tempOption.png");
 	optMenuSprite.push_back("Option/BGM.png");
 	optMenuSprite.push_back("Option/SFX.png");	
 	optMenuSprite.push_back("Option/ON.png");
