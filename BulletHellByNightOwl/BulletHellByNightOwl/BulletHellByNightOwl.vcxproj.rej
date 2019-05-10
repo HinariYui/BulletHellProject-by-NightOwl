@@ -1,9 +1,0 @@
-diff a/BulletHellByNightOwl/BulletHellByNightOwl/BulletHellByNightOwl.vcxproj b/BulletHellByNightOwl/BulletHellByNightOwl/BulletHellByNightOwl.vcxproj	(rejected hunks)
-@@ -143,6 +143,7 @@
-     <ClCompile Include="GLRenderer.cpp" />
-     <ClCompile Include="GLRendererColor.cpp" />
-     <ClCompile Include="HexagonMeshVbo.cpp" />
-+    <ClCompile Include="Landmine.cpp" />
-     <ClCompile Include="main.cpp" />
-     <ClCompile Include="Menu.cpp" />
-     <ClCompile Include="MeshVbo.cpp" />

@@ -41,10 +41,6 @@ private:
 	bool droneIsMoving1 = false;
 	bool droneIsMoving2 = false;
 	bool droneIsMovingBack = false;
-	bool drone1IsMoving = false;
-	bool drone2IsMoving = false;
-	bool drone3IsMoving = false;
-	bool drone4IsMoving = false;
 	glm::vec3 drone1MoveDir, drone2MoveDir, drone3MoveDir, drone4MoveDir;
 	float drone1MoveSpeed, drone2MoveSpeed, drone3MoveSpeed, drone4MoveSpeed;
 
