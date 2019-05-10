@@ -22,7 +22,9 @@ private:
 	DrawableObject* enemyBullet2 = NULL;
 	DrawableObject* enemyBullet3 = NULL;
 	DrawableObject* enemyBullet4 = NULL;
-	GameObject* HPbar = NULL;
+	SpriteObject* HPbar = NULL;
+	SpriteObject* HPbg = NULL;
+	SpriteObject* HPframe = NULL;
 	SpriteObject* Drone1 = NULL; // 48 x 48 px , top left
 	SpriteObject* Drone2 = NULL; // 48 x 48 px , top right
 	SpriteObject* Drone3 = NULL; // 48 x 48 px , bottom left

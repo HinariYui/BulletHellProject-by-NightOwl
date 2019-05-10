@@ -4,7 +4,8 @@
 
 Landmine::Landmine(Tag bulletType, string spriteFile) : EnemyBullet(bulletType, spriteFile)
 {
-
+	addSprite(spriteFile, 1, 3);
+	setAnimationLoop(1, 1, 1, 500);
 }
 
 void Landmine::update(float deltaTime)
@@ -39,17 +40,30 @@ void Landmine::update(float deltaTime)
 
 		if (lState != GONE)
 		{
+			float bulletSpeed = 1.5f;
+			// bullet 1
 			enemyBullet1 = new EnemyBullet(Tag::eBullet, "Boss1Bullet20x20.png");
 
-			enemyBullet1->setSize(10, 10);
+			enemyBullet1->setSize(15, 15);
 			enemyBullet1->setPosition(getPosition());
 
-			glm::vec3 bulDir = glm::normalize(glm::vec3(1, 0, 0));
-			float bulletSpeed = 2.0f;
+			glm::vec3 bulDir1 = glm::normalize(glm::vec3(1, 0, 0));
 
-			dynamic_cast<GameObject*>(enemyBullet1)->setVelocity(bulDir * bulletSpeed);
+			dynamic_cast<GameObject*>(enemyBullet1)->setVelocity(bulDir1 * bulletSpeed);
 
 			Game::getInstance()->getObjectRef()->push_back(enemyBullet1);
+
+			// bullet 2
+			enemyBullet2 = new EnemyBullet(Tag::eBullet, "Boss1Bullet20x20.png");
+
+			enemyBullet2->setSize(15, 15);
+			enemyBullet2->setPosition(getPosition());
+
+			glm::vec3 bulDir2 = glm::normalize(glm::vec3(-1, 0, 0));
+
+			dynamic_cast<GameObject*>(enemyBullet2)->setVelocity(bulDir2 * bulletSpeed);
+
+			Game::getInstance()->getObjectRef()->push_back(enemyBullet2);
 
 			lState = GONE;
 		}

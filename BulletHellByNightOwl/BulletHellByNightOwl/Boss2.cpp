@@ -16,15 +16,22 @@ Boss2::Boss2(Tag enemy, string fileName, int row, int col) : SpriteObject(fileNa
 	rotationMatrix = glm::mat4(1.0f);
 	rotationMatrix = glm::rotate(rotationMatrix, 0.25f, glm::vec3(0.0f, 0.0f, 1.0f)); //0.1f -> radiant
 	hp = maxHP;
-	HPbar = new GameObject(NONE);
+	HPbg = new SpriteObject("HP-bg.png", 1, 1);
+	HPbar = new SpriteObject("HP-green.png", 1, 1);
+	HPframe = new SpriteObject("HP-tube.png", 1, 1);
+	HPbg->setSize(HPsize, 20);
 	HPbar->setSize(HPsize, 20);
+	HPframe->setSize(HPsize, 20);
 	HPbar->setPosition(glm::vec3(HPpos, 340, 0));
-	HPbar->setColor(1, 0.85, 0);
+	HPbg->setPosition(glm::vec3(HPpos, 340, 0));
+	HPframe->setPosition(glm::vec3(HPpos, 340, 0));
 }
 
 void Boss2::update(float deltaTime)
 {
 	HPpercentage = (float)hp / (float)maxHP;
+	if (HPpercentage <= 0.67 && HPpercentage > 0.33) HPbar->addSprite("HP-yellow.png", 1, 1);
+	else if (HPpercentage <= 0.33) HPbar->addSprite("HP-red.png", 1, 1);
 	HPbar->setSize(HPsize * HPpercentage, 20);
 	missingHP = (float)maxHP - (float)hp;
 	HPbar->setPosition(glm::vec3(HPpos - missingHP / 4, 340, 0));
@@ -730,7 +737,9 @@ void Boss2::render(glm::mat4 globalModelTransform)
 	SpriteObject::render(globalModelTransform);
 	if (state != MOVEIN2)
 	{
+		HPbg->render(globalModelTransform);
 		HPbar->render(globalModelTransform);
+		HPframe->render(globalModelTransform);
 	}
 }
 

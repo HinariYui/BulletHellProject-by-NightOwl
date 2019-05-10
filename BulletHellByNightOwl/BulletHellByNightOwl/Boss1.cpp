@@ -15,10 +15,15 @@ Boss1::Boss1(Tag enemy, string fileName, int row, int col) : SpriteObject(fileNa
 	rotationMatrix = glm::mat4(1.0f);
 	rotationMatrix = glm::rotate(rotationMatrix, 0.25f, glm::vec3(0.0f, 0.0f, 1.0f)); //0.1f -> radiant
 	hp = maxHP;
-	HPbar = new GameObject(NONE);
+	HPbg = new SpriteObject("HP-bg.png", 1, 1);
+	HPbar = new SpriteObject("HP-green.png", 1, 1);
+	HPframe = new SpriteObject("HP-tube.png", 1, 1);
+	HPbg->setSize(HPsize, 20);
 	HPbar->setSize(HPsize, 20);
+	HPframe->setSize(HPsize, 20);
 	HPbar->setPosition(glm::vec3(HPpos, 340, 0));
-	HPbar->setColor(1, 0.85, 0);
+	HPbg->setPosition(glm::vec3(HPpos, 340, 0));
+	HPframe->setPosition(glm::vec3(HPpos, 340, 0));
 
 	Drone1 = new SpriteObject("WeaponDrone_48x48.png", 1, 1);
 	Drone2 = new SpriteObject("WeaponDrone_48x48.png", 1, 1);
@@ -39,6 +44,8 @@ void Boss1::update(float deltaTime)
 	drone4DefaultPos = getPosition() + glm::vec3(100, -70, 0);
 
 	HPpercentage = (float)hp / (float)maxHP;
+	if (HPpercentage <= 0.67 && HPpercentage > 0.33) HPbar->addSprite("HP-yellow.png", 1, 1);
+	else if (HPpercentage <= 0.33) HPbar->addSprite("HP-red.png", 1, 1);
 	HPbar->setSize(HPsize * HPpercentage, 20);
 	missingHP = (float)maxHP - (float)hp;
 	HPbar->setPosition(glm::vec3(HPpos - missingHP / 4, 340, 0));
@@ -362,38 +369,46 @@ void Boss1::shoot1_1B(float constant, float deltaTime)
 	}
 	else drone4IsMoving = false;
 
-	if (ATKCount >= 1000) // every 1 sec
+	if (ATKCount >= 900) // every 0.9 sec
 	{
 		if (drone1IsMoving)
 		{
 			// Bullet 1
-			DrawableObject* lm = new Landmine(Tag::eBullet, "Boss1Bullet20x20.png");
+			DrawableObject* lm = new Landmine(Tag::eBullet, "Mine_50x50.png");
+			BulletGameObject* mine = dynamic_cast<BulletGameObject *>(lm);
 			lm->setSize(50, 50);
 			lm->setPosition(Drone1->getPosition());
+			mine->setAnimationLoop(1, 1, 3, 1000);
 			Game::getInstance()->getObjectRef()->push_back(lm);
 		}
 		if (drone2IsMoving)
 		{
 			// Bullet2
-			DrawableObject* lm = new Landmine(Tag::eBullet, "Boss1Bullet20x20.png");
+			DrawableObject* lm = new Landmine(Tag::eBullet, "Mine_50x50.png");
+			BulletGameObject* mine = dynamic_cast<BulletGameObject *>(lm);
 			lm->setSize(50, 50);
 			lm->setPosition(Drone2->getPosition());
+			mine->setAnimationLoop(1, 1, 3, 1000);
 			Game::getInstance()->getObjectRef()->push_back(lm);
 		}
 		if (drone3IsMoving)
 		{
 			// Bullet 3
-			DrawableObject* lm = new Landmine(Tag::eBullet, "Boss1Bullet20x20.png");
+			DrawableObject* lm = new Landmine(Tag::eBullet, "Mine_50x50.png");
+			BulletGameObject* mine = dynamic_cast<BulletGameObject *>(lm);
 			lm->setSize(50, 50);
 			lm->setPosition(Drone3->getPosition());
+			mine->setAnimationLoop(1, 1, 3, 1000);
 			Game::getInstance()->getObjectRef()->push_back(lm);
 		}
 		if (drone4IsMoving)
 		{
 			// Bullet 4
-			DrawableObject* lm = new Landmine(Tag::eBullet, "Boss1Bullet20x20.png");
+			DrawableObject* lm = new Landmine(Tag::eBullet, "Mine_50x50.png");
+			BulletGameObject* mine = dynamic_cast<BulletGameObject *>(lm);
 			lm->setSize(50, 50);
 			lm->setPosition(Drone4->getPosition());
+			mine->setAnimationLoop(1, 1, 3, 1000);
 			Game::getInstance()->getObjectRef()->push_back(lm);
 		}
 
@@ -493,7 +508,9 @@ void Boss1::render(glm::mat4 globalModelTransform)
 	SpriteObject::render(globalModelTransform);
 	if (state != MOVEIN)
 	{
+		HPbg->render(globalModelTransform);
 		HPbar->render(globalModelTransform);
+		HPframe->render(globalModelTransform);
 	}
 	Drone1->render(globalModelTransform);
 	Drone2->render(globalModelTransform);

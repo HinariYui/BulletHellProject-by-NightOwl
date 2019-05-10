@@ -48,7 +48,9 @@ private:
 	DrawableObject* enemyBullet5 = NULL;
 	DrawableObject* enemyBullet5_1 = NULL;
 	DrawableObject* enemyBullet5_2 = NULL;
-	GameObject* HPbar = NULL;
+	SpriteObject* HPbar = NULL;
+	SpriteObject* HPbg = NULL;
+	SpriteObject* HPframe = NULL;
 
 	AudioEngine audio;
 

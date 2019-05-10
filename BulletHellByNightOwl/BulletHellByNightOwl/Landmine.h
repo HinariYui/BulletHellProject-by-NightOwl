@@ -15,11 +15,12 @@ class Landmine :public EnemyBullet
 public:
 	LandmineState lState = L_START;
 	DrawableObject* enemyBullet1 = NULL;
+	DrawableObject* enemyBullet2 = NULL;
 	glm::vec3 randomLocation;
 	float timeCounter = 0.f;
 	float maxStartTime = 500.f;
 	float waitTimeCounter = 0.f;
-	float waitTime = 3000.f;
+	float waitTime = 2000.f;
 	Landmine(Tag bulletType, string spriteFile);
 	void update(float deltaTime);
 };
