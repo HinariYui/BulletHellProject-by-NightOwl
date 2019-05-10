@@ -20,7 +20,7 @@ Boss1::Boss1(Tag enemy, string fileName, int row, int col) : SpriteObject(fileNa
 	HPframe = new SpriteObject("HP-tube.png", 1, 1);
 	HPbg->setSize(HPsize, 20);
 	HPbar->setSize(HPsize, 20);
-	HPframe->setSize(HPsize, 20);
+	HPframe->setSize(HPsize + 2, 20);
 	HPbar->setPosition(glm::vec3(HPpos, 340, 0));
 	HPbg->setPosition(glm::vec3(HPpos, 340, 0));
 	HPframe->setPosition(glm::vec3(HPpos, 340, 0));
@@ -90,7 +90,7 @@ void Boss1::updateIDLE(float deltaTime)
 	{
 		stateTime = 0;
 		int pattern = rand() % 3 + 1;
-		pattern = 2;
+		//pattern = 2;
 		if (pattern == 1)
 		{
 			state = ATK1;
