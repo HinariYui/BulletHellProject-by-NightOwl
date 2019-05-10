@@ -31,10 +31,19 @@ class Game
 	TextObject * godModeIndicator;
 
 
+
 	bool bossSpawn = false;
 
 public:
 	~Game();
+
+	bool gameBGMisOn = true;
+	bool gameSFXisOn = true;
+
+	int gameBGM = 2;
+	int gameSFX = 2;
+
+
 	bool godMode = false;
 	vector<string> pMenuSprite;
 	vector<string> optMenuSprite;
@@ -43,8 +52,6 @@ public:
 	bool bombAvailable = true;
 	SpriteObject * bomb;
 
-	bool SFXon = true;
-	bool BGMon = true;
 	bool isOptionMenu = false;
 	bool isPaused = false;
 	bool shiftPressed = false;

@@ -16,6 +16,7 @@
 #include "OptionMenu.h"
 #include "Spawner.h"
 #include "tinyxml2.h"
+#include "Audio.h"
 
 #include <fstream>
 
@@ -34,6 +35,9 @@ float playerSizeY = 60;
 
 int scoreTemp;
 int lifeTemp;
+int BGMTemp;
+int SFXTemp;
+
 
 bool spawnBoss1 = false;
 bool spawnBoss2 = false;
@@ -468,6 +472,9 @@ Game::Game()
 
 void Game::update(float deltaTime)
 {
+	cout << "GameBGM ="<< gameBGM << endl;
+	cout << "GameSFX =" << gameSFX << endl;
+
 	if (bomb != NULL)
 	{
 		bombSize = bombSize * 1.2 ;
