@@ -2,6 +2,7 @@
 #include "Boss1.h"
 #include "EnemyBullet.h"
 #include "SpecialEnemyBullet.h"
+#include "Landmine.h"
 #include "Game.h"
 
 Boss1::Boss1(Tag enemy, string fileName, int row, int col) : SpriteObject(fileName, row, col)
@@ -40,7 +41,7 @@ void Boss1::update(float deltaTime)
 	HPpercentage = (float)hp / (float)maxHP;
 	HPbar->setSize(HPsize * HPpercentage, 20);
 	missingHP = (float)maxHP - (float)hp;
-	HPbar->setPosition(glm::vec3(HPpos - missingHP/4, 340, 0));
+	HPbar->setPosition(glm::vec3(HPpos - missingHP / 4, 340, 0));
 	GameObject::update(deltaTime);
 
 	if (state == IDLE)
@@ -320,6 +321,8 @@ void Boss1::shoot1_1A() // pattern 1_1A
 
 void Boss1::shoot1_1B(float constant, float deltaTime)
 {
+	ATKCount += deltaTime;
+
 	glm::vec3 pPos = Game::getInstance()->getPlayerRef()->getPosition();
 
 	drone1MoveToPos = pPos;
@@ -333,27 +336,68 @@ void Boss1::shoot1_1B(float constant, float deltaTime)
 		drone2MoveDir = glm::normalize(drone2MoveToPos - Drone2->getPosition());
 		drone3MoveDir = glm::normalize(drone3MoveToPos - Drone3->getPosition());
 		drone4MoveDir = glm::normalize(drone4MoveToPos - Drone4->getPosition());
-
-		//drone1MoveSpeed = sqrt(((drone1MoveToPos.x - Drone1->getPosition().x) * (drone1MoveToPos.x - Drone1->getPosition().x)) + ((drone1MoveToPos.y - Drone1->getPosition().y) * (drone1MoveToPos.y - Drone1->getPosition().y))) * constant;
-		//drone2MoveSpeed = sqrt(((drone2MoveToPos.x - Drone2->getPosition().x) * (drone2MoveToPos.x - Drone2->getPosition().x)) + ((drone2MoveToPos.y - Drone2->getPosition().y) * (drone2MoveToPos.y - Drone2->getPosition().y))) * constant;
-		//drone3MoveSpeed = sqrt(((drone3MoveToPos.x - Drone3->getPosition().x) * (drone3MoveToPos.x - Drone3->getPosition().x)) + ((drone3MoveToPos.y - Drone3->getPosition().y) * (drone3MoveToPos.y - Drone3->getPosition().y))) * constant;
-		//drone4MoveSpeed = sqrt(((drone4MoveToPos.x - Drone4->getPosition().x) * (drone4MoveToPos.x - Drone4->getPosition().x)) + ((drone4MoveToPos.y - Drone4->getPosition().y) * (drone4MoveToPos.y - Drone4->getPosition().y))) * constant;
 	}
-	if (Drone1->getPosition().x > -442 && Drone1->getPosition().x < 18 && Drone1->getPosition().y > - 310 && Drone1->getPosition().y < 310)
+	if (Drone1->getPosition().x > -442 && Drone1->getPosition().x < 18 && Drone1->getPosition().y > -310 && Drone1->getPosition().y < 310)
 	{
+		drone1IsMoving = true;
 		dynamic_cast<GameObject*>(Drone1)->translate(drone1MoveDir * constant);
 	}
+	else drone1IsMoving = false;
 	if (Drone2->getPosition().x > -442 && Drone2->getPosition().x < 18 && Drone2->getPosition().y > -310 && Drone2->getPosition().y < 310)
 	{
+		drone2IsMoving = true;
 		dynamic_cast<GameObject*>(Drone2)->translate(drone2MoveDir * constant);
 	}
+	else drone2IsMoving = false;
 	if (Drone3->getPosition().x > -442 && Drone3->getPosition().x < 18 && Drone3->getPosition().y > -310 && Drone3->getPosition().y < 310)
 	{
+		drone3IsMoving = true;
 		dynamic_cast<GameObject*>(Drone3)->translate(drone3MoveDir * constant);
 	}
+	else drone3IsMoving = false;
 	if (Drone4->getPosition().x > -442 && Drone4->getPosition().x < 18 && Drone4->getPosition().y > -310 && Drone4->getPosition().y < 310)
 	{
+		drone4IsMoving = true;
 		dynamic_cast<GameObject*>(Drone4)->translate(drone4MoveDir * constant);
+	}
+	else drone4IsMoving = false;
+
+	if (ATKCount >= 1000) // every 1 sec
+	{
+		if (drone1IsMoving)
+		{
+			// Bullet 1
+			DrawableObject* lm = new Landmine(Tag::eBullet, "Boss1Bullet20x20.png");
+			lm->setSize(50, 50);
+			lm->setPosition(Drone1->getPosition());
+			Game::getInstance()->getObjectRef()->push_back(lm);
+		}
+		if (drone2IsMoving)
+		{
+			// Bullet2
+			DrawableObject* lm = new Landmine(Tag::eBullet, "Boss1Bullet20x20.png");
+			lm->setSize(50, 50);
+			lm->setPosition(Drone2->getPosition());
+			Game::getInstance()->getObjectRef()->push_back(lm);
+		}
+		if (drone3IsMoving)
+		{
+			// Bullet 3
+			DrawableObject* lm = new Landmine(Tag::eBullet, "Boss1Bullet20x20.png");
+			lm->setSize(50, 50);
+			lm->setPosition(Drone3->getPosition());
+			Game::getInstance()->getObjectRef()->push_back(lm);
+		}
+		if (drone4IsMoving)
+		{
+			// Bullet 4
+			DrawableObject* lm = new Landmine(Tag::eBullet, "Boss1Bullet20x20.png");
+			lm->setSize(50, 50);
+			lm->setPosition(Drone4->getPosition());
+			Game::getInstance()->getObjectRef()->push_back(lm);
+		}
+
+		ATKCount = 0;
 	}
 }
 
@@ -371,20 +415,20 @@ void Boss1::DroneMove1(float constant)
 	drone2MoveToPos = glm::vec3(-172, 40, 0);
 	drone3MoveToPos = glm::vec3(-252, -40, 0);
 	drone4MoveToPos = glm::vec3(-172, -40, 0);
-	
+
 	if (!droneIsMoving1)
 	{
 		drone1MoveDir = glm::normalize(drone1MoveToPos - Drone1->getPosition());
 		drone2MoveDir = glm::normalize(drone2MoveToPos - Drone2->getPosition());
 		drone3MoveDir = glm::normalize(drone3MoveToPos - Drone3->getPosition());
 		drone4MoveDir = glm::normalize(drone4MoveToPos - Drone4->getPosition());
-	
+
 		drone1MoveSpeed = sqrt(((drone1MoveToPos.x - Drone1->getPosition().x) * (drone1MoveToPos.x - Drone1->getPosition().x)) + ((drone1MoveToPos.y - Drone1->getPosition().y) * (drone1MoveToPos.y - Drone1->getPosition().y))) * constant;
 		drone2MoveSpeed = sqrt(((drone2MoveToPos.x - Drone2->getPosition().x) * (drone2MoveToPos.x - Drone2->getPosition().x)) + ((drone2MoveToPos.y - Drone2->getPosition().y) * (drone2MoveToPos.y - Drone2->getPosition().y))) * constant;
 		drone3MoveSpeed = sqrt(((drone3MoveToPos.x - Drone3->getPosition().x) * (drone3MoveToPos.x - Drone3->getPosition().x)) + ((drone3MoveToPos.y - Drone3->getPosition().y) * (drone3MoveToPos.y - Drone3->getPosition().y))) * constant;
 		drone4MoveSpeed = sqrt(((drone4MoveToPos.x - Drone4->getPosition().x) * (drone4MoveToPos.x - Drone4->getPosition().x)) + ((drone4MoveToPos.y - Drone4->getPosition().y) * (drone4MoveToPos.y - Drone4->getPosition().y))) * constant;
 	}
-	
+
 	dynamic_cast<GameObject*>(Drone1)->translate(drone1MoveDir * drone1MoveSpeed);
 	dynamic_cast<GameObject*>(Drone2)->translate(drone2MoveDir * drone2MoveSpeed);
 	dynamic_cast<GameObject*>(Drone3)->translate(drone3MoveDir * drone3MoveSpeed);

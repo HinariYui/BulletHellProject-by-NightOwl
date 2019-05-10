@@ -111,16 +111,12 @@
     <ClCompile Include="AnimatedSelection.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-<<<<<<< HEAD
-<<<<<<< HEAD
     <ClCompile Include="OptionMenu.cpp">
-=======
-    <ClCompile Include="Landmine.cpp">
->>>>>>> 26903df3cc3b4c7a84b28112c7e643bd28eb39ed
       <Filter>Source Files</Filter>
     </ClCompile>
-=======
->>>>>>> parent of 8ad6ea8... boss 1 90% done
+    <ClCompile Include="Landmine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CircleMeshVbo.h">
@@ -213,15 +209,11 @@
     <ClInclude Include="AnimatedSelection.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-<<<<<<< HEAD
-<<<<<<< HEAD
     <ClInclude Include="OptionMenu.h">
-=======
-    <ClInclude Include="Landmine.h">
->>>>>>> 26903df3cc3b4c7a84b28112c7e643bd28eb39ed
       <Filter>Header Files</Filter>
     </ClInclude>
-=======
->>>>>>> parent of 8ad6ea8... boss 1 90% done
+    <ClInclude Include="Landmine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

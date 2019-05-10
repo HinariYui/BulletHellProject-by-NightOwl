@@ -443,14 +443,14 @@ void OptionMenu::destroyComponents()
 
 bool OptionMenu::CheckIfAllComponentNotNull()
 {
-	//if (c1 != NULL && c2 != NULL && c3 != NULL && c4 != NULL && p1 != NULL && p2 != NULL && p3 != NULL && p4 != NULL)
-	//{
-	//	return true;
-	//}
-	//else
-	//{
-	//	return false;
-	//}
+	if (c1 != NULL && c2 != NULL && c3 != NULL && c4 != NULL && p1 != NULL && p2 != NULL && p3 != NULL && p4 != NULL)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }
 
 void OptionMenu::setCurrentSelection(int num)
