@@ -111,7 +111,11 @@
     <ClCompile Include="AnimatedSelection.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="OptionMenu.cpp">
+=======
+    <ClCompile Include="Landmine.cpp">
+>>>>>>> 26903df3cc3b4c7a84b28112c7e643bd28eb39ed
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -206,7 +210,11 @@
     <ClInclude Include="AnimatedSelection.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="OptionMenu.h">
+=======
+    <ClInclude Include="Landmine.h">
+>>>>>>> 26903df3cc3b4c7a84b28112c7e643bd28eb39ed
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
