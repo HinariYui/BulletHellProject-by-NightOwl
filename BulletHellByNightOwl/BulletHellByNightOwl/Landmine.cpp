@@ -10,6 +10,8 @@ Landmine::Landmine(Tag bulletType, string spriteFile) : EnemyBullet(bulletType, 
 
 void Landmine::update(float deltaTime)
 {
+	BulletGameObject::setVelocity(glm::vec3(0));
+	BulletGameObject::update(deltaTime);
 	timeCounter += deltaTime;
 	if (lState == L_START)
 	{
