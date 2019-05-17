@@ -60,28 +60,28 @@ PauseMenu::PauseMenu(vector<string> fileName,int spriteNum,int optNum)
 	c4->setAnimationLoop(1, 5, 5, 1000);
 	Game::getInstance()->getObjectRef()->push_back(c4);
 
-	p1 = new AnimatedSelection(fileName.at(9), 1, 7);
+	p1 = new AnimatedSelection(fileName.at(9), 1, 7);// press Resume
 	p1->setSize(438, 129);
 	p1->setPosition(glm::vec3(0, 75, 0));
-	p1->setAnimationLoop(1, 7, 7, 500);
+	p1->setAnimationLoop(1, 7, 1, 1000);
 	p1->enable = false;
-	Game::getInstance()->getObjectRef()->push_back(p1);
+	Game::getInstance()->getObjectRef()->push_back(p1);//press Mainmenu
 	p2 = new AnimatedSelection(fileName.at(10), 1, 7);
 	p2->setSize(438, 129);
 	p2->setPosition(glm::vec3(0, 0, 0));
-	p2->setAnimationLoop(1, 7, 7, 500);
+	p2->setAnimationLoop(1, 7, 1, 1000);
 	p2->enable = false;
-	Game::getInstance()->getObjectRef()->push_back(p2);
+	Game::getInstance()->getObjectRef()->push_back(p2); //press Option
 	p3 = new AnimatedSelection(fileName.at(11), 1, 7);
 	p3->setSize(438, 129);
 	p3->setPosition(glm::vec3(0, -75, 0));
-	p3->setAnimationLoop(1, 7, 7, 500);
+	p3->setAnimationLoop(1, 7, 1, 1000);
 	p3->enable = false;
-	Game::getInstance()->getObjectRef()->push_back(p3);
+	Game::getInstance()->getObjectRef()->push_back(p3);// press Quit
 	p4 = new AnimatedSelection(fileName.at(12), 1, 7);
 	p4->setSize(438, 129);
 	p4->setPosition(glm::vec3(0, -150, 0));
-	p4->setAnimationLoop(1, 7, 7, 500);
+	p4->setAnimationLoop(1, 7, 1, 1000);
 	p4->enable = false;
 	Game::getInstance()->getObjectRef()->push_back(p4);
 
@@ -102,83 +102,98 @@ void PauseMenu::update(float deltaTime)
 {
 	if(CheckIfAllComponentNotNull() == true)
 	{
-		if (currentChoice <= 0) //subSprite=1 (y = 150 +  1*-75)
+		if (pressed == false)
 		{
-			c1->enable = true;
-			c2->enable = false;
-			c3->enable = false;
-			c4->enable = false;
-			p1->enable = false;
-			p2->enable = false;
-			p3->enable = false;
-			p4->enable = false;
-
-
-			if (pressed == true)
+			if (currentChoice <= 0) //subSprite=1 (y = 150 +  1*-75)
+			{
+				c1->enable = true;
+				c2->enable = false;
+				c3->enable = false;
+				c4->enable = false;
+				p1->enable = false;
+				p2->enable = false;
+				p3->enable = false;
+				p4->enable = false;
+			}
+			else if (currentChoice == 1)
 			{
 				c1->enable = false;
-				p1->enable = true;
-				p1->update(deltaTime);
-			}
-		}
-		else if (currentChoice == 1)
-		{
-			c1->enable = false;
-			c2->enable = true;
-			c3->enable = false;
-			c4->enable = false;
-			p1->enable = false;
-			p2->enable = false;
-			p3->enable = false;
-			p4->enable = false;
-
-		
-			if (pressed == true)
-			{
-				c2->enable = false;
-				p2->enable = true;
-				p2->update(deltaTime);
-			}
-		}
-		else if (currentChoice == 2)
-		{
-			c1->enable = false;
-			c2->enable = false;
-			c3->enable = true;
-			c4->enable = false;
-			p1->enable = false;
-			p2->enable = false;
-			p3->enable = false;
-			p4->enable = false;
-
-
-			if (pressed == true)
-			{
-				cout << "whyyyy" << endl;
-
+				c2->enable = true;
 				c3->enable = false;
-				p3->enable = true;
-				//p3->setAnimationLoop(1, 7, 7, 500);
-
-				p3->update(deltaTime);
+				c4->enable = false;
+				p1->enable = false;
+				p2->enable = false;
+				p3->enable = false;
+				p4->enable = false;
+			}
+			else if (currentChoice == 2)
+			{
+				c1->enable = false;
+				c2->enable = false;
+				c3->enable = true;
+				c4->enable = false;
+				p1->enable = false;
+				p2->enable = false;
+				p3->enable = false;
+				p4->enable = false;
+			}
+			else
+			{
+				c1->enable = false;
+				c2->enable = false;
+				c3->enable = false;
+				c4->enable = true;
+				p1->enable = false;
+				p2->enable = false;
+				p3->enable = false;
+				p4->enable = false;
 			}
 		}
 		else
 		{
-			c1->enable = false;
-			c2->enable = false;
-			c3->enable = false;
-			c4->enable = true;
-			p1->enable = false;
-			p2->enable = false;
-			p3->enable = false;
-			p4->enable = false;
-
-			if (pressed == true)
+			if (currentChoice <= 0) //subSprite=1 (y = 150 +  1*-75)
 			{
+				c1->enable = false;
+				c2->enable = false;
+				c3->enable = false;
 				c4->enable = false;
+				p1->enable = true;
+				p2->enable = false;
+				p3->enable = false;
+				p4->enable = false;
+			}
+			else if (currentChoice == 1)
+			{
+				c1->enable = false;
+				c2->enable = false;
+				c3->enable = false;
+				c4->enable = false;
+				p1->enable = false;
+				p2->enable = true;
+				p3->enable = false;
+				p4->enable = false;
+			}
+			else if (currentChoice == 2)
+			{
+				c1->enable = false;
+				c2->enable = false;
+				c3->enable = false;
+				c4->enable = false;
+				p1->enable = false;
+				p2->enable = false;
+				p3->enable = true;
+				p4->enable = false;
+			}
+			else
+			{
+				c1->enable = false;
+				c2->enable = false;
+				c3->enable = false;
+				c4->enable = false;
+				p1->enable = false;
+				p2->enable = false;
+				p3->enable = false;
 				p4->enable = true;
-				p4->update(deltaTime);
 			}
 		}
 
@@ -186,6 +201,10 @@ void PauseMenu::update(float deltaTime)
 		c2->update(deltaTime);
 		c3->update(deltaTime);
 		c4->update(deltaTime);
+		p1->update(deltaTime);
+		p2->update(deltaTime);
+		p3->update(deltaTime);
+		p4->update(deltaTime);
 	}
 }
 
@@ -379,7 +398,9 @@ void PauseMenu::destroyComponents()
 		{
 			instance = Game::getInstance()->getObjectRef()->at(i);
 
-			if (instance->getObjId() == c1->getObjId() || instance->getObjId() == c2->getObjId() || instance->getObjId() == c3->getObjId() || instance->getObjId() == c4->getObjId())
+			if (instance->getObjId() == c1->getObjId() || instance->getObjId() == c2->getObjId() || instance->getObjId() == c3->getObjId() || instance->getObjId() == c4->getObjId()
+				|| instance->getObjId() == p1->getObjId() || instance->getObjId() == p2->getObjId() || instance->getObjId() == p3->getObjId() || instance->getObjId() == p4->getObjId())
+
 			{
 				Game::getInstance()->getObjectRef()->erase(Game::getInstance()->getObjectRef()->begin() + i);
 				Game::getInstance()->getObjectRef()->end();
@@ -411,4 +432,24 @@ int PauseMenu::getCurrentSelection()
 }
 
 
+void PauseMenu::updateComponent(char indicator)
+{
+	if (indicator == 'e')
+	{
+		pressed = true;
+		p1->setAnimationLoop(1, 7, 7, 1000);
+		p2->setAnimationLoop(1, 7, 7, 1000);
+		p3->setAnimationLoop(1, 7, 7, 1000);
+		p4->setAnimationLoop(1, 7, 7, 1000);
+
+	}
+	else
+	{
+		pressed = false;
+		p1->setAnimationLoop(1, 7, 1, 1000);
+		p2->setAnimationLoop(1, 7, 1, 1000);
+		p3->setAnimationLoop(1, 7, 1, 1000);
+		p4->setAnimationLoop(1, 7, 1, 1000);
+	}
+}
 

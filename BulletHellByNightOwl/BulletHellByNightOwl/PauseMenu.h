@@ -59,7 +59,7 @@ public:
 	int getCurrentSelection();
 
 	bool CheckIfAllComponentNotNull();
-
+	void updateComponent(char indicator);
 };
 
 

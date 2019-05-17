@@ -77,7 +77,7 @@ void Game::handleMouse(int x, int y)
 
 void Game::handleKey(char ch)
 {
-	if(ch == 'e')
+	if (ch == 'e')
 	{
 		if (menuIsDestroyed == false)
 		{
@@ -86,50 +86,62 @@ void Game::handleKey(char ch)
 			menuIsDestroyed = true;
 		}
 		else
-		{	
+		{
 			if (isPaused == true)
 			{
 				PauseMenu* p = dynamic_cast<PauseMenu*>(pauseMenu);
-				
+
 				if (isOptionMenu == false)
 				{
-					if (p->getCurrentSelection() <= 0)
-					{
-						handleKey('E');//resume
-					}
-					else if (p->getCurrentSelection() == 1)
-					{
-						menu = new Menu();
-						menu->setSize(1280, 720);
-						menu->setPosition(glm::vec3(0, 0, 0));
-						objects.clear();
-						objects.push_back(menu);
-						menuIsDestroyed = false;
-						handleKey('E');
-						firstRound = true;
-						spawners[0]->eNum = 0;
-						bossSpawn = false;
-					}
-					else if (p->getCurrentSelection() == 2)
-					{
-						//optionMenu
-						optionCurrentSelection = 0;
-						optionMenu = new OptionMenu(optMenuSprite, 3, 2);
-						optionMenu->setSize(500, 500);
-						optionMenu->setPosition(glm::vec3(0, 0, 0));
-						isOptionMenu = true;
-					}
-					else
-					{
-						exit(0);
-					}
+					p->updateComponent('e');
 				}
 				else
 				{
 					//in optionMenu
 					checkOptionMenuInput('e');
-
 				}
+			}
+		}
+	}
+	if (ch == 'E') 
+	{
+		if (isPaused == true)
+		{
+			PauseMenu* p = dynamic_cast<PauseMenu*>(pauseMenu);
+			if (isOptionMenu == false)
+			{
+				p->updateComponent('E');
+				if (p->getCurrentSelection() <= 0)
+				{
+					handleKey('x');//resume
+				}
+				else if (p->getCurrentSelection() == 1)
+				{
+					menu = new Menu();
+					menu->setSize(1280, 720);
+					menu->setPosition(glm::vec3(0, 0, 0));
+					objects.clear();
+					objects.push_back(menu);
+					menuIsDestroyed = false;
+					handleKey('x');
+					firstRound = true;
+					spawners[0]->eNum = 0;
+					bossSpawn = false;
+					godMode = false;
+				}
+				else if (p->getCurrentSelection() == 2)
+				{
+					//optionMenu
+					optionCurrentSelection = 0;
+					optionMenu = new OptionMenu(optMenuSprite, 3, 2);
+					optionMenu->setSize(1280, 720);
+					optionMenu->setPosition(glm::vec3(0, 0, 0));
+					isOptionMenu = true;
+				}
+				else
+				{
+					exit(0);
+				}		
 			}
 		}
 	}
@@ -148,8 +160,8 @@ void Game::handleKey(char ch)
 
 	if (!playerIsDead)
 	{
-		if (this->objects.size() > 0) {
-
+		if (this->objects.size() > 0)
+		{
 			PlayerGameObject *p = dynamic_cast<PlayerGameObject*>(this->player);
 
 			if (ch == ' ')
@@ -162,10 +174,8 @@ void Game::handleKey(char ch)
 					bomb->setSize(bombSize, bombSize);
 					bomb->setPosition(glm::vec3(-212, 0, 0));
 					objects.push_back(bomb);
-
 					bombAvailable = false;
 				}
-
 			}
 			if (ch == 'g')
 			{
@@ -185,7 +195,6 @@ void Game::handleKey(char ch)
 					for (int i = objects.size() - 1; i >= 0; i--)
 					{
 						DrawableObject* instance = objects.at(i);
-
 						if (instance->getObjId() == godModeIndicator->getObjId())
 						{
 							objects.erase(objects.begin() + i);
@@ -229,10 +238,18 @@ void Game::handleKey(char ch)
 			if (ch == 'L')//release button
 			{
 				p->move('L');
+				if (isOptionMenu == true)
+				{
+					checkOptionMenuInput('L');
+				}
 			}
 			if (ch == 'R')
 			{
 				p->move('R');
+				if (isOptionMenu == true)
+				{
+					checkOptionMenuInput('R');
+				}
 			}
 			if (ch == 'U')
 			{
@@ -258,7 +275,7 @@ void Game::handleKey(char ch)
 			{
 				shiftPressed = false;
 			}
-			if (ch == 'E')
+			if (ch == 'x')
 			{
 				if (isPaused == false)
 				{
@@ -288,7 +305,6 @@ void Game::handleKey(char ch)
 								objects.end();
 							}
 						}
-
 						isPaused = false;
 					}
 					else
@@ -308,28 +324,29 @@ void Game::handleKey(char ch)
 
 						isOptionMenu = false;
 					}
-	
 				}
-
 			}
 		}
-	}
-	if (ch == 'o')
-	{
-		spawnBoss1 = true;
-		spawnBoss2 = false;
-		bossSpawn = false;
-	}
-	if (ch == 'p')
-	{
-		spawnBoss2 = true;
-		spawnBoss1 = false;
-		bossSpawn = false;
+		if (ch == 'o')
+		{
+			spawnBoss1 = true;
+			spawnBoss2 = false;
+			bossSpawn = false;
+		}
+		if (ch == 'p')
+		{
+			spawnBoss2 = true;
+			spawnBoss1 = false;
+			bossSpawn = false;
+		}
 	}
 }
 
+
 void Game::init(int width, int height)
 {
+
+	
 	winWidth = width;
 	winHeight = height;
 	renderer = new GLRendererColor(width, height);
@@ -367,16 +384,22 @@ void Game::init(int width, int height)
 	pMenuSprite.push_back("Buttons/Press_Option_219x129.png");
 	pMenuSprite.push_back("Buttons/Pressed_QuitFIX_219x129.png");
 
-	optMenuSprite.push_back("tempOption.png");
-	optMenuSprite.push_back("Option/BGM.png");
-	optMenuSprite.push_back("Option/SFX.png");	
-	optMenuSprite.push_back("Option/ON.png");
-	optMenuSprite.push_back("Option/OFF.png");
-	optMenuSprite.push_back("Option/vol0.png");
-	optMenuSprite.push_back("Option/vol25.png");
-	optMenuSprite.push_back("Option/vol50.png");
-	optMenuSprite.push_back("Option/vol75.png");
-	optMenuSprite.push_back("Option/vol100.png");
+	optMenuSprite.push_back("Option/Option_BG.png");
+	optMenuSprite.push_back("Option/Idle_BackgroundMusic_219x129.png");
+	optMenuSprite.push_back("Option/Idle_SoundEffect_219x129.png");
+
+	optMenuSprite.push_back("Option/Option219x129.png");
+	optMenuSprite.push_back("Option/Speaker50x50.png");
+	optMenuSprite.push_back("Option/SpeakerSilence50x50.png");
+	optMenuSprite.push_back("Option/Idle_LArrow50x50.png");
+	optMenuSprite.push_back("Option/Idle_RArrow50x50.png");
+
+	optMenuSprite.push_back("Option/Selected_BackgroundMusic_219x129.png");
+	optMenuSprite.push_back("Option/Selected_SoundEffect_219x129.png");
+
+
+	optMenuSprite.push_back("Option/LArrow50x50.png");
+	optMenuSprite.push_back("Option/RArrow50x50.png");
 
 
 
@@ -454,8 +477,8 @@ void Game::init(int width, int height)
 	//boss->setPosition(glm::vec3(-212, 200, 0));
 	//p->setAnimationLoop(1, 1, 0, 1000);
 	//objects.push_back(boss); // index 8
-
 }
+
 
 void Game::render()
 {
@@ -472,8 +495,7 @@ Game::Game()
 
 void Game::update(float deltaTime)
 {
-	cout << "GameBGM ="<< gameBGM << endl;
-	cout << "GameSFX =" << gameSFX << endl;
+	//cout << "gameLife"<< lifeTemp << endl;
 
 	if (bomb != NULL)
 	{
@@ -623,10 +645,10 @@ void Game::update(float deltaTime)
 					objects.clear();
 					objects.push_back(menu);
 					menuIsDestroyed = false;
-					handleKey('E');
+					handleKey('x');
 					firstRound = true;
 					spawners[0]->eNum = 0;
-					bossSpawn = false;
+					//bossSpawn = false; //เปิดแล้วมีบัคตอน Gameover
 				}
 
 				playerIsDead = false;
@@ -914,6 +936,15 @@ void Game::checkOptionMenuInput(char input)
 		{
 			opt->toggleOnOff();
 		}
+		else if (input == 'L')
+		{
+			opt->decreaseVolUpdate();
+		}
+		else if (input == 'R')
+		{
+			opt->increaseVolUpdate();
+
+		}
 
 	}
 	else 
@@ -939,6 +970,15 @@ void Game::checkOptionMenuInput(char input)
 		else if (input == 'e')
 		{
 			opt->toggleOnOff();
+		}
+		else if (input == 'L')
+		{
+			opt->decreaseVolUpdate();
+		}
+		else if (input == 'R')
+		{
+			opt->increaseVolUpdate();
+
 		}
 	}
 

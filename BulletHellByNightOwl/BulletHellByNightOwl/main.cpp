@@ -136,6 +136,7 @@ int main(int argc, char *argv[])
 					case SDLK_DOWN:game->handleKey('D');  break;
 					case SDLK_z: game->handleKey('Z');	  break;
 					case SDLK_LSHIFT: game->handleKey('S'); break;//leftShift not press
+					case SDLK_RETURN: game->handleKey('E'); break;
 				}
 			}
 			if (sdlEvent.type == SDL_KEYDOWN)
@@ -151,7 +152,7 @@ int main(int argc, char *argv[])
 					case SDLK_z: game->handleKey('z');	  break;
 					case SDLK_g: game->handleKey('g');	  break; //toggle godMode
 					case SDLK_LSHIFT: game->handleKey('s'); break; //leftShift press
-					case SDLK_ESCAPE: game->handleKey('E'); break; //Esc
+					case SDLK_ESCAPE: game->handleKey('x'); break; //Esc
 					case SDLK_SPACE: game->handleKey(' '); break;//SPACEBAR
 					case SDLK_o: game->handleKey('o'); break;
 					case SDLK_p: game->handleKey('p'); break;
