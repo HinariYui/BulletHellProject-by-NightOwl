@@ -2,6 +2,7 @@
 #include "Boss2.h"
 #include "EnemyBullet.h"
 #include "SpecialEnemyBullet.h"
+#include "Laser.h"
 #include "Game.h"
 
 
@@ -34,7 +35,7 @@ void Boss2::update(float deltaTime)
 	else if (HPpercentage <= 0.33) HPbar->addSprite("HP-red.png", 1, 1);
 	HPbar->setSize(HPsize * HPpercentage, 20);
 	missingHP = (float)maxHP - (float)hp;
-	HPbar->setPosition(glm::vec3(HPpos - missingHP / 4, 340, 0));
+	HPbar->setPosition(glm::vec3(HPpos - missingHP / (maxHP / (HPsize / 2)), 340, 0));
 	GameObject::update(deltaTime);
 
 	if (state == IDLE2)
@@ -66,15 +67,15 @@ void Boss2::updateIDLE(float deltaTime)
 	if (stateTime >= idleTime)
 	{
 		stateTime = 0;
-		//int pattern = rand() % 3 + 1;
-		//if (pattern == 1)
+		int pattern = rand() % 2 + 1;
+		if (pattern == 1)
 		{
 			state = ATK2_1;
 		}
-		//else if (pattern == 2)
-		//{
-		//	state = ATK2;
-		//}
+		else if (pattern == 2)
+		{
+			state = ATK2_3;
+		}
 		//else
 		//{
 		//	state = ATK3;
@@ -105,7 +106,7 @@ void Boss2::updateATK1(float deltaTime)
 	{
 		stateTime = 0;
 		state = IDLE2;
-		idleTime = rand() % 1000 + 2000;
+		idleTime = rand() % 1000 + 1000;
 		isShooting = false;
 		isShooting2 = false;
 		isShooting3 = false;
@@ -145,20 +146,20 @@ void Boss2::updateATK2(float deltaTime)
 
 void Boss2::updateATK3(float deltaTime)
 {
-
 	stateTime += deltaTime;
 	ATKCount += deltaTime;
-	if (ATKCount >= 100) // shoot every 0.1 sec
+	if (ATKCount >= 1200) // shoot every 1 sec
 	{
-		shoot2_1D();
-		shootSound.play();
+		shoot1_2C();
 		ATKCount = 0;
+		laserNum++;
 	}
-	if (stateTime >= 3000)
+	if (laserNum >= 12)
 	{
+		laserNum = 0;
 		stateTime = 0;
 		state = IDLE2;
-		idleTime = rand() % 1000 + 3000;
+		idleTime = rand() % 1000 + 4000;
 	}
 }
 
@@ -264,7 +265,7 @@ void Boss2::shoot1_2A() // pattern 1_2A
 
 		// Bullet 1
 
-		enemyBullet1 = new EnemyBullet(Tag::eBullet, "Boss1Bullet20x20.png");
+		enemyBullet1 = new EnemyBullet(Tag::eBullet, "smallyellow.png");
 		enemyBullet1->setSize(60, 60);
 		enemyBullet1->setPosition(this->getPosition());
 
@@ -276,7 +277,7 @@ void Boss2::shoot1_2A() // pattern 1_2A
 
 		// Bullet2
 
-		enemyBullet2 = new EnemyBullet(Tag::eBullet, "Boss1Bullet20x20.png");
+		enemyBullet2 = new EnemyBullet(Tag::eBullet, "smallyellow.png");
 
 		enemyBullet2->setSize(60, 60);
 		enemyBullet2->setPosition(this->getPosition());
@@ -289,7 +290,7 @@ void Boss2::shoot1_2A() // pattern 1_2A
 
 		// Bullet 3
 
-		enemyBullet3 = new EnemyBullet(Tag::eBullet, "Boss1Bullet20x20.png");
+		enemyBullet3 = new EnemyBullet(Tag::eBullet, "smallyellow.png");
 
 		enemyBullet3->setSize(60, 60);
 		enemyBullet3->setPosition(this->getPosition());
@@ -302,7 +303,7 @@ void Boss2::shoot1_2A() // pattern 1_2A
 
 		// Bullet 4
 
-		enemyBullet4 = new EnemyBullet(Tag::eBullet, "Boss1Bullet20x20.png");
+		enemyBullet4 = new EnemyBullet(Tag::eBullet, "smallyellow.png");
 
 		enemyBullet4->setSize(60, 60);
 		enemyBullet4->setPosition(this->getPosition());
@@ -315,7 +316,7 @@ void Boss2::shoot1_2A() // pattern 1_2A
 
 		// Bullet 5
 
-		enemyBullet5 = new EnemyBullet(Tag::eBullet, "Boss1Bullet20x20.png");
+		enemyBullet5 = new EnemyBullet(Tag::eBullet, "smallyellow.png");
 
 		enemyBullet5->setSize(60, 60);
 		enemyBullet5->setPosition(this->getPosition());
@@ -335,8 +336,8 @@ void Boss2::shoot1_2A() // pattern 1_2A
 		bul1PosTemp = enemyBullet1->getPosition();
 		bul1PosTemp.x = -462 - 20;
 
-		enemyBullet1_1 = new EnemyBullet(Tag::eBullet, "Boss1Bullet20x20.png");
-		enemyBullet1_2 = new EnemyBullet(Tag::eBullet, "Boss1Bullet20x20.png");
+		enemyBullet1_1 = new EnemyBullet(Tag::eBullet, "midorange.png");
+		enemyBullet1_2 = new EnemyBullet(Tag::eBullet, "midorange.png");
 
 		enemyBullet1_1->setSize(40, 40);
 		enemyBullet1_2->setSize(40, 40);
@@ -363,8 +364,8 @@ void Boss2::shoot1_2A() // pattern 1_2A
 		bul2PosTemp = enemyBullet2->getPosition();
 		bul2PosTemp.x = 38 + 20;
 
-		enemyBullet2_1 = new EnemyBullet(Tag::eBullet, "Boss1Bullet20x20.png");
-		enemyBullet2_2 = new EnemyBullet(Tag::eBullet, "Boss1Bullet20x20.png");
+		enemyBullet2_1 = new EnemyBullet(Tag::eBullet, "midorange.png");
+		enemyBullet2_2 = new EnemyBullet(Tag::eBullet, "midorange.png");
 
 		enemyBullet2_1->setSize(40, 40);
 		enemyBullet2_2->setSize(40, 40);
@@ -391,8 +392,8 @@ void Boss2::shoot1_2A() // pattern 1_2A
 		bul3PosTemp = enemyBullet3->getPosition();
 		bul3PosTemp.x = -462 - 20;
 
-		enemyBullet3_1 = new EnemyBullet(Tag::eBullet, "Boss1Bullet20x20.png");
-		enemyBullet3_2 = new EnemyBullet(Tag::eBullet, "Boss1Bullet20x20.png");
+		enemyBullet3_1 = new EnemyBullet(Tag::eBullet, "midorange.png");
+		enemyBullet3_2 = new EnemyBullet(Tag::eBullet, "midorange.png");
 	
 		enemyBullet3_1->setSize(40, 40);
 		enemyBullet3_2->setSize(40, 40);
@@ -419,8 +420,8 @@ void Boss2::shoot1_2A() // pattern 1_2A
 		bul4PosTemp = enemyBullet4->getPosition();
 		bul4PosTemp.x = 38 + 20;
 
-		enemyBullet4_1 = new EnemyBullet(Tag::eBullet, "Boss1Bullet20x20.png");
-		enemyBullet4_2 = new EnemyBullet(Tag::eBullet, "Boss1Bullet20x20.png");
+		enemyBullet4_1 = new EnemyBullet(Tag::eBullet, "midorange.png");
+		enemyBullet4_2 = new EnemyBullet(Tag::eBullet, "midorange.png");
 	
 		enemyBullet4_1->setSize(40, 40);
 		enemyBullet4_2->setSize(40, 40);
@@ -447,8 +448,8 @@ void Boss2::shoot1_2A() // pattern 1_2A
 		bul5PosTemp = enemyBullet5->getPosition();
 		bul5PosTemp.y = -330 + 20;
 
-		enemyBullet5_1 = new EnemyBullet(Tag::eBullet, "Boss1Bullet20x20.png");
-		enemyBullet5_2 = new EnemyBullet(Tag::eBullet, "Boss1Bullet20x20.png");
+		enemyBullet5_1 = new EnemyBullet(Tag::eBullet, "midorange.png");
+		enemyBullet5_2 = new EnemyBullet(Tag::eBullet, "midorange.png");
 	
 		enemyBullet5_1->setSize(40, 40);
 		enemyBullet5_2->setSize(40, 40);
@@ -474,8 +475,8 @@ void Boss2::shoot1_2A() // pattern 1_2A
 	{
 		bul1_1PosTemp = enemyBullet1_1->getPosition();
 		bul1_1PosTemp.x = 38 - 10;
-		DrawableObject* enemyBullet1_3 = new EnemyBullet(Tag::eBullet, "Boss1Bullet20x20.png");
-		DrawableObject* enemyBullet1_4 = new EnemyBullet(Tag::eBullet, "Boss1Bullet20x20.png");
+		DrawableObject* enemyBullet1_3 = new EnemyBullet(Tag::eBullet, "bigred.png");
+		DrawableObject* enemyBullet1_4 = new EnemyBullet(Tag::eBullet, "bigred.png");
 
 		enemyBullet1_3->setSize(20, 20);
 		enemyBullet1_4->setSize(20, 20);
@@ -499,8 +500,8 @@ void Boss2::shoot1_2A() // pattern 1_2A
 	{
 		bul1_2PosTemp = enemyBullet1_2->getPosition();
 		bul1_2PosTemp.x = 38 - 10;
-		DrawableObject* enemyBullet1_5 = new EnemyBullet(Tag::eBullet, "Boss1Bullet20x20.png");
-		DrawableObject* enemyBullet1_6 = new EnemyBullet(Tag::eBullet, "Boss1Bullet20x20.png");
+		DrawableObject* enemyBullet1_5 = new EnemyBullet(Tag::eBullet, "bigred.png");
+		DrawableObject* enemyBullet1_6 = new EnemyBullet(Tag::eBullet, "bigred.png");
 	
 		enemyBullet1_5->setSize(20, 20);
 		enemyBullet1_6->setSize(20, 20);
@@ -524,8 +525,8 @@ void Boss2::shoot1_2A() // pattern 1_2A
 	{
 		bul2_1PosTemp = enemyBullet2_1->getPosition();
 		bul2_1PosTemp.x = -462 + 10;
-		DrawableObject* enemyBullet2_3 = new EnemyBullet(Tag::eBullet, "Boss1Bullet20x20.png");
-		DrawableObject* enemyBullet2_4 = new EnemyBullet(Tag::eBullet, "Boss1Bullet20x20.png");
+		DrawableObject* enemyBullet2_3 = new EnemyBullet(Tag::eBullet, "bigred.png");
+		DrawableObject* enemyBullet2_4 = new EnemyBullet(Tag::eBullet, "bigred.png");
 	
 		enemyBullet2_3->setSize(20, 20);
 		enemyBullet2_4->setSize(20, 20);
@@ -549,8 +550,8 @@ void Boss2::shoot1_2A() // pattern 1_2A
 	{
 		bul2_2PosTemp = enemyBullet2_2->getPosition();
 		bul2_2PosTemp.x = -462 + 10;
-		DrawableObject* enemyBullet2_5 = new EnemyBullet(Tag::eBullet, "Boss1Bullet20x20.png");
-		DrawableObject* enemyBullet2_6 = new EnemyBullet(Tag::eBullet, "Boss1Bullet20x20.png");
+		DrawableObject* enemyBullet2_5 = new EnemyBullet(Tag::eBullet, "bigred.png");
+		DrawableObject* enemyBullet2_6 = new EnemyBullet(Tag::eBullet, "bigred.png");
 	
 		enemyBullet2_5->setSize(20, 20);
 		enemyBullet2_6->setSize(20, 20);
@@ -574,8 +575,8 @@ void Boss2::shoot1_2A() // pattern 1_2A
 	{
 		bul3_1PosTemp = enemyBullet3_1->getPosition();
 		bul3_1PosTemp.x = 38 - 10;
-		DrawableObject* enemyBullet3_3 = new EnemyBullet(Tag::eBullet, "Boss1Bullet20x20.png");
-		DrawableObject* enemyBullet3_4 = new EnemyBullet(Tag::eBullet, "Boss1Bullet20x20.png");
+		DrawableObject* enemyBullet3_3 = new EnemyBullet(Tag::eBullet, "bigred.png");
+		DrawableObject* enemyBullet3_4 = new EnemyBullet(Tag::eBullet, "bigred.png");
 
 		enemyBullet3_3->setSize(20, 20);
 		enemyBullet3_4->setSize(20, 20);
@@ -599,8 +600,8 @@ void Boss2::shoot1_2A() // pattern 1_2A
 	{
 		bul3_2PosTemp = enemyBullet3_2->getPosition();
 		bul3_2PosTemp.y = -330 + 10;
-		DrawableObject* enemyBullet3_5 = new EnemyBullet(Tag::eBullet, "Boss1Bullet20x20.png");
-		DrawableObject* enemyBullet3_6 = new EnemyBullet(Tag::eBullet, "Boss1Bullet20x20.png");
+		DrawableObject* enemyBullet3_5 = new EnemyBullet(Tag::eBullet, "bigred.png");
+		DrawableObject* enemyBullet3_6 = new EnemyBullet(Tag::eBullet, "bigred.png");
 	
 		enemyBullet3_5->setSize(20, 20);
 		enemyBullet3_6->setSize(20, 20);
@@ -624,8 +625,8 @@ void Boss2::shoot1_2A() // pattern 1_2A
 	{
 		bul4_1PosTemp = enemyBullet4_1->getPosition();
 		bul4_1PosTemp.x = -462 + 10;
-		DrawableObject* enemyBullet4_3 = new EnemyBullet(Tag::eBullet, "Boss1Bullet20x20.png");
-		DrawableObject* enemyBullet4_4 = new EnemyBullet(Tag::eBullet, "Boss1Bullet20x20.png");
+		DrawableObject* enemyBullet4_3 = new EnemyBullet(Tag::eBullet, "bigred.png");
+		DrawableObject* enemyBullet4_4 = new EnemyBullet(Tag::eBullet, "bigred.png");
 
 		enemyBullet4_3->setSize(20, 20);
 		enemyBullet4_4->setSize(20, 20);
@@ -649,8 +650,8 @@ void Boss2::shoot1_2A() // pattern 1_2A
 	{
 		bul4_2PosTemp = enemyBullet4_2->getPosition();
 		bul4_2PosTemp.y = -330 + 10;
-		DrawableObject* enemyBullet4_5 = new EnemyBullet(Tag::eBullet, "Boss1Bullet20x20.png");
-		DrawableObject* enemyBullet4_6 = new EnemyBullet(Tag::eBullet, "Boss1Bullet20x20.png");
+		DrawableObject* enemyBullet4_5 = new EnemyBullet(Tag::eBullet, "bigred.png");
+		DrawableObject* enemyBullet4_6 = new EnemyBullet(Tag::eBullet, "bigred.png");
 
 		enemyBullet4_5->setSize(20, 20);
 		enemyBullet4_6->setSize(20, 20);
@@ -674,8 +675,8 @@ void Boss2::shoot1_2A() // pattern 1_2A
 	{
 		bul5_1PosTemp = enemyBullet5_1->getPosition();
 		bul5_1PosTemp.x = -462 + 10;
-		DrawableObject* enemyBullet5_3 = new EnemyBullet(Tag::eBullet, "Boss1Bullet20x20.png");
-		DrawableObject* enemyBullet5_4 = new EnemyBullet(Tag::eBullet, "Boss1Bullet20x20.png");
+		DrawableObject* enemyBullet5_3 = new EnemyBullet(Tag::eBullet, "bigred.png");
+		DrawableObject* enemyBullet5_4 = new EnemyBullet(Tag::eBullet, "bigred.png");
 
 		enemyBullet5_3->setSize(20, 20);
 		enemyBullet5_4->setSize(20, 20);
@@ -699,8 +700,8 @@ void Boss2::shoot1_2A() // pattern 1_2A
 	{
 		bul5_2PosTemp = enemyBullet5_2->getPosition();
 		bul5_2PosTemp.x = 38 - 10;
-		DrawableObject* enemyBullet5_5 = new EnemyBullet(Tag::eBullet, "Boss1Bullet20x20.png");
-		DrawableObject* enemyBullet5_6 = new EnemyBullet(Tag::eBullet, "Boss1Bullet20x20.png");
+		DrawableObject* enemyBullet5_5 = new EnemyBullet(Tag::eBullet, "bigred.png");
+		DrawableObject* enemyBullet5_6 = new EnemyBullet(Tag::eBullet, "bigred.png");
 
 		enemyBullet5_5->setSize(20, 20);
 		enemyBullet5_6->setSize(20, 20);
@@ -721,9 +722,40 @@ void Boss2::shoot1_2A() // pattern 1_2A
 	}
 }
 
-void Boss2::shoot2_1D()
+void Boss2::shoot1_2B()
 {
-	
+	glm::vec3 bulDir;
+
+	// Bullet 1
+
+	enemyBullet1 = new EnemyBullet(Tag::eBullet, "bigred.png");
+	enemyBullet1->setSize(60, 60);
+	enemyBullet1->setPosition(this->getPosition());
+
+	bulDir = normalize(glm::vec3(0, -1, 0));
+
+	dynamic_cast<GameObject*>(enemyBullet1)->setVelocity(bulDir * bulletSpeed);
+
+	Game::getInstance()->getObjectRef()->push_back(enemyBullet1);
+
+	// Bullet2
+
+	enemyBullet2 = new EnemyBullet(Tag::eBullet, "bigred.png");
+
+	enemyBullet2->setSize(60, 60);
+	enemyBullet2->setPosition(this->getPosition());
+
+	bulDir = glm::normalize(glm::vec3(1, 0, 0));
+
+	dynamic_cast<GameObject*>(enemyBullet2)->setVelocity(bulDir * bulletSpeed);
+
+	Game::getInstance()->getObjectRef()->push_back(enemyBullet2);
+}
+
+void Boss2::shoot1_2C()
+{
+		Laser* ls = new Laser(Tag::eBullet, "bigred.png");
+		Game::getInstance()->getObjectRef()->push_back(ls);
 }
 
 void Boss2::move()

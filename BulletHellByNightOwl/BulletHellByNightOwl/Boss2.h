@@ -33,6 +33,8 @@ private:
 	bool isShooting5_1 = true;
 	bool isShooting5_2 = true;
 	bool reachDestination = false;
+
+	bool laser = false;
 	DrawableObject* enemyBullet1 = NULL;
 	DrawableObject* enemyBullet1_1 = NULL;
 	DrawableObject* enemyBullet1_2 = NULL;
@@ -61,13 +63,14 @@ private:
 	float HPpercentage;
 	float missingHP;
 
-	int maxHP = 1000;
+	int maxHP = 2000;
 
 	int shootCD = 0;
 	float idleTime;
 	float stateTime;
 	float ATKCount = 0;
 	int shootCount = 0;
+	int laserNum = 0;
 
 	glm::vec3 velD = glm::vec3(0, -5, 0); //shoot down
 	glm::vec3 velR = glm::vec3(5, 0, 0); //shoot right
@@ -90,7 +93,8 @@ public:
 	void move();
 	void shoot2_1C();
 	void shoot1_2A();
-	void shoot2_1D();
+	void shoot1_2B();
+	void shoot1_2C();
 	void update(float deltaTime);
 	virtual void render(glm::mat4 globalModelTransform);
 };

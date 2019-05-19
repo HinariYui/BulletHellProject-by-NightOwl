@@ -48,7 +48,7 @@ void Boss1::update(float deltaTime)
 	else if (HPpercentage <= 0.33) HPbar->addSprite("HP-red.png", 1, 1);
 	HPbar->setSize(HPsize * HPpercentage, 20);
 	missingHP = (float)maxHP - (float)hp;
-	HPbar->setPosition(glm::vec3(HPpos - missingHP / 4, 340, 0));
+	HPbar->setPosition(glm::vec3(HPpos - missingHP / (maxHP / (HPsize / 2)), 340, 0));
 	GameObject::update(deltaTime);
 
 	if (state == IDLE)
