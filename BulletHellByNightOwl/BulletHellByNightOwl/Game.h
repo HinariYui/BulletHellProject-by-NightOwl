@@ -40,8 +40,8 @@ public:
 	bool gameBGMisOn = true;
 	bool gameSFXisOn = true;
 
-	int gameBGM = 2;
-	int gameSFX = 2;
+	int gameBGM = 75;
+	int gameSFX = 75;
 
 
 	bool godMode = false;

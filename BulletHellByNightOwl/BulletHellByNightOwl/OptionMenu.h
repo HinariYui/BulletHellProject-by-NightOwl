@@ -3,17 +3,21 @@
 #include "SquareMeshVbo.h"
 #include "gtc/matrix_transform.hpp"
 #include "gtc/type_ptr.hpp"
+#include "TextObject.h"
 
 class OptionMenu :public DrawableObject
 {
 private:
-	AnimatedSelection *c2, *c3, *c4, *c5, *p1, *p2, *p3, *p4, *p5, *p6, *p7, *p8, *p9, *p10;
+
+	TextObject * s1, *s2;
+	AnimatedSelection *c1, *c2, *c3, *c4, *c5, *c6, *c7, *c8, *c9, *p1, *p2, *p3, *p4, *p5, *p6;
 	bool onBGM = true;
 	bool onSFX = true;
-	int volBGM = 2;
-	int volSFX = 2;
+	int BGMpercent = 75;
+	int SFXpercent = 75;
+	int volBGM = 96;
+	int volSFX = 96;
 	//AnimatedSelection * c1, *c2, *c3, *c4, *p1, *p2, *p3, *p4;
-	GameObject * c1;//choiceIndicator
 	int currentChoice = 0;
 	glm::vec3 color;
 	vector<AnimatedSelection*> options;
@@ -62,11 +66,13 @@ public:
 	void setCurrentSelection(int num);
 	int getCurrentSelection();
 
-	bool CheckIfAllComponentNotNull();
+	//bool CheckIfAllComponentNotNull();
 
 	void increaseVol();
 	void decreaseVol();
 	void toggleOnOff();
+	void increaseVolUpdate();
+	void decreaseVolUpdate();
 
 
 };

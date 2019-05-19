@@ -18,6 +18,9 @@ OptionMenu::OptionMenu(string fileName)
 
 OptionMenu::OptionMenu(vector<string> fileName, int spriteNum, int optNum)
 {
+	BGMpercent = Game::getInstance()->gameBGM;
+	SFXpercent = Game::getInstance()->gameSFX;
+
 	optionNum = optNum;
 	this->spriteNum = spriteNum;
 	addSprite(fileName.at(0), 1, 1);
@@ -25,99 +28,112 @@ OptionMenu::OptionMenu(vector<string> fileName, int spriteNum, int optNum)
 	setNumberOfOptions(optionNum);
 	Game::getInstance()->getObjectRef()->push_back(this);
 
-	c1 = new GameObject(Tag::NONE);
-	c1->setColor(0.5, 0.7, 1);
-	c1->setSize(460, 210);
-	c1->setPosition(glm::vec3(0, 90, 0));
-	Game::getInstance()->getObjectRef()->push_back(c1);
+	SDL_Color color = { 255, 165, 255 };
+	
+	std::string s = std::to_string(BGMpercent) + '%';
+	s1 = new TextObject();
+	s1->setPosition(glm::vec3(100, 90, 0));
+	//s1->setSize(50, 50);
+	s1->loadText(s, color, 60);
+	Game::getInstance()->getObjectRef()->push_back(s1);
+
+	s = std::to_string(SFXpercent) + '%';
+	s2 = new TextObject();
+	s2->setPosition(glm::vec3(100, -120, 0));
+	//s2->setSize(50, 50);
+	s2->loadText(s, color, 60);
+	Game::getInstance()->getObjectRef()->push_back(s2);
 
 	for (int i = 1; i <= optionNum; i++)
 	{
 		AnimatedSelection* p = new AnimatedSelection(fileName.at(i), 1, 1);
-		p->setSize(450, 200);
-		p->setPosition(glm::vec3(0,300+(i*-210), 0));
+		p->setSize(219, 129);
+		p->setPosition(glm::vec3(-245,300+(i*-210), 0));
 		options.push_back(p);
 		Game::getInstance()->getObjectRef()->push_back(p);
 	}
 
-	c2 = new AnimatedSelection(fileName.at(3), 1, 1);//ON BGM
-	c2->setSize(450, 200);
-	c2->setPosition(glm::vec3(0, 90, 0));
+	c1 = new AnimatedSelection(fileName.at(3), 1, 1);
+	c1->setSize(219, 129);
+	c1->setPosition(glm::vec3(0, 250, 0));
+	Game::getInstance()->getObjectRef()->push_back(c1);
+
+	c2 = new AnimatedSelection(fileName.at(4), 1, 1);//ON BGM
+	c2->setSize(50, 50);
+	c2->setPosition(glm::vec3(350, 90, 0));
 	Game::getInstance()->getObjectRef()->push_back(c2);
 
-	c3 = new AnimatedSelection(fileName.at(3), 1, 1);//ON SFX
-	c3->setSize(450, 200);
-	c3->setPosition(glm::vec3(0, -120, 0));
+	c3 = new AnimatedSelection(fileName.at(4), 1, 1);//ON SFX
+	c3->setSize(50, 50);
+	c3->setPosition(glm::vec3(350, -120, 0));
 	Game::getInstance()->getObjectRef()->push_back(c3);
 
-	c4 = new AnimatedSelection(fileName.at(4), 1, 1);//OFF BGM
-	c4->setSize(450, 200);
-	c4->setPosition(glm::vec3(0, 90, 0));
+	c4 = new AnimatedSelection(fileName.at(5), 1, 1);//OFF BGM
+	c4->setSize(50, 50);
+	c4->setPosition(glm::vec3(350, 90, 0));
 	c4->enable = false;
 	Game::getInstance()->getObjectRef()->push_back(c4);
 
-	c5 = new AnimatedSelection(fileName.at(4), 1, 1);//OFF SFX
-	c5->setSize(450, 200);
-	c5->setPosition(glm::vec3(0, -120, 0));
+	c5 = new AnimatedSelection(fileName.at(5), 1, 1);//OFF SFX
+	c5->setSize(50, 50);
+	c5->setPosition(glm::vec3(350, -120, 0));
 	c5->enable = false;
 	Game::getInstance()->getObjectRef()->push_back(c5);
 
+	c6 = new AnimatedSelection(fileName.at(6), 1, 1);//-BGM
+	c6->setSize(50, 50);
+	c6->setPosition(glm::vec3(-10, 90, 0));
+	Game::getInstance()->getObjectRef()->push_back(c6);
 
-	p1 = new AnimatedSelection(fileName.at(5), 1, 1);//0 BGM
-	p1->setSize(450, 200);
-	p1->setPosition(glm::vec3(0, 90, 0));
+	c7 = new AnimatedSelection(fileName.at(7), 1, 1);//+BGM
+	c7->setSize(50, 50);
+	c7->setPosition(glm::vec3(210, 90, 0));
+	Game::getInstance()->getObjectRef()->push_back(c7);
+
+	c8 = new AnimatedSelection(fileName.at(6), 1, 1);//-SFX
+	c8->setSize(50, 50);
+	c8->setPosition(glm::vec3(-10, -120, 0));
+	Game::getInstance()->getObjectRef()->push_back(c8);
+
+	c9 = new AnimatedSelection(fileName.at(7), 1, 1);//+SFX
+	c9->setSize(50, 50);
+	c9->setPosition(glm::vec3(210, -120, 0));
+	Game::getInstance()->getObjectRef()->push_back(c9);
+
+	p1 = new AnimatedSelection(fileName.at(10), 1, 1);////-BGM
+	p1->setSize(50, 50);
+	p1->setPosition(glm::vec3(-10, 90, 0));
 	p1->enable = false;
 	Game::getInstance()->getObjectRef()->push_back(p1);
 
-	p2 = new AnimatedSelection(fileName.at(5), 1, 1);//0 SFX
-	p2->setSize(450, 200);
-	p2->setPosition(glm::vec3(0, -120, 0));
+	p2 = new AnimatedSelection(fileName.at(11), 1, 1);////+BGM
+	p2->setSize(50, 50);
+	p2->setPosition(glm::vec3(210, 90, 0));
 	p2->enable = false;
 	Game::getInstance()->getObjectRef()->push_back(p2);
 
-
-	p3 = new AnimatedSelection(fileName.at(6), 1, 1);//25 BGM
-	p3->setSize(450, 200);
-	p3->setPosition(glm::vec3(0, 90, 0));
+	p3 = new AnimatedSelection(fileName.at(10), 1, 1);////-SFX
+	p3->setSize(50, 50);
+	p3->setPosition(glm::vec3(-10, -120, 0));
+	p3->enable = false;
 	Game::getInstance()->getObjectRef()->push_back(p3);
 
-	p4 = new AnimatedSelection(fileName.at(6), 1, 1);//25 SFX
-	p4->setSize(450, 200);
-	p4->setPosition(glm::vec3(0, -120, 0));
+	p4 = new AnimatedSelection(fileName.at(11), 1, 1);////+SFX
+	p4->setSize(50, 50);
+	p4->setPosition(glm::vec3(210, -120, 0));
+	p4->enable = false;
 	Game::getInstance()->getObjectRef()->push_back(p4);
 
-
-	p5 = new AnimatedSelection(fileName.at(7), 1, 1);//50 BGM
-	p5->setSize(450, 200);
-	p5->setPosition(glm::vec3(0, 90, 0));
+	p5 = new AnimatedSelection(fileName.at(8), 1, 1); ////BGM
+	p5->setSize(219, 129);
+	p5->setPosition(glm::vec3(-245, 90, 0));
 	Game::getInstance()->getObjectRef()->push_back(p5);
 
-	p6 = new AnimatedSelection(fileName.at(7), 1, 1);//50 SFX
-	p6->setSize(450, 200);
-	p6->setPosition(glm::vec3(0, -120, 0));
+	p6 = new AnimatedSelection(fileName.at(9), 1, 1);////SFX
+	p6->setSize(219, 129);
+	p6->setPosition(glm::vec3(-245, -120, 0));
+	p6->enable = false;
 	Game::getInstance()->getObjectRef()->push_back(p6);
-
-
-	p7 = new AnimatedSelection(fileName.at(8), 1, 1);//75 BGM
-	p7->setSize(450, 200);
-	p7->setPosition(glm::vec3(0, 90, 0));
-	Game::getInstance()->getObjectRef()->push_back(p7);
-
-	p8 = new AnimatedSelection(fileName.at(8), 1, 1);//75 SFX
-	p8->setSize(450, 200);
-	p8->setPosition(glm::vec3(0, -120, 0));
-	Game::getInstance()->getObjectRef()->push_back(p8);
-
-
-	p9 = new AnimatedSelection(fileName.at(9), 1, 1);//100 BGM
-	p9->setSize(450, 200);
-	p9->setPosition(glm::vec3(0, 90, 0));
-	Game::getInstance()->getObjectRef()->push_back(p9);
-
-	p10 = new AnimatedSelection(fileName.at(9), 1, 1);//100 SFX
-	p10->setSize(450, 200);
-	p10->setPosition(glm::vec3(0, -120, 0));
-	Game::getInstance()->getObjectRef()->push_back(p10);
 
 	onBGM = Game::getInstance()->gameBGMisOn;
 	onSFX = Game::getInstance()->gameSFXisOn;
@@ -136,112 +152,6 @@ OptionMenu::OptionMenu(vector<string> fileName, int spriteNum, int optNum)
 		c4->enable = true;
 	}
 
-	if (volBGM <= 0)//0% volume
-	{
-		Mix_VolumeMusic(0);
-
-		p1->enable = true;
-		p3->enable = false;
-		p5->enable = false;
-		p7->enable = false;
-		p9->enable = false;
-	}
-	else if (volBGM == 1)//25% volume
-	{
-		Mix_VolumeMusic(32);
-
-		p1->enable = false;
-		p3->enable = true;
-		p5->enable = false;
-		p7->enable = false;
-		p9->enable = false;
-	}
-	else if (volBGM == 2)//50% volume
-	{
-		Mix_VolumeMusic(64);
-
-		p1->enable = false;
-		p3->enable = false;
-		p5->enable = true;
-		p7->enable = false;
-		p9->enable = false;
-	}
-	else if (volBGM == 3)//75% volume
-	{
-		Mix_VolumeMusic(96);
-
-		p1->enable = false;
-		p3->enable = false;
-		p5->enable = false;
-		p7->enable = true;
-		p9->enable = false;
-	}
-	else //100% volume
-	{
-		Mix_VolumeMusic(128);
-		p1->enable = false;
-		p3->enable = false;
-		p5->enable = false;
-		p7->enable = false;
-		p9->enable = true;
-	}
-	
-	if (onSFX == true)
-	{
-		c3->enable = true;
-		c5->enable = false;
-	}
-	else
-	{
-		c3->enable = false;
-		c5->enable = true;
-	}
-
-	if (volSFX <= 0)//0% volume
-	{
-		Mix_Volume(-1, 0);
-		p2->enable = true;
-		p4->enable = false;
-		p6->enable = false;
-		p8->enable = false;
-		p10->enable = false;
-	}
-	else if (volSFX == 1)//25% volume
-	{
-		Mix_Volume(-1, 32);
-		p2->enable = false;
-		p4->enable = true;
-		p6->enable = false;
-		p8->enable = false;
-		p10->enable = false;
-	}
-	else if (volSFX == 2)//50% volume
-	{
-		Mix_Volume(-1, 64);
-		p2->enable = false;
-		p4->enable = false;
-		p6->enable = true;
-		p8->enable = false;
-		p10->enable = false;
-	}
-	else if (volSFX == 3)//75% volume
-	{
-		Mix_Volume(-1, 96);
-		p2->enable = false;
-		p4->enable = false;
-		p6->enable = false;
-		p8->enable = true;
-		p10->enable = false;
-	}
-	else //100% volume
-	{
-		Mix_Volume(-1, 128);
-		p2->enable = false;
-		p4->enable = false;
-		p6->enable = false;
-		p8->enable = false;
-		p10->enable = true;
-	}
 
 	update(0);
 
@@ -259,9 +169,28 @@ void OptionMenu::setColor(float r, float g, float b)
 
 void OptionMenu::update(float deltaTime)
 {
+	//p1->enable = false;
+	//p2->enable = false;
+	//p3->enable = false;
+	//p4->enable = false;
+
+
+	SDL_Color color = { 255, 165, 255 };
+
+	std::string s = std::to_string(BGMpercent) + '%';
+	s1->loadText(s, color, 60);
+	s = std::to_string(SFXpercent) + '%';
+	s2->loadText(s, color, 60);
+	volBGM = BGMpercent * 128 / 100;
+	volSFX = SFXpercent * 128 / 100;
+
+	Mix_VolumeMusic(volBGM);
+	Mix_Volume(-1, volSFX);
+
 	if (currentChoice <= 0) //BGM
 	{
-		c1->setPosition(glm::vec3(0, 90, 0));
+		p5->enable = true;
+		p6->enable = false;
 
 		if (onBGM == true)
 		{
@@ -275,58 +204,12 @@ void OptionMenu::update(float deltaTime)
 			c4->enable = true;
 		}
 
-		if (volBGM <= 0)//0% volume
-		{
-			Mix_VolumeMusic(0);
-
-			p1->enable = true;
-			p3->enable = false;
-			p5->enable = false;
-			p7->enable = false;
-			p9->enable = false;
-		}
-		else if (volBGM == 1)//25% volume
-		{
-			Mix_VolumeMusic(32);
-
-			p1->enable = false;
-			p3->enable = true;
-			p5->enable = false;
-			p7->enable = false;
-			p9->enable = false;
-		}
-		else if (volBGM == 2)//50% volume
-		{
-			Mix_VolumeMusic(64);
-
-			p1->enable = false;
-			p3->enable = false;
-			p5->enable = true;
-			p7->enable = false;
-			p9->enable = false;
-		}
-		else if (volBGM == 3)//75% volume
-		{
-			Mix_VolumeMusic(96);
-
-			p1->enable = false;
-			p3->enable = false;
-			p5->enable = false;
-			p7->enable = true;
-			p9->enable = false;
-		}
-		else //100% volume
-		{
-			Mix_VolumeMusic(128);
-			p1->enable = false;
-			p3->enable = false;
-			p5->enable = false;
-			p7->enable = false;
-			p9->enable = true;
-		}
 	}
 	else //SFX
 	{
+		p5->enable = false;
+		p6->enable = true;
+
 		if (onSFX == true)
 		{
 			c3->enable = true;
@@ -339,52 +222,6 @@ void OptionMenu::update(float deltaTime)
 			c5->enable = true;
 		}
 
-		c1->setPosition(glm::vec3(0, -120, 0));
-		if (volSFX <= 0)//0% volume
-		{
-			Mix_Volume(-1, 0);
-			p2->enable = true;
-			p4->enable = false;
-			p6->enable = false;
-			p8->enable = false;
-			p10->enable = false;
-		}
-		else if (volSFX == 1)//25% volume
-		{
-			Mix_Volume(-1,32);
-			p2->enable = false;
-			p4->enable = true;
-			p6->enable = false;
-			p8->enable = false;
-			p10->enable = false;
-		}
-		else if (volSFX == 2)//50% volume
-		{
-			Mix_Volume(-1, 64);
-			p2->enable = false;
-			p4->enable = false;
-			p6->enable = true;
-			p8->enable = false;
-			p10->enable = false;
-		}
-		else if (volSFX == 3)//75% volume
-		{
-			Mix_Volume(-1, 96);
-			p2->enable = false;
-			p4->enable = false;
-			p6->enable = false;
-			p8->enable = true;
-			p10->enable = false;
-		}
-		else //100% volume
-		{
-			Mix_Volume(-1, 128);
-			p2->enable = false;
-			p4->enable = false;
-			p6->enable = false;
-			p8->enable = false;
-			p10->enable = true;
-		}
 	}
 
 	if (onBGM == false)
@@ -563,7 +400,10 @@ void OptionMenu::destroyComponents()
 	for (int i = Game::getInstance()->getObjectRef()->size() - 1; i >= 0; i--)
 	{
 		instance = Game::getInstance()->getObjectRef()->at(i);
-		if (instance->getObjId() == c1->getObjId() || instance->getObjId() == c2->getObjId() || instance->getObjId() == c3->getObjId() || instance->getObjId() == c4->getObjId() || instance->getObjId() == c5->getObjId() || instance->getObjId() == p1->getObjId() || instance->getObjId() == p2->getObjId() || instance->getObjId() == p3->getObjId() || instance->getObjId() == p4->getObjId() || instance->getObjId() == p5->getObjId() || instance->getObjId() == p6->getObjId() || instance->getObjId() == p7->getObjId() || instance->getObjId() == p8->getObjId() || instance->getObjId() == p9->getObjId() || instance->getObjId() == p10->getObjId())
+		if (instance->getObjId() == c1->getObjId() || instance->getObjId() == c2->getObjId() || instance->getObjId() == c3->getObjId() || instance->getObjId() == c4->getObjId() || instance->getObjId() == c5->getObjId()
+			|| instance->getObjId() == c6->getObjId() || instance->getObjId() == c7->getObjId() || instance->getObjId() == c8->getObjId() || instance->getObjId() == c9->getObjId() || instance->getObjId() == s1->getObjId() || instance->getObjId() == s2->getObjId()
+			|| instance->getObjId() == p1->getObjId() || instance->getObjId() == p2->getObjId() || instance->getObjId() == p3->getObjId() || instance->getObjId() == p4->getObjId() || instance->getObjId() == p5->getObjId() || instance->getObjId() == p6->getObjId())
+
 
 		{
 			Game::getInstance()->getObjectRef()->erase(Game::getInstance()->getObjectRef()->begin() + i);
@@ -586,17 +426,17 @@ void OptionMenu::destroyComponents()
 	//}
 }
 
-bool OptionMenu::CheckIfAllComponentNotNull()
-{
-	if (c1 != NULL && c2 != NULL && c3 != NULL && c4 != NULL && p1 != NULL && p2 != NULL && p3 != NULL && p4 != NULL)
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
-}
+//bool OptionMenu::CheckIfAllComponentNotNull()
+//{
+//	if (c1 != NULL && c2 != NULL && c3 != NULL && c4 != NULL && p1 != NULL && p2 != NULL && p3 != NULL && p4 != NULL)
+//	{
+//		return true;
+//	}
+//	else
+//	{
+//		return false;
+//	}
+//}
 
 void OptionMenu::setCurrentSelection(int num)
 {
@@ -612,45 +452,46 @@ void OptionMenu::increaseVol()
 {
 	if (currentChoice <= 0)
 	{
-		if (volBGM < 5)
+		p2->enable = true;
+
+		if (BGMpercent < 100)
 		{
 			Game::getInstance()->gameBGM++;
-			volBGM++;
+			BGMpercent++;
 		}
 	}
 	else
 	{
-		if (volSFX < 5)
+		p4->enable = true;
+
+		if (SFXpercent < 100)
 		{
 			Game::getInstance()->gameSFX++;
-			volSFX++;
+			SFXpercent++;
 		}
 	}
-	cout << "BGM = " << volBGM << endl;
-	cout << "SFX = " << volSFX << endl;
-
 }
 void OptionMenu::decreaseVol()
 {
 	if (currentChoice <= 0)
 	{
-		if (volBGM > 0)
+		p1->enable = true;
+		if (BGMpercent > 0)
 		{
 			Game::getInstance()->gameBGM--;
-			volBGM--;
+			BGMpercent--;
 		}
 	}
 	else
 	{
-		if (volSFX > 0)
+		p3->enable = true;
+
+		if (SFXpercent > 0)
 		{
 			Game::getInstance()->gameSFX--;
-			volSFX--;
+			SFXpercent--;
 		}
 	}
-
-	cout << "BGM = " << volBGM << endl;
-	cout << "SFX = " << volSFX << endl;
 }
 
 void OptionMenu::toggleOnOff()
@@ -681,5 +522,28 @@ void OptionMenu::toggleOnOff()
 			Game::getInstance()->gameSFXisOn = true;
 			onSFX = true;
 		}
+	}
+}
+
+void OptionMenu::increaseVolUpdate()
+{
+	if (currentChoice <= 0)
+	{
+		p2->enable = false;
+	}
+	else
+	{
+		p4->enable = false;
+	}
+}
+void OptionMenu::decreaseVolUpdate()
+{
+	if (currentChoice <= 0)
+	{
+		p1->enable = false;
+	}
+	else
+	{
+		p3->enable = false;
 	}
 }
