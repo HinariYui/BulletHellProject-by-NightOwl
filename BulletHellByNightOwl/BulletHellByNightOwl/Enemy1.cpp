@@ -46,6 +46,10 @@ void Enemy1::updateATK(float deltaTime)
 	{
 		stateTime = 0;
 		shoot1();
+		if (shootSoundActive)
+		{
+			shootSound.play();
+		}
 		state = EXIT;
 	}
 }
@@ -139,6 +143,11 @@ void Enemy1::shoot1()
 void Enemy1::move()
 {
 
+}
+
+void Enemy1::setShootSound(bool boolean)
+{
+	shootSoundActive = boolean;
 }
 
 Enemy1::~Enemy1()

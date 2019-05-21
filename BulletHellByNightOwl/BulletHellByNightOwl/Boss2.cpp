@@ -30,6 +30,17 @@ Boss2::Boss2(Tag enemy, string fileName, int row, int col) : SpriteObject(fileNa
 
 void Boss2::update(float deltaTime)
 {
+	if (hp < 1)
+	{
+		Game::getInstance()->eSpawn = true;
+		Game::getInstance()->bossSpawn = false;
+		Game::getInstance()->spawnBoss2 = false;
+		Game::getInstance()->boss2Died = true;
+		Game::getInstance()->eSpawnCD = 0;
+		Game::getInstance()->spawnPattern = 1;
+		Game::getInstance()->spawnNum = 0;
+	}
+
 	HPpercentage = (float)hp / (float)maxHP;
 	if (HPpercentage <= 0.67 && HPpercentage > 0.33) HPbar->addSprite("HP-yellow.png", 1, 1);
 	else if (HPpercentage <= 0.33) HPbar->addSprite("HP-red.png", 1, 1);
@@ -151,6 +162,7 @@ void Boss2::updateATK3(float deltaTime)
 	if (ATKCount >= 1200) // shoot every 1 sec
 	{
 		shoot1_2C();
+		shootSound.play();
 		ATKCount = 0;
 		laserNum++;
 	}
@@ -333,6 +345,8 @@ void Boss2::shoot1_2A() // pattern 1_2A
 	// Bullet1 OOB
 	if (dynamic_cast<EnemyBullet*>(enemyBullet1)->oob == true && isShooting2 == false)
 	{
+		shootSound.play();
+
 		bul1PosTemp = enemyBullet1->getPosition();
 		bul1PosTemp.x = -462 - 20;
 
@@ -361,6 +375,8 @@ void Boss2::shoot1_2A() // pattern 1_2A
 	// Bullet2 OOB
 	if (dynamic_cast<EnemyBullet*>(enemyBullet2)->oob == true && isShooting3 == false)
 	{
+		shootSound.play();
+
 		bul2PosTemp = enemyBullet2->getPosition();
 		bul2PosTemp.x = 38 + 20;
 
@@ -389,6 +405,8 @@ void Boss2::shoot1_2A() // pattern 1_2A
 	//Bullet3 OOB
 	if (dynamic_cast<EnemyBullet*>(enemyBullet3)->oob == true && isShooting4 == false)
 	{
+		shootSound.play();
+
 		bul3PosTemp = enemyBullet3->getPosition();
 		bul3PosTemp.x = -462 - 20;
 
@@ -417,6 +435,8 @@ void Boss2::shoot1_2A() // pattern 1_2A
 	//Bullet4 OOB
 	if (dynamic_cast<EnemyBullet*>(enemyBullet4)->oob == true && isShooting5 == false)
 	{
+		shootSound.play();
+
 		bul4PosTemp = enemyBullet4->getPosition();
 		bul4PosTemp.x = 38 + 20;
 
@@ -445,6 +465,8 @@ void Boss2::shoot1_2A() // pattern 1_2A
 	// Bullet5 OOB
 	if (dynamic_cast<EnemyBullet*>(enemyBullet5)->oob == true && isShooting6 == false)
 	{
+		shootSound.play();
+
 		bul5PosTemp = enemyBullet5->getPosition();
 		bul5PosTemp.y = -330 + 20;
 
@@ -473,6 +495,8 @@ void Boss2::shoot1_2A() // pattern 1_2A
 	// Bullet1_1 OOB
 	if (isShooting1_1 == false && dynamic_cast<EnemyBullet*>(enemyBullet1_1)->oob == true)
 	{
+		shootSound.play();
+
 		bul1_1PosTemp = enemyBullet1_1->getPosition();
 		bul1_1PosTemp.x = 38 - 10;
 		DrawableObject* enemyBullet1_3 = new EnemyBullet(Tag::eBullet, "bigred.png");
@@ -523,6 +547,8 @@ void Boss2::shoot1_2A() // pattern 1_2A
 	// Bullet2_1 OOB
 	if (isShooting2_1 == false && dynamic_cast<EnemyBullet*>(enemyBullet2_1)->oob == true)
 	{
+		shootSound.play();
+
 		bul2_1PosTemp = enemyBullet2_1->getPosition();
 		bul2_1PosTemp.x = -462 + 10;
 		DrawableObject* enemyBullet2_3 = new EnemyBullet(Tag::eBullet, "bigred.png");
@@ -573,6 +599,8 @@ void Boss2::shoot1_2A() // pattern 1_2A
 	// Bullet3_1 OOB
 	if (isShooting3_1 == false && dynamic_cast<EnemyBullet*>(enemyBullet3_1)->oob == true)
 	{
+		shootSound.play();
+
 		bul3_1PosTemp = enemyBullet3_1->getPosition();
 		bul3_1PosTemp.x = 38 - 10;
 		DrawableObject* enemyBullet3_3 = new EnemyBullet(Tag::eBullet, "bigred.png");
@@ -623,6 +651,8 @@ void Boss2::shoot1_2A() // pattern 1_2A
 	// Bullet4_1 OOB
 	if (isShooting4_1 == false && dynamic_cast<EnemyBullet*>(enemyBullet4_1)->oob == true)
 	{
+		shootSound.play();
+
 		bul4_1PosTemp = enemyBullet4_1->getPosition();
 		bul4_1PosTemp.x = -462 + 10;
 		DrawableObject* enemyBullet4_3 = new EnemyBullet(Tag::eBullet, "bigred.png");
@@ -673,6 +703,8 @@ void Boss2::shoot1_2A() // pattern 1_2A
 	// Bullet5_1 OOB
 	if (isShooting5_1 == false && dynamic_cast<EnemyBullet*>(enemyBullet5_1)->oob == true)
 	{
+		shootSound.play();
+
 		bul5_1PosTemp = enemyBullet5_1->getPosition();
 		bul5_1PosTemp.x = -462 + 10;
 		DrawableObject* enemyBullet5_3 = new EnemyBullet(Tag::eBullet, "bigred.png");

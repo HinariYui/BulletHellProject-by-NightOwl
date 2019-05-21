@@ -57,27 +57,30 @@ SpriteObject::~SpriteObject()
 
 void SpriteObject::render(glm::mat4 globalModelTransform)
 {
-	SquareMeshVbo *squareMesh = dynamic_cast<SquareMeshVbo *> (Game::getInstance()->getRenderer()->getMesh(SquareMeshVbo::MESH_NAME));
+	if (isRendered)
+	{
+		SquareMeshVbo *squareMesh = dynamic_cast<SquareMeshVbo *> (Game::getInstance()->getRenderer()->getMesh(SquareMeshVbo::MESH_NAME));
 
-	GLuint modelMatixId = Game::getInstance()->getRenderer()->getModelMatrixAttrId();
-	GLuint modeId = Game::getInstance()->getRenderer()->getModeUniformId();
+		GLuint modelMatixId = Game::getInstance()->getRenderer()->getModelMatrixAttrId();
+		GLuint modeId = Game::getInstance()->getRenderer()->getModeUniformId();
 
-	glBindTexture(GL_TEXTURE_2D, texture);
-	if (modelMatixId == -1) {
-		cout << "Error: Can't perform transformation " << endl;
-		return;
-	}
+		glBindTexture(GL_TEXTURE_2D, texture);
+		if (modelMatixId == -1) {
+			cout << "Error: Can't perform transformation " << endl;
+			return;
+		}
 
-	glm::mat4 currentMatrix = this->getTransform();
+		glm::mat4 currentMatrix = this->getTransform();
 
-	if (squareMesh != nullptr) {
+		if (squareMesh != nullptr) {
 
-		currentMatrix = globalModelTransform * currentMatrix;
-		glUniformMatrix4fv(modelMatixId, 1, GL_FALSE, glm::value_ptr(currentMatrix));
-		glUniform1i(modeId, 1);
-		squareMesh->adjustTexcoord(uv);
-		squareMesh->render();
-		glBindTexture(GL_TEXTURE_2D, 0);
+			currentMatrix = globalModelTransform * currentMatrix;
+			glUniformMatrix4fv(modelMatixId, 1, GL_FALSE, glm::value_ptr(currentMatrix));
+			glUniform1i(modeId, 1);
+			squareMesh->adjustTexcoord(uv);
+			squareMesh->render();
+			glBindTexture(GL_TEXTURE_2D, 0);
+		}
 	}
 }
 
@@ -174,4 +177,9 @@ void SpriteObject::nextAnimation()
 		loopCount = 0;
 	}
 	
+}
+
+void SpriteObject::setRender(bool boolean)
+{
+	isRendered = boolean;
 }

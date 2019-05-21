@@ -18,6 +18,7 @@ private:
 	int loopCount;
 	int animationTime;
 	int timeCount;
+	bool isRendered = true;
 
 public:
 	SpriteObject(string fileName, int row, int column);
@@ -34,4 +35,5 @@ public:
 	void loopUV(float deltaTime);
 	void setAnimationLoop(int row, int column, int loop, int time); // 1000 = 1 secone
 	void nextAnimation();
+	void setRender(bool boolean);
 };

@@ -382,18 +382,24 @@ void Menu::updateComponent(char indicator)
 {
 	if (indicator == 'e')
 	{
+		if (CheckIfAllComponentNotNull())
+		{
+			p1->setAnimationLoop(1, 7, 7, 1000);
+			p2->setAnimationLoop(1, 7, 7, 1000);
+			p3->setAnimationLoop(1, 7, 7, 1000);
+		}
 		pressed = true;
-		p1->setAnimationLoop(1, 7, 7, 1000);
-		p2->setAnimationLoop(1, 7, 7, 1000);
-		p3->setAnimationLoop(1, 7, 7, 1000);
-
 	}
 	else
 	{
 		pressed = false;
-		p1->setAnimationLoop(1, 7, 1, 1000);
-		p2->setAnimationLoop(1, 7, 1, 1000);
-		p3->setAnimationLoop(1, 7, 1, 1000);
+		if (CheckIfAllComponentNotNull())
+		{
+			p1->setAnimationLoop(1, 7, 1, 1000);
+			p2->setAnimationLoop(1, 7, 1, 1000);
+			p3->setAnimationLoop(1, 7, 1, 1000);
+
+		}
 	}
 }
 

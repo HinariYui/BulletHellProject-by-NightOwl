@@ -452,4 +452,3 @@ void PauseMenu::updateComponent(char indicator)
 		p4->setAnimationLoop(1, 7, 1, 1000);
 	}
 }
-

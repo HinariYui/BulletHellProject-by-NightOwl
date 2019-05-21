@@ -2,6 +2,7 @@
 
 #include "SpriteObject.h"
 #include "EnemyBullet.h"
+#include "Audio.h"
 
 
 class EnemyBase :public SpriteObject

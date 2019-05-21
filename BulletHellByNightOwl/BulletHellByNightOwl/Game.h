@@ -29,14 +29,9 @@ class Game
 	DrawableObject* optionMenu;
 	DrawableObject* pauseMenu;
 	Game();
-	float e1SpawnRate = 0;
 	TextObject * scoreText;
 	TextObject * highScoreText;
 	TextObject * godModeIndicator;
-
-
-
-	bool bossSpawn = false;
 
 public:
 	~Game();
@@ -49,6 +44,17 @@ public:
 	int gameBGM = 75;
 	int gameSFX = 75;
 
+	bool bossSpawn = false;
+	bool spawnBoss1 = false;
+	bool spawnBoss2 = false;
+	bool boss1Died = false;
+	bool boss2Died = false;
+
+	int spawnPattern = 1;
+	float eSpawnRate = 8000;
+	float eSpawnCD = 3000;
+	bool eSpawn = true;
+	int spawnNum = 0;
 
 	bool godMode = false;
 	vector<string> menuSprite;
@@ -58,7 +64,9 @@ public:
 
 	bool bombAvailable = false;//true;
 	SpriteObject * bomb;
+	//bool optionComponentStatus[15];
 
+	bool isMainMenu = true;
 	bool isOptionMenu = false;
 	bool isPaused = false;
 	bool shiftPressed = false;
@@ -81,5 +89,4 @@ public:
 
 	void writeHighScore();
 	void readHighScore();
-
 };

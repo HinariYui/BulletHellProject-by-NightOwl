@@ -60,6 +60,8 @@ public:
 
 	bool CheckIfAllComponentNotNull();
 	void updateComponent(char indicator);
+
 };
+
 
 

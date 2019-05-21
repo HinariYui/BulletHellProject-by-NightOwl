@@ -74,5 +74,6 @@ public:
 	void increaseVolUpdate();
 	void decreaseVolUpdate();
 
+	void updateComponent(char indicator);
 
 };

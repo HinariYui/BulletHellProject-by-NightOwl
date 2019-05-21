@@ -61,11 +61,13 @@ OptionMenu::OptionMenu(vector<string> fileName, int spriteNum, int optNum)
 	c2 = new AnimatedSelection(fileName.at(4), 1, 1);//ON BGM
 	c2->setSize(50, 50);
 	c2->setPosition(glm::vec3(350, 90, 0));
+	c2->enable = false;
 	Game::getInstance()->getObjectRef()->push_back(c2);
 
 	c3 = new AnimatedSelection(fileName.at(4), 1, 1);//ON SFX
 	c3->setSize(50, 50);
 	c3->setPosition(glm::vec3(350, -120, 0));
+	c3->enable = false;
 	Game::getInstance()->getObjectRef()->push_back(c3);
 
 	c4 = new AnimatedSelection(fileName.at(5), 1, 1);//OFF BGM
@@ -152,9 +154,19 @@ OptionMenu::OptionMenu(vector<string> fileName, int spriteNum, int optNum)
 		c4->enable = true;
 	}
 
+	if (onSFX == true)
+	{
+		c3->enable = true;
+		c5->enable = false;
+
+	}
+	else
+	{
+		c3->enable = false;
+		c5->enable = true;
+	}
 
 	update(0);
-
 }
 
 OptionMenu::~OptionMenu()
@@ -187,8 +199,13 @@ void OptionMenu::update(float deltaTime)
 	Mix_VolumeMusic(volBGM);
 	Mix_Volume(-1, volSFX);
 
+
+
 	if (currentChoice <= 0) //BGM
 	{
+		p3->enable = false;
+		p4->enable = false;
+
 		p5->enable = true;
 		p6->enable = false;
 
@@ -196,7 +213,6 @@ void OptionMenu::update(float deltaTime)
 		{
 			c2->enable = true;
 			c4->enable = false;
-
 		}
 		else
 		{
@@ -207,6 +223,10 @@ void OptionMenu::update(float deltaTime)
 	}
 	else //SFX
 	{
+
+		p1->enable = false;
+		p2->enable = false;
+
 		p5->enable = false;
 		p6->enable = true;
 
@@ -223,6 +243,14 @@ void OptionMenu::update(float deltaTime)
 		}
 
 	}
+
+	p1->update(deltaTime);
+	p2->update(deltaTime);
+	p3->update(deltaTime);
+	p4->update(deltaTime);
+	p5->update(deltaTime);
+	p6->update(deltaTime);
+
 
 	if (onBGM == false)
 	{

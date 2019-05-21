@@ -1,0 +1,18 @@
+diff a/BulletHellByNightOwl/BulletHellByNightOwl/Game.cpp b/BulletHellByNightOwl/BulletHellByNightOwl/Game.cpp	(rejected hunks)
+@@ -135,11 +135,13 @@
+ 				}
+ 				else if (p->getCurrentSelection() == 1)
+ 				{
+-					menu = new Menu();
++					objects.clear();
++					menu = new Menu(menuSprite, 10, 3);;
+ 					menu->setSize(1280, 720);
+ 					menu->setPosition(glm::vec3(0, 0, 0));
+-					objects.clear();
+-					objects.push_back(menu);
++					menuCurrentSelection = 0;
++					
++					//objects.push_back(menu);
+ 					menuIsDestroyed = false;
+ 					handleKey('x');
+ 					firstRound = true;
