@@ -814,7 +814,7 @@ void Game::update(float deltaTime)
 				eSpawnCD = 0;
 			}
 
-			if (spawnNum >= 12 && eSpawnCD >= eSpawnRate && !bossSpawn)
+			if (spawnNum >= 12 && eSpawnCD >= eSpawnRate && !bossSpawn && !boss2Died)
 			{
 				boss2 = new Boss2(Tag::Enemy, "bossgirl-sample.png", 1, 1); //Tag enemy, string fileName, int row, int col
 				boss2->setRotation(180);													   //boss->setColor(1.0, 0.0, 0.0);
