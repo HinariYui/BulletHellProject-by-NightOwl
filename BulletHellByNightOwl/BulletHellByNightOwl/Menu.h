@@ -3,13 +3,20 @@
 #include "SquareMeshVbo.h"
 #include "gtc/matrix_transform.hpp"
 #include "gtc/type_ptr.hpp"
+#include "AnimatedSelection.h"
 
 class Menu :public DrawableObject
 {
 private:
 	glm::vec3 color;
-
+	AnimatedSelection *c1, *c2, *c3, *p1, *p2, *p3;
+	
 	//for Sprite
+	int currentChoice = 0;
+	vector<AnimatedSelection*> options;
+	int optionNum = 0;
+	int spriteNum = 0;
+
 	unsigned int texture;
 	int rowMax;
 	int columnMax;
@@ -27,8 +34,11 @@ private:
 
 
 public:
+	bool pressed = false;
+
 	Menu();
 	Menu(string sprite);
+	Menu(vector<string> fileName, int spriteNum, int optNum);
 	~Menu();
 	void setColor(float r, float g, float b);
 	void update(float deltaTime);
@@ -44,5 +54,13 @@ public:
 	void setAnimationLoop(int row, int column, int loop, int time); // 1000 = 1 secone
 	void nextAnimation();
 
+	void setNumberOfOptions(int num);
+	void destroyComponents();
+
+	void setCurrentSelection(int num);
+	int getCurrentSelection();
+
+	bool CheckIfAllComponentNotNull();
+	void updateComponent(char indicator);
 };
 

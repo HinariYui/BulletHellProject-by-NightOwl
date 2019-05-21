@@ -81,9 +81,27 @@ void Game::handleKey(char ch)
 	{
 		if (menuIsDestroyed == false)
 		{
-			cout << "in" << endl;
-			objects.pop_back();
-			menuIsDestroyed = true;
+			if(menuCurrentSelection <= 0)
+			{
+				cout << "in" << endl; //start
+				objects.pop_back();
+				menuIsDestroyed = true;
+			}
+			else if(menuCurrentSelection == 1)
+			{
+				//option
+				optionCurrentSelection = 0;
+				optionMenu = new OptionMenu(optMenuSprite, 3, 2);
+				optionMenu->setSize(1280, 720);
+				optionMenu->setPosition(glm::vec3(0, 0, 0));
+				isOptionMenu = true;
+				menuIsDestroyed = true;
+			}
+			else
+			{
+				//quit
+				exit(0);
+			}
 		}
 		else
 		{
@@ -117,11 +135,13 @@ void Game::handleKey(char ch)
 				}
 				else if (p->getCurrentSelection() == 1)
 				{
-					menu = new Menu();
+					objects.clear();
+					menu = new Menu(menuSprite, 10, 3);;
 					menu->setSize(1280, 720);
 					menu->setPosition(glm::vec3(0, 0, 0));
-					objects.clear();
-					objects.push_back(menu);
+					menuCurrentSelection = 0;
+					
+					//objects.push_back(menu);
 					menuIsDestroyed = false;
 					handleKey('x');
 					firstRound = true;
@@ -144,6 +164,43 @@ void Game::handleKey(char ch)
 				}		
 			}
 		}
+	}
+
+	if (ch == 'x')
+	{
+		if (menuIsDestroyed == false)
+		{
+			if (isOptionMenu == true)
+			{
+				//to exit optionMenu
+				OptionMenu* opt = dynamic_cast<OptionMenu*>(optionMenu);
+				opt->destroyComponents();
+				for (int i = objects.size() - 1; i >= 0; i--)
+				{
+					DrawableObject* instance = objects.at(i);
+					if (instance->getObjId() == optionMenu->getObjId())
+					{
+						objects.erase(objects.begin() + i);
+						objects.end();
+					}
+				}
+
+				isOptionMenu = false;
+			}
+		}
+	}
+
+
+	if (menuIsDestroyed == false)
+	{
+		checkMenuInput(ch);
+	}
+
+
+	
+	if (isOptionMenu == true)
+	{
+		checkOptionMenuInput(ch);
 	}
 
 	if (isPaused == true)
@@ -206,50 +263,51 @@ void Game::handleKey(char ch)
 			if (ch == 'l')
 			{
 				p->move('l');
-				if (isOptionMenu == true)
-				{
-					checkOptionMenuInput('l');
-				}
+				//if (isOptionMenu == true)
+				//{
+				//	checkOptionMenuInput('l');
+				//}
 			}
 			if (ch == 'r')
 			{
 				p->move('r');
-				if (isOptionMenu == true)
-				{
-					checkOptionMenuInput('r');
-				}
+				//if (isOptionMenu == true)
+				//{
+				//	checkOptionMenuInput('r');
+				//}
+
 			}
 			if (ch == 'u')
 			{
 				p->move('u');
-				if (isOptionMenu == true)
-				{
-					checkOptionMenuInput('u');
-				}
+				//if (isOptionMenu == true)
+				//{
+				//	checkOptionMenuInput('u');
+				//}
 			}
 			if (ch == 'd')
 			{
 				p->move('d');
-				if (isOptionMenu == true)
+	/*			if (isOptionMenu == true)
 				{
 					checkOptionMenuInput('d');
-				}
+				}*/
 			}
 			if (ch == 'L')//release button
 			{
 				p->move('L');
-				if (isOptionMenu == true)
-				{
-					checkOptionMenuInput('L');
-				}
+				//if (isOptionMenu == true)
+				//{
+				//	checkOptionMenuInput('L');
+				//}
 			}
 			if (ch == 'R')
 			{
 				p->move('R');
-				if (isOptionMenu == true)
-				{
-					checkOptionMenuInput('R');
-				}
+				//if (isOptionMenu == true)
+				//{
+				//	checkOptionMenuInput('R');
+				//}
 			}
 			if (ch == 'U')
 			{
@@ -289,6 +347,7 @@ void Game::handleKey(char ch)
 
 						isPaused = true;
 					}
+
 				}
 				else
 				{
@@ -350,7 +409,7 @@ void Game::init(int width, int height)
 	BGM3 = audio.loadMusic("./BGM/StageTheme2.mp3");
 	BGM4 = audio.loadMusic("./BGM/StageTheme3.mp3");
 
-	
+
 	winWidth = width;
 	winHeight = height;
 	renderer = new GLRendererColor(width, height);
@@ -365,16 +424,35 @@ void Game::init(int width, int height)
 	squareMesh->loadData();
 	renderer->addMesh(SquareMeshVbo::MESH_NAME, squareMesh);
 
-	menu = new Menu();
+
+	menuSprite.push_back("tempMenu.png");//mainMenu
+	menuSprite.push_back("MainMenu/Idle_Start_219x129.png");
+	menuSprite.push_back("Buttons/Idle_Option_219x129.png");
+	menuSprite.push_back("Buttons/Idle_QuitFIX_219x129.png");
+	menuSprite.push_back("MainMenu/Hovered_Start_219x129.png");//hover
+	menuSprite.push_back("Buttons/Hovered_Option_219x129.png");
+	menuSprite.push_back("Buttons/Hovered_QuitFIX_219x129.png");
+	menuSprite.push_back("MainMenu/Press_Start_219x129.png");//press
+	menuSprite.push_back("Buttons/Press_Option_219x129.png");
+	menuSprite.push_back("Buttons/Pressed_QuitFIX_219x129.png");
+
+
+
+
+	menu = new Menu(menuSprite, 10, 3);
 	menu->setSize(1280, 720);
 	menu->setPosition(glm::vec3(0, 0, 0));
-	objects.push_back(menu); // index 8
+	//objects.push_back(menu); // index 8
 
 	e = new Spawner();
 	e->SetSpawnRate(1000);
 	spawners.push_back(e);
 
-	pMenuSprite.push_back("pauseMenu.png");
+
+
+
+
+	pMenuSprite.push_back("pauseMenu.png"); //pauseMenu
 	pMenuSprite.push_back("Buttons/Idle_ResumeFIX_219x129.png");//idle
 	pMenuSprite.push_back("Buttons/Idle_MainmenuFIX_219x129.png");
 	pMenuSprite.push_back("Buttons/Idle_Option_219x129.png");
@@ -388,20 +466,16 @@ void Game::init(int width, int height)
 	pMenuSprite.push_back("Buttons/Press_Option_219x129.png");
 	pMenuSprite.push_back("Buttons/Pressed_QuitFIX_219x129.png");
 
-	optMenuSprite.push_back("Option/Option_BG.png");
+	optMenuSprite.push_back("Option/Option_BG.png"); //optionMenu
 	optMenuSprite.push_back("Option/Idle_BackgroundMusic_219x129.png");
 	optMenuSprite.push_back("Option/Idle_SoundEffect_219x129.png");
-
 	optMenuSprite.push_back("Option/Option219x129.png");
 	optMenuSprite.push_back("Option/Speaker50x50.png");
 	optMenuSprite.push_back("Option/SpeakerSilence50x50.png");
 	optMenuSprite.push_back("Option/Idle_LArrow50x50.png");
 	optMenuSprite.push_back("Option/Idle_RArrow50x50.png");
-
 	optMenuSprite.push_back("Option/Selected_BackgroundMusic_219x129.png");
 	optMenuSprite.push_back("Option/Selected_SoundEffect_219x129.png");
-
-
 	optMenuSprite.push_back("Option/LArrow50x50.png");
 	optMenuSprite.push_back("Option/RArrow50x50.png");
 
@@ -809,6 +883,7 @@ void Game::update(float deltaTime)
 	}
 	else
 	{
+		menu->update(deltaTime);
 
 		if (BGMisPlaying[0] == false)
 		{
@@ -1021,6 +1096,58 @@ void Game::checkOptionMenuInput(char input)
 
 	cout << "optionCurrentSelection " << optionCurrentSelection << endl;
 }
+
+
+void Game::checkMenuInput(char input)
+{
+	Menu* m = dynamic_cast<Menu*>(menu);
+
+	if (menuCurrentSelection <= 0) //on resume
+	{
+		if (input == 'u')
+		{
+			menuCurrentSelection = 0;
+			m->setCurrentSelection(menuCurrentSelection);
+		}
+		else if (input == 'd')
+		{
+			menuCurrentSelection = 1;
+			m->setCurrentSelection(menuCurrentSelection);
+		}
+	}
+	else if (menuCurrentSelection == 1) // on main menu
+	{
+		if (input == 'u')
+		{
+			menuCurrentSelection = 0;
+			m->setCurrentSelection(menuCurrentSelection);
+		}
+		else if (input == 'd')
+		{
+			menuCurrentSelection = 2;
+			m->setCurrentSelection(menuCurrentSelection);
+		}
+	}
+	else 
+	{
+		if (input == 'u')
+		{
+			menuCurrentSelection = 1;
+			m->setCurrentSelection(menuCurrentSelection);
+		}
+		else if (input == 'd')
+		{
+			menuCurrentSelection = 2;
+			m->setCurrentSelection(menuCurrentSelection);
+		}
+	}
+
+
+	cout << "menuCurrentSelection " << menuCurrentSelection << endl;
+}
+
+
+
 
 
 Game::~Game()
