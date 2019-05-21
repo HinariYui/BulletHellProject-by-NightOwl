@@ -38,7 +38,6 @@ int lifeTemp;
 int BGMTemp;
 int SFXTemp;
 
-
 bool spawnBoss1 = false;
 bool spawnBoss2 = false;
 int bossIndex;
@@ -172,7 +171,7 @@ void Game::handleKey(char ch)
 					//create bomb + clear all minion
 					bomb = new SpriteObject(" ", 1, 1); //BG
 					bomb->setSize(bombSize, bombSize);
-					bomb->setPosition(glm::vec3(-212, 0, 0));
+					bomb->setPosition(glm::vec3(0, 0, 0));
 					objects.push_back(bomb);
 					bombAvailable = false;
 				}
@@ -534,7 +533,7 @@ void Game::update(float deltaTime)
 
 		if (BGMisPlaying[1] == false)
 		{
-			BGM2.play();
+			BGM2.play(-1);
 			BGMisPlaying[1] = true;
 		}
 
@@ -804,13 +803,14 @@ void Game::update(float deltaTime)
 	}
 	else
 	{
+
 		if (BGMisPlaying[0] == false)
 		{
 			BGMisPlaying[1] = false;
 			BGMisPlaying[2] = false;
 			BGMisPlaying[3] = false;
 
-			BGM1.play();
+			BGM1.play(-1);
 			BGMisPlaying[0] = true;
 		}
 	}

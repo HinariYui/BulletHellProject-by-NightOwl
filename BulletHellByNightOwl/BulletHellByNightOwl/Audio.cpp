@@ -1,3 +1,4 @@
+#include "SDL_timer.h"
 #include "Audio.h"
 #include <iostream>
 
@@ -14,7 +15,18 @@ void SoundEffect::play(int loop)
 
 void Music::play(int loop)
 {
-	Mix_PlayMusic(m_music, loop);
+	//Mix_PlayMusic(m_music, loop);
+
+
+
+	// play music forever, fading in over 2 seconds
+	// Mix_Music *music; // I assume this has been loaded already
+	if (Mix_FadeInMusic(m_music, -1, 2000) == -1) {
+		printf("Mix_FadeInMusic: %s\n", Mix_GetError());
+		// well, there's no music, but most games don't break without music...
+	}
+
+
 
 	//Mix_VolumeMusic(0 - 128)
 }
@@ -26,7 +38,12 @@ void Music::pause()
 
 void Music::stop()
 {
-	Mix_HaltMusic();
+	//Mix_HaltMusic();
+	// fade out music to finish 3 seconds from now
+	while (!Mix_FadeOutMusic(3000) && Mix_PlayingMusic()) {
+		// wait for any fades to complete
+		SDL_Delay(100);
+	}
 }
 
 void Music::resume()

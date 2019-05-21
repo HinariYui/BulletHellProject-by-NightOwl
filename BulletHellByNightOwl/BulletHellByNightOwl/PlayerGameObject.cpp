@@ -197,12 +197,42 @@ void PlayerGameObject::checkMovement()
 	setVelocity(glm::vec3(0, 0, 0));
 	if (moveLeft == false && moveRight == false && moveUp == false && moveDown == false && isIdle == false)
 	{
-		setAnimationLoop(1, 1, 4, 1000);
+		if (animationPlaying == false)
+		{
+			setAnimationLoop(1, 1, 1, 500);
+			setAnimationLoop(1, 1, 4, 500);
+			animationPlaying = true;
+		}
 		isIdle = true;
+	}
+	else
+	{
+		if (isIdle == true)
+		{
+			animationPlaying = false;
+		}
 	}
 
 	if (moveLeft == true)
 	{
+		if (isIdle == true)
+		{
+			if (animationPlaying == false)
+			{
+				setAnimationLoop(4, 1, 1, 500);
+				setAnimationLoop(4, 1, 4, 500);
+				animationPlaying = true;
+			}
+		
+			isIdle = false;
+		}
+		else
+		{
+			setAnimationLoop(4, 1, 1, 500);
+			animationPlaying = false;
+		}
+
+
 		//cout << "left" << endl;
 		this->addVelocity(glm::vec3(-1, 0, 0));
 
@@ -217,8 +247,27 @@ void PlayerGameObject::checkMovement()
 			setPosition(newPosition);
 		}
 	}
+
+
+
 	if (moveRight == true)
 	{
+		if (isIdle == true)
+		{
+			if (animationPlaying == false)
+			{
+				setAnimationLoop(5, 1, 1, 500);
+				setAnimationLoop(5, 1, 4, 500);
+				animationPlaying = true;
+			}
+			isIdle = false;
+		}
+		else
+		{
+			setAnimationLoop(5, 1, 1, 500);
+			animationPlaying = false;
+		}
+
 		//cout << "right" << endl;
 		this->addVelocity(glm::vec3(1, 0, 0));
 		
@@ -234,11 +283,16 @@ void PlayerGameObject::checkMovement()
 		}
 	}
 
+
 	if (moveUp == true)
 	{
 		if (isIdle == true)
 		{
-			setAnimationLoop(2,1,4,1000);
+			if (animationPlaying == false)
+			{
+				setAnimationLoop(2, 1, 1, 1000);
+				setAnimationLoop(2, 1, 4, 500);
+			}
 			isIdle = false;
 		}
 
@@ -258,11 +312,19 @@ void PlayerGameObject::checkMovement()
 			setPosition(newPosition);
 		}
 	}
+	else
+	{
+
+	}
+
 	if (moveDown == true)
 	{
 		if (isIdle == true)
 		{
-			setAnimationLoop(2, 1, 4, 1000);
+			setAnimationLoop(3, 1, 1, 1000);
+			setAnimationLoop(3, 1, 4, 500);
+
+			//setAnimationLoop(2, 1, 4, 1000);
 			isIdle = false;
 		}
 

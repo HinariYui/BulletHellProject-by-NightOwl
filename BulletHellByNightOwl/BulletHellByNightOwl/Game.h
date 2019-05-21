@@ -54,7 +54,7 @@ public:
 	vector<string> optMenuSprite;
 
 
-	bool bombAvailable = true;
+	bool bombAvailable = false;//true;
 	SpriteObject * bomb;
 
 	bool isOptionMenu = false;
