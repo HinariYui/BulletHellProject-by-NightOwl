@@ -658,7 +658,6 @@ void Game::update(float deltaTime)
 		}
 
 
-		e1SpawnRate += deltaTime;
 		//if (e1SpawnRate >= 1000)
 		//{
 		//	int x = rand() % 300 - MID_PLAYAREA_X - 462;
@@ -669,16 +668,18 @@ void Game::update(float deltaTime)
 		//	objects.push_back(enemy);
 		//	e1SpawnRate = 0;
 		//}
-		if (e1SpawnRate >= 2000)
-		{
-			e->EnemySpawn(1);
-			e1SpawnRate = 0;
-		}
 		
 		//for (DrawableObject *obj : this->objects)
 		
 		if (isPaused == false)
 		{
+			e1SpawnRate += deltaTime;
+
+			if (e1SpawnRate >= 3000)
+			{
+				e->EnemySpawn(1);
+				e1SpawnRate = 0;
+			}
 			//for (int i = 0; i < spawners.size(); i++)
 			//{
 			//	spawners[i]->update(deltaTime);

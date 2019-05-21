@@ -2,11 +2,15 @@
 #include "Game.h"
 #include <iostream>
 
-Landmine::Landmine(Tag bulletType, string spriteFile, SpriteObject* drn) : EnemyBullet(bulletType, spriteFile)
+#define PI 3.141592653589793f
+
+Landmine::Landmine(Tag bulletType, string spriteFile, glm::vec3 dir) : EnemyBullet(bulletType, spriteFile)
 {
 	BulletGameObject::addSprite(spriteFile, 1, 3);
 	BulletGameObject::setAnimationLoop(1, 1, 1, 500);
-	drone = drn;
+	droneDir = dir;
+	rotationMatrix = glm::mat4(1.0f);
+	rotationMatrix = glm::rotate(rotationMatrix, PI / 2, glm::vec3(0.0f, 0.0f, 1.0f));
 }
 
 void Landmine::update(float deltaTime)
@@ -18,7 +22,6 @@ void Landmine::update(float deltaTime)
 	{
 		float time = timeCounter / maxStartTime;
 		glm::vec3 currentPos = getPosition();
-		glm::vec3 result = (currentPos * (1 - time)) + (randomLocation * time); // lerp
 		//setPosition(result);
 		if (timeCounter > maxStartTime)
 		{
@@ -44,15 +47,18 @@ void Landmine::update(float deltaTime)
 		if (lState != GONE)
 		{
 			float bulletSpeed = 1.5f;
+			glm::vec4 temp = glm::vec4(droneDir, 1);
+			temp = rotationMatrix * temp;
+
 			// bullet 1
 			enemyBullet1 = new EnemyBullet(Tag::eBullet, "Boss1Bullet20x20.png");
 
 			enemyBullet1->setSize(15, 15);
 			enemyBullet1->setPosition(getPosition());
 
-			glm::vec3 bulDir1 = glm::normalize(glm::vec3(1, 0, 0));
+			glm::vec3 bulDir = glm::normalize(glm::vec3(temp.x, temp.y, temp.z));
 
-			dynamic_cast<GameObject*>(enemyBullet1)->setVelocity(bulDir1 * bulletSpeed);
+			dynamic_cast<GameObject*>(enemyBullet1)->setVelocity(bulDir * bulletSpeed);
 
 			Game::getInstance()->getObjectRef()->push_back(enemyBullet1);
 
@@ -62,9 +68,7 @@ void Landmine::update(float deltaTime)
 			enemyBullet2->setSize(15, 15);
 			enemyBullet2->setPosition(getPosition());
 
-			glm::vec3 bulDir2 = glm::normalize(glm::vec3(-1, 0, 0));
-
-			dynamic_cast<GameObject*>(enemyBullet2)->setVelocity(bulDir2 * bulletSpeed);
+			dynamic_cast<GameObject*>(enemyBullet2)->setVelocity(-bulDir * bulletSpeed);
 
 			Game::getInstance()->getObjectRef()->push_back(enemyBullet2);
 

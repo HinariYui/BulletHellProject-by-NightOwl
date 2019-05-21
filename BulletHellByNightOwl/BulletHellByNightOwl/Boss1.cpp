@@ -13,7 +13,7 @@ Boss1::Boss1(Tag enemy, string fileName, int row, int col) : SpriteObject(fileNa
 	idleTime = rand() % 1000 + 2000;
 	stateTime = 0;
 	rotationMatrix = glm::mat4(1.0f);
-	rotationMatrix = glm::rotate(rotationMatrix, 0.25f, glm::vec3(0.0f, 0.0f, 1.0f)); //0.1f -> radiant
+	rotationMatrix = glm::rotate(rotationMatrix, 0.25f, glm::vec3(0.0f, 0.0f, 1.0f)); //0.25f -> radiant
 	hp = maxHP;
 	HPbg = new SpriteObject("HP-bg.png", 1, 1);
 	HPbar = new SpriteObject("HP-green.png", 1, 1);
@@ -374,7 +374,7 @@ void Boss1::shoot1_1B(float constant, float deltaTime)
 		if (drone1IsMoving)
 		{
 			// Bullet 1
-			DrawableObject* lm = new Landmine(Tag::eBullet, "Mine_50x50.png", Drone1);
+			DrawableObject* lm = new Landmine(Tag::eBullet, "Mine_50x50.png", drone1MoveDir);
 			BulletGameObject* mine = dynamic_cast<BulletGameObject *>(lm);
 			lm->setSize(50, 50);
 			lm->setPosition(Drone1->getPosition());
@@ -384,7 +384,7 @@ void Boss1::shoot1_1B(float constant, float deltaTime)
 		if (drone2IsMoving)
 		{
 			// Bullet2
-			DrawableObject* lm = new Landmine(Tag::eBullet, "Mine_50x50.png", Drone2);
+			DrawableObject* lm = new Landmine(Tag::eBullet, "Mine_50x50.png", drone2MoveDir);
 			BulletGameObject* mine = dynamic_cast<BulletGameObject *>(lm);
 			lm->setSize(50, 50);
 			lm->setPosition(Drone2->getPosition());
@@ -394,7 +394,7 @@ void Boss1::shoot1_1B(float constant, float deltaTime)
 		if (drone3IsMoving)
 		{
 			// Bullet 3
-			DrawableObject* lm = new Landmine(Tag::eBullet, "Mine_50x50.png", Drone3);
+			DrawableObject* lm = new Landmine(Tag::eBullet, "Mine_50x50.png", drone3MoveDir);
 			BulletGameObject* mine = dynamic_cast<BulletGameObject *>(lm);
 			lm->setSize(50, 50);
 			lm->setPosition(Drone3->getPosition());
@@ -404,7 +404,7 @@ void Boss1::shoot1_1B(float constant, float deltaTime)
 		if (drone4IsMoving)
 		{
 			// Bullet 4
-			DrawableObject* lm = new Landmine(Tag::eBullet, "Mine_50x50.png", Drone4);
+			DrawableObject* lm = new Landmine(Tag::eBullet, "Mine_50x50.png", drone4MoveDir);
 			BulletGameObject* mine = dynamic_cast<BulletGameObject *>(lm);
 			lm->setSize(50, 50);
 			lm->setPosition(Drone4->getPosition());

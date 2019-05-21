@@ -15,7 +15,7 @@ Enemy2::Enemy2(Tag enemy, string fileName, int row, int col) : EnemyBase(enemy, 
 	state = MOVE;
 	setVelocity(glm::vec3(0, 0, 0));
 	hp = 10;
-	bulletSpeed = 3.0f;
+	bulletSpeed = 5.0f;
 }
 
 void Enemy2::update(float deltaTime)
@@ -25,7 +25,11 @@ void Enemy2::update(float deltaTime)
 	{
 		updateATK(deltaTime);
 	}
-	if (getPosition().x <= -960 || getPosition().x >= 960 || getPosition().y <= -540 || getPosition().y >= 540)
+	if (getPosition().x <= -1000 || getPosition().x >= 425 || getPosition().y <= -1000 || getPosition().y >= 1000)
+	{
+		setRender(false);
+	}
+	if (getPosition().x <= -1000 || getPosition().x >= 1000 || getPosition().y <= -1000 || getPosition().y >= 1000)
 	{
 		hp = 0;
 	}
@@ -56,7 +60,7 @@ void Enemy2::updateMOVE(float deltaTime)
 void Enemy2::updateATK(float deltaTime)
 {
 	shootCD += deltaTime;
-	if (shootCD >= 100)
+	if (shootCD >= 150)
 	{
 		shoot1();
 		shootCD = 0;
@@ -102,7 +106,7 @@ void Enemy2::shoot1()
 
 bool Enemy2::isInPlayArea()
 {
-	if (getPosition().x >= LEFT_PLAYAREA_X + 20 && getPosition().x <= RIGHT_PLAYAREA_X - 20 && getPosition().y >= BOTTOM_PLAYAREA_Y + 20 && getPosition().y <= TOP_PLAYAREA_Y - 20)
+	if (getPosition().x >= LEFT_PLAYAREA_X + 10 && getPosition().x <= RIGHT_PLAYAREA_X - 10 && getPosition().y >= BOTTOM_PLAYAREA_Y + 10 && getPosition().y <= TOP_PLAYAREA_Y - 10)
 	{
 		return true;
 	}
