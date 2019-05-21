@@ -123,7 +123,7 @@ void PlayerGameObject::checkAction()
 
 			BulletGameObject * playerBullet = dynamic_cast<BulletGameObject*>(bullet);
 			playerBullet->setColor(1.0, 1.0, 1.0);
-			playerBullet->setSize(5, 5);
+			playerBullet->setSize(10, 10);
 			playerBullet->setPosition(this->getPosition());// +glm::vec3(0, 18, 0));
 			playerBullet->setVelocity(bulletSpeed * bulletVel[i]);
 

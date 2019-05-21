@@ -45,6 +45,7 @@ int bossIndex;
 
 Boss1* boss1;
 Boss2* boss2;
+Spawner* e;
 
 Game * Game::getInstance()
 {
@@ -366,9 +367,9 @@ void Game::init(int width, int height)
 	menu->setPosition(glm::vec3(0, 0, 0));
 	objects.push_back(menu); // index 8
 
-	Spawner* e1 = new Spawner();
-	e1->SetSpawnRate(1000);
-	spawners.push_back(e1);
+	e = new Spawner();
+	e->SetSpawnRate(1000);
+	spawners.push_back(e);
 
 	pMenuSprite.push_back("pauseMenu.png");
 	pMenuSprite.push_back("Buttons/Idle_ResumeFIX_219x129.png");//idle
@@ -657,7 +658,7 @@ void Game::update(float deltaTime)
 		}
 
 
-		//e1SpawnRate += deltaTime;
+		e1SpawnRate += deltaTime;
 		//if (e1SpawnRate >= 1000)
 		//{
 		//	int x = rand() % 300 - MID_PLAYAREA_X - 462;
@@ -668,7 +669,12 @@ void Game::update(float deltaTime)
 		//	objects.push_back(enemy);
 		//	e1SpawnRate = 0;
 		//}
-
+		if (e1SpawnRate >= 2000)
+		{
+			e->EnemySpawn(1);
+			e1SpawnRate = 0;
+		}
+		
 		//for (DrawableObject *obj : this->objects)
 		
 		if (isPaused == false)
