@@ -345,6 +345,10 @@ void Game::handleKey(char ch)
 
 void Game::init(int width, int height)
 {
+	BGM1 = audio.loadMusic("./BGM/MainMenu.mp3");
+	BGM2 = audio.loadMusic("./BGM/StageTheme1.mp3");
+	BGM3 = audio.loadMusic("./BGM/StageTheme2.mp3");
+	BGM4 = audio.loadMusic("./BGM/StageTheme3.mp3");
 
 	
 	winWidth = width;
@@ -495,6 +499,8 @@ Game::Game()
 
 void Game::update(float deltaTime)
 {
+
+
 	//cout << "gameLife"<< lifeTemp << endl;
 
 	if (bomb != NULL)
@@ -520,6 +526,19 @@ void Game::update(float deltaTime)
 
 	if (menuIsDestroyed == true)
 	{
+		if(BGMisPlaying[0] == true)
+		{
+			BGM1.stop();
+			BGMisPlaying[0] = false;
+		}
+
+		if (BGMisPlaying[1] == false)
+		{
+			BGM2.play();
+			BGMisPlaying[1] = true;
+		}
+
+
 		if (firstRound == true)
 		{
 			SpriteObject * BG = new SpriteObject("bg1-3-base.png", 1, 1); //BG
@@ -781,6 +800,18 @@ void Game::update(float deltaTime)
 			{
 				optionMenu->update(deltaTime);
 			}
+		}
+	}
+	else
+	{
+		if (BGMisPlaying[0] == false)
+		{
+			BGMisPlaying[1] = false;
+			BGMisPlaying[2] = false;
+			BGMisPlaying[3] = false;
+
+			BGM1.play();
+			BGMisPlaying[0] = true;
 		}
 	}
 

@@ -5,10 +5,13 @@
 #include "DrawableObject.h"
 #include "GLRenderer.h"
 #include "Spawner.h"
+#include "Audio.h"
 
 using namespace std;
 class Game
 {	
+	AudioEngine audio;
+	Music BGM1, BGM2, BGM3, BGM4;
 	unsigned int highScore = 0;
 	int pMenuCurrentSelection = 0;
 	int optionCurrentSelection = 0;
@@ -36,6 +39,8 @@ class Game
 
 public:
 	~Game();
+
+	bool BGMisPlaying[4] = { false ,false ,false ,false };
 
 	bool gameBGMisOn = true;
 	bool gameSFXisOn = true;
