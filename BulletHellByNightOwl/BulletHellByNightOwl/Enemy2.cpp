@@ -29,7 +29,11 @@ void Enemy2::update(float deltaTime)
 	{
 		setRender(false);
 	}
-	if (getPosition().x <= -1000 || getPosition().x >= 1000 || getPosition().y <= -1000 || getPosition().y >= 1000)
+	else
+	{
+		setRender(true);
+	}
+	if (getPosition().x <= -2000 || getPosition().x >= 1000 || getPosition().y <= -1000 || getPosition().y >= 1000)
 	{
 		hp = 0;
 	}

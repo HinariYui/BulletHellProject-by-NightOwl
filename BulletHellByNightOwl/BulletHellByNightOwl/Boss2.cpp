@@ -30,6 +30,17 @@ Boss2::Boss2(Tag enemy, string fileName, int row, int col) : SpriteObject(fileNa
 
 void Boss2::update(float deltaTime)
 {
+	if (hp < 1)
+	{
+		Game::getInstance()->eSpawn = true;
+		Game::getInstance()->bossSpawn = false;
+		Game::getInstance()->spawnBoss2 = false;
+		Game::getInstance()->boss2Died = true;
+		Game::getInstance()->eSpawnCD = 0;
+		Game::getInstance()->spawnPattern = 1;
+		Game::getInstance()->spawnNum = 0;
+	}
+
 	HPpercentage = (float)hp / (float)maxHP;
 	if (HPpercentage <= 0.67 && HPpercentage > 0.33) HPbar->addSprite("HP-yellow.png", 1, 1);
 	else if (HPpercentage <= 0.33) HPbar->addSprite("HP-red.png", 1, 1);

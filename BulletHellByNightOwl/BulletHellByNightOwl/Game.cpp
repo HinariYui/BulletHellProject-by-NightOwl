@@ -38,9 +38,6 @@ int lifeTemp;
 int BGMTemp;
 int SFXTemp;
 
-
-bool spawnBoss1 = false;
-bool spawnBoss2 = false;
 int bossIndex;
 
 Boss1* boss1;
@@ -129,6 +126,18 @@ void Game::handleKey(char ch)
 					spawners[0]->eNum = 0;
 					bossSpawn = false;
 					godMode = false;
+
+					bossSpawn = false;
+					spawnBoss1 = false;
+					spawnBoss2 = false;
+					boss1Died = false;
+					boss2Died = false;
+
+					spawnPattern = 1;
+					eSpawnRate = 8000;
+					eSpawnCD = 3000;
+					eSpawn = true;
+					spawnNum = 0;
 				}
 				else if (p->getCurrentSelection() == 2)
 				{
@@ -648,7 +657,20 @@ void Game::update(float deltaTime)
 					menuIsDestroyed = false;
 					handleKey('x');
 					firstRound = true;
-					spawners[0]->eNum = 0;
+
+					bossSpawn = false;
+					spawnBoss1 = false;
+					spawnBoss2 = false;
+					boss1Died = false;
+					boss2Died = false;
+
+					spawnPattern = 1;
+					eSpawnRate = 8000;
+					eSpawnCD = 3000;
+					eSpawn = true;
+					spawnNum = 0;
+
+					//spawners[0]->eNum = 0;
 					//bossSpawn = false; //เปิดแล้วมีบัคตอน Gameover
 				}
 
@@ -673,28 +695,63 @@ void Game::update(float deltaTime)
 		
 		if (isPaused == false)
 		{
-			e1SpawnRate += deltaTime;
+			eSpawnCD += deltaTime;
 
-			if (e1SpawnRate >= 3000)
+			if (eSpawnCD >= eSpawnRate && eSpawn)
 			{
-				e->EnemySpawn(1);
-				e1SpawnRate = 0;
+				e->EnemySpawn(spawnPattern);
+				spawnNum++;
+				if (spawnNum >= 12)
+				{
+					eSpawn = false;
+				}
+
+				if (spawnPattern == 4)
+				{
+					eSpawnRate = 6000;
+				}
+				else if (spawnPattern == 6)
+				{
+					eSpawnRate = 10000;
+				}
+				else
+				{
+					eSpawnRate = 8000;
+				}
+
+				spawnPattern++;
+
+				if (spawnPattern == 5 || spawnPattern == 7)
+				{
+					spawnPattern++;
+				}
+				if (spawnPattern > 8)
+				{
+					spawnPattern = 1;
+				}
+
+				eSpawnCD = 0;
 			}
-			//for (int i = 0; i < spawners.size(); i++)
-			//{
-			//	spawners[i]->update(deltaTime);
-			//}
-			//
-			//if (spawners[0]->eNum > 1 && bossSpawn == false)
-			//{
-			//	spawners[0]->SetSpawnRate(2500);
-			//	Boss2 * boss = new Boss2(Tag::Enemy, "bossgirl-sample.png", 1, 1); //Tag enemy, string fileName, int row, int col
-			//	boss->setRotation(180);													   //boss->setColor(1.0, 0.0, 0.0);
-			//	boss->setSize(100, 100);
-			//	boss->setPosition(glm::vec3(-212, 400, 0));
-			//	objects.push_back(boss);
-			//	bossSpawn = true;
-			//}
+
+			if (spawnNum >= 12 && eSpawnCD >= eSpawnRate && !bossSpawn)
+			{
+				boss2 = new Boss2(Tag::Enemy, "bossgirl-sample.png", 1, 1); //Tag enemy, string fileName, int row, int col
+				boss2->setRotation(180);													   //boss->setColor(1.0, 0.0, 0.0);
+				boss2->setSize(100, 100);
+				boss2->setPosition(glm::vec3(-212, 400, 0));
+				objects.push_back(boss2);
+				bossSpawn = true;
+			}
+
+			if (spawnNum >= 12 && eSpawnCD >= eSpawnRate && !bossSpawn && boss2Died)
+			{
+				boss1 = new Boss1(Tag::Enemy, "Boss1_Idle_ColorVer3_82x100.png", 1, 1); //Tag enemy, string fileName, int row, int col
+				boss1->setRotation(180);													   //boss->setColor(1.0, 0.0, 0.0);
+				boss1->setSize(100, 120);
+				boss1->setPosition(glm::vec3(-212, 400, 0));
+				objects.push_back(boss1);
+				bossSpawn = true;
+			}
 
 			if (spawnBoss1 && !bossSpawn)
 			{

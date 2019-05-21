@@ -38,6 +38,17 @@ Boss1::Boss1(Tag enemy, string fileName, int row, int col) : SpriteObject(fileNa
 
 void Boss1::update(float deltaTime)
 {
+	if (hp < 1)
+	{
+		Game::getInstance()->eSpawn = true;
+		Game::getInstance()->bossSpawn = false;
+		Game::getInstance()->spawnBoss1 = false;
+		Game::getInstance()->boss1Died = true;
+		Game::getInstance()->eSpawnCD = 0;
+		Game::getInstance()->spawnPattern = 1;
+		Game::getInstance()->spawnNum = 0;
+	}
+
 	drone1DefaultPos = getPosition() + glm::vec3(-100, 70, 0);
 	drone2DefaultPos = getPosition() + glm::vec3(100, 70, 0);
 	drone3DefaultPos = getPosition() + glm::vec3(-100, -70, 0);
