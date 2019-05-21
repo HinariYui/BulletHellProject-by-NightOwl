@@ -9,7 +9,7 @@ class Menu :public DrawableObject
 {
 private:
 	glm::vec3 color;
-	AnimatedSelection *c1, *c2, *c3, *p1, *p2, *p3;
+	AnimatedSelection *c1, *c2, *c3;// , *p1, *p2, *p3;
 	
 	//for Sprite
 	int currentChoice = 0;

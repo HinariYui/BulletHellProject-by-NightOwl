@@ -26,50 +26,50 @@ Menu::Menu(vector<string> fileName, int spriteNum, int optNum)
 	for (int i = 1; i <= optionNum; i++)
 	{
 		AnimatedSelection* p = new AnimatedSelection(fileName.at(i), 1, 1);
-		p->setSize(438, 120);
+		p->setSize(270, 100);
 		p->setPosition(glm::vec3(0,  + (i*-75), 0));
 		options.push_back(p);
 		Game::getInstance()->getObjectRef()->push_back(p);
 	}
 
-	c1 = new AnimatedSelection(fileName.at(4), 1, 5);
-	c1->setSize(438, 120);
+	c1 = new AnimatedSelection(fileName.at(4), 1, 1);
+	c1->setSize(270, 100);
 	c1->setPosition(glm::vec3(0, -75, 0));
-	c1->setAnimationLoop(1, 7, 5, 1000);
+	c1->setAnimationLoop(1, 1, 1, 1000);
 	Game::getInstance()->getObjectRef()->push_back(c1);
 
-	c2 = new AnimatedSelection(fileName.at(5), 1, 5);
-	c2->setSize(438, 120);
+	c2 = new AnimatedSelection(fileName.at(5), 1, 1);
+	c2->setSize(270, 100);
 	c2->setPosition(glm::vec3(0, -150, 0));
-	c2->setAnimationLoop(1, 7, 5, 1000);
+	c2->setAnimationLoop(1, 1, 1, 1000);
 	Game::getInstance()->getObjectRef()->push_back(c2);
 
-	c3 = new AnimatedSelection(fileName.at(6), 1, 5);
-	c3->setSize(438, 120);
+	c3 = new AnimatedSelection(fileName.at(6), 1, 1);
+	c3->setSize(270, 100);
 	c3->setPosition(glm::vec3(0, -225, 0));
-	c3->setAnimationLoop(1, 7, 5, 1000);
+	c3->setAnimationLoop(1, 1, 1, 1000);
 	Game::getInstance()->getObjectRef()->push_back(c3);
 
-	p1 = new AnimatedSelection(fileName.at(7), 1, 7);
-	p1->setSize(438, 120);
-	p1->setPosition(glm::vec3(0, -75, 0));
-	p1->setAnimationLoop(1, 7, 7, 1000);
-	p1->enable = false;
-	Game::getInstance()->getObjectRef()->push_back(p1);
+	//p1 = new AnimatedSelection(fileName.at(7), 1, 7);
+	//p1->setSize(438, 120);
+	//p1->setPosition(glm::vec3(0, -75, 0));
+	//p1->setAnimationLoop(1, 7, 7, 1000);
+	//p1->enable = false;
+	//Game::getInstance()->getObjectRef()->push_back(p1);
 
-	p2 = new AnimatedSelection(fileName.at(8), 1, 7);
-	p2->setSize(438, 120);
-	p2->setPosition(glm::vec3(0, -150, 0));
-	p2->setAnimationLoop(1, 7, 7, 1000);
-	p2->enable = false;
-	Game::getInstance()->getObjectRef()->push_back(p2);
+	//p2 = new AnimatedSelection(fileName.at(8), 1, 7);
+	//p2->setSize(438, 120);
+	//p2->setPosition(glm::vec3(0, -150, 0));
+	//p2->setAnimationLoop(1, 7, 7, 1000);
+	//p2->enable = false;
+	//Game::getInstance()->getObjectRef()->push_back(p2);
 
-	p3 = new AnimatedSelection(fileName.at(9), 1, 7);
-	p3->setSize(438, 120);
-	p3->setPosition(glm::vec3(0, -225, 0));
-	p3->setAnimationLoop(1, 7, 7, 1000);
-	p3->enable = false;
-	Game::getInstance()->getObjectRef()->push_back(p3);
+	//p3 = new AnimatedSelection(fileName.at(9), 1, 7);
+	//p3->setSize(438, 120);
+	//p3->setPosition(glm::vec3(0, -225, 0));
+	//p3->setAnimationLoop(1, 7, 7, 1000);
+	//p3->enable = false;
+	//Game::getInstance()->getObjectRef()->push_back(p3);
 }
 
 Menu::~Menu()
@@ -86,34 +86,34 @@ void Menu::update(float deltaTime)
 {
 	if (CheckIfAllComponentNotNull() == true)
 	{
-		if (pressed == false)
+		//if (pressed == false)
 		{
 			if (currentChoice <= 0) //subSprite=1 (y = 150 +  1*-75)
 			{
 				c1->enable = true;
 				c2->enable = false;
 				c3->enable = false;
-				p1->enable = false;
-				p2->enable = false;
-				p3->enable = false;
+				//p1->enable = false;
+				//p2->enable = false;
+				//p3->enable = false;
 			}
 			else if (currentChoice == 1)
 			{
 				c1->enable = false;
 				c2->enable = true;
 				c3->enable = false;
-				p1->enable = false;
-				p2->enable = false;
-				p3->enable = false;
+				//p1->enable = false;
+				//p2->enable = false;
+				//p3->enable = false;
 			}
 			else //if (currentChoice == 2)
 			{
 				c1->enable = false;
 				c2->enable = false;
 				c3->enable = true;
-				p1->enable = false;
-				p2->enable = false;
-				p3->enable = false;
+				//p1->enable = false;
+				//p2->enable = false;
+				//p3->enable = false;
 			}
 		/*	else
 			{
@@ -125,52 +125,52 @@ void Menu::update(float deltaTime)
 				p3->enable = false;
 			}*/
 		}
-		else
-		{
-			if (currentChoice <= 0) //subSprite=1 (y = 150 +  1*-75)
-			{
-				c1->enable = false;
-				c2->enable = false;
-				c3->enable = false;
-				p1->enable = true;
-				p2->enable = false;
-				p3->enable = false;
-			}
-			else if (currentChoice == 1)
-			{
-				c1->enable = false;
-				c2->enable = false;
-				c3->enable = false;
-				p1->enable = false;
-				p2->enable = true;
-				p3->enable = false;
-			}
-			else //if (currentChoice == 2)
-			{
-				c1->enable = false;
-				c2->enable = false;
-				c3->enable = false;
-				p1->enable = false;
-				p2->enable = false;
-				p3->enable = true;
-			}
-	/*		else
-			{
-				c1->enable = false;
-				c2->enable = false;
-				c3->enable = false;
-				p1->enable = false;
-				p2->enable = false;
-				p3->enable = false;
-			}*/
-		}
+	//	else
+	//	{
+	//		if (currentChoice <= 0) //subSprite=1 (y = 150 +  1*-75)
+	//		{
+	//			c1->enable = false;
+	//			c2->enable = false;
+	//			c3->enable = false;
+	//			p1->enable = true;
+	//			p2->enable = false;
+	//			p3->enable = false;
+	//		}
+	//		else if (currentChoice == 1)
+	//		{
+	//			c1->enable = false;
+	//			c2->enable = false;
+	//			c3->enable = false;
+	//			p1->enable = false;
+	//			p2->enable = true;
+	//			p3->enable = false;
+	//		}
+	//		else //if (currentChoice == 2)
+	//		{
+	//			c1->enable = false;
+	//			c2->enable = false;
+	//			c3->enable = false;
+	//			p1->enable = false;
+	//			p2->enable = false;
+	//			p3->enable = true;
+	//		}
+	///*		else
+	//		{
+	//			c1->enable = false;
+	//			c2->enable = false;
+	//			c3->enable = false;
+	//			p1->enable = false;
+	//			p2->enable = false;
+	//			p3->enable = false;
+	//		}*/
+	//	}
 
 		c1->update(deltaTime);
 		c2->update(deltaTime);
 		c3->update(deltaTime);
-		p1->update(deltaTime);
-		p2->update(deltaTime);
-		p3->update(deltaTime);
+		//p1->update(deltaTime);
+		//p2->update(deltaTime);
+		//p3->update(deltaTime);
 	}
 }
 
@@ -344,8 +344,8 @@ void Menu::destroyComponents()
 		{
 			instance = Game::getInstance()->getObjectRef()->at(i);
 
-			if (instance->getObjId() == c1->getObjId() || instance->getObjId() == c2->getObjId() || instance->getObjId() == c3->getObjId()
-				|| instance->getObjId() == p1->getObjId() || instance->getObjId() == p2->getObjId() || instance->getObjId() == p3->getObjId() )
+			if (instance->getObjId() == c1->getObjId() || instance->getObjId() == c2->getObjId() || instance->getObjId() == c3->getObjId())
+				//|| instance->getObjId() == p1->getObjId() || instance->getObjId() == p2->getObjId() || instance->getObjId() == p3->getObjId() )
 
 			{
 				Game::getInstance()->getObjectRef()->erase(Game::getInstance()->getObjectRef()->begin() + i);
@@ -357,14 +357,15 @@ void Menu::destroyComponents()
 
 bool Menu::CheckIfAllComponentNotNull()
 {
-	if (c1 != NULL && c2 != NULL && c3 != NULL && p1 != NULL && p2 != NULL && p3 != NULL )
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
+	//if (c1 != NULL && c2 != NULL && c3 != NULL && p1 != NULL && p2 != NULL && p3 != NULL )
+	//{
+	//	return true;
+	//}
+	//else
+	//{
+	//	return false;
+	//}
+	return true;
 }
 
 void Menu::setCurrentSelection(int num)
@@ -380,27 +381,27 @@ int Menu::getCurrentSelection()
 
 void Menu::updateComponent(char indicator)
 {
-	if (indicator == 'e')
-	{
-		if (CheckIfAllComponentNotNull())
-		{
-			p1->setAnimationLoop(1, 7, 7, 1000);
-			p2->setAnimationLoop(1, 7, 7, 1000);
-			p3->setAnimationLoop(1, 7, 7, 1000);
-		}
-		pressed = true;
-	}
-	else
-	{
-		pressed = false;
-		if (CheckIfAllComponentNotNull())
-		{
-			p1->setAnimationLoop(1, 7, 1, 1000);
-			p2->setAnimationLoop(1, 7, 1, 1000);
-			p3->setAnimationLoop(1, 7, 1, 1000);
+	//if (indicator == 'e')
+	//{
+	//	if (CheckIfAllComponentNotNull())
+	//	{
+	//		p1->setAnimationLoop(1, 7, 7, 1000);
+	//		p2->setAnimationLoop(1, 7, 7, 1000);
+	//		p3->setAnimationLoop(1, 7, 7, 1000);
+	//	}
+	//	pressed = true;
+	//}
+	//else
+	//{
+	//	pressed = false;
+	//	if (CheckIfAllComponentNotNull())
+	//	{
+	//		p1->setAnimationLoop(1, 7, 1, 1000);
+	//		p2->setAnimationLoop(1, 7, 1, 1000);
+	//		p3->setAnimationLoop(1, 7, 1, 1000);
 
-		}
-	}
+	//	}
+	//}
 }
 
 

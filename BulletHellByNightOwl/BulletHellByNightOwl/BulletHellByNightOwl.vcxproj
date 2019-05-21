@@ -145,6 +145,7 @@
     <ClCompile Include="HexagonMeshVbo.cpp" />
     <ClCompile Include="Landmine.cpp" />
     <ClCompile Include="Laser.cpp" />
+    <ClCompile Include="Life.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="MeshVbo.cpp" />
@@ -180,6 +181,7 @@
     <ClInclude Include="HexagonMeshVbo.h" />
     <ClInclude Include="Landmine.h" />
     <ClInclude Include="Laser.h" />
+    <ClInclude Include="Life.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="MeshVbo.h" />
     <ClInclude Include="OptionMenu.h" />

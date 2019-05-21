@@ -42,7 +42,7 @@ void Music::stop()
 	// fade out music to finish 3 seconds from now
 	while (!Mix_FadeOutMusic(3000) && Mix_PlayingMusic()) {
 		// wait for any fades to complete
-		SDL_Delay(100);
+		//SDL_Delay(100);
 	}
 }
 

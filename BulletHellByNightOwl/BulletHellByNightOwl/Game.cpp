@@ -17,6 +17,7 @@
 #include "Spawner.h"
 #include "tinyxml2.h"
 #include "Audio.h"
+#include "Life.h"
 
 #include <fstream>
 
@@ -33,8 +34,10 @@ Game* Game::instance = nullptr;
 float playerSizeX = 35;
 float playerSizeY = 60;
 
+int timeLaspe = 0;
+
 int scoreTemp;
-int lifeTemp;
+int lifeTemp = 3;
 int BGMTemp;
 int SFXTemp;
 
@@ -221,7 +224,7 @@ void Game::handleKey(char ch)
 					else if (p->getCurrentSelection() == 1)
 					{
 						objects.clear();
-						menu = new Menu(menuSprite, 10, 3);;
+						menu = new Menu(menuSprite, 7, 3);;
 						menu->setSize(1280, 720);
 						menu->setPosition(glm::vec3(0, 0, 0));
 						menuCurrentSelection = 0;
@@ -414,21 +417,23 @@ void Game::init(int width, int height)
 	squareMesh->loadData();
 	renderer->addMesh(SquareMeshVbo::MESH_NAME, squareMesh);
 
-	menuSprite.push_back("tempMenu.png");//mainMenu
-	menuSprite.push_back("MainMenu/Idle_Start_219x129.png");
-	menuSprite.push_back("Buttons/Idle_Option_219x129.png");
-	menuSprite.push_back("Buttons/Idle_QuitFIX_219x129.png");
-	menuSprite.push_back("MainMenu/Hovered_Start_219x129.png");//hover
-	menuSprite.push_back("Buttons/Hovered_Option_219x129.png");
-	menuSprite.push_back("Buttons/Hovered_QuitFIX_219x129.png");
-	menuSprite.push_back("MainMenu/Press_Start_219x129.png");//press
-	menuSprite.push_back("Buttons/Press_Option_219x129.png");
-	menuSprite.push_back("Buttons/Pressed_QuitFIX_219x129.png");
+	menuSprite.push_back("home-bg.png");//mainMenu
+	menuSprite.push_back("MainMenu/Idle_Start_270x100.png");
+	menuSprite.push_back("MainMenu/Idle_Option_270x100.png");
+	menuSprite.push_back("MainMenu/Idle_Quit_270x100.png");
+	menuSprite.push_back("MainMenu/Hovered_Start_270x100.png");//hover
+	menuSprite.push_back("MainMenu/Hovered_Option_270x100.png");
+	menuSprite.push_back("MainMenu/Hovered_Quit_270x100.png");
 
-	menu = new Menu(menuSprite, 10, 3);
+	menu = new Menu(menuSprite, 7, 3);
 	menu->setSize(1280, 720);
 	menu->setPosition(glm::vec3(0, 0, 0));
 	//objects.push_back(menu); // index 8
+
+	transition = new SpriteObject("transition.png", 1, 1);
+	transition->setSize(0, 720);
+	transition->setPosition(glm::vec3(0, 0, 0));
+	objects.push_back(transition); 
 
 	e = new Spawner();
 	e->SetSpawnRate(1000);
@@ -586,19 +591,34 @@ void Game::update(float deltaTime)
 
 	if (menuIsDestroyed == true)
 	{
+		
+
 		if (BGMisPlaying[0] == true)
 		{
 			BGM1.stop();
 			BGMisPlaying[0] = false;
 		}
 
+		//if (transition != NULL)
+		//{
+		//	if (timeLaspe < 100)
+		//	{
+		//		transition->setSize(1.28*timeLaspe, 720);
+		//		timeLaspe = +deltaTime;
+
+		//	}
+		//}
+
+		//if (timeLaspe > 100)
+		//{
+
+		//}
+
 		if (BGMisPlaying[1] == false)
 		{
 			BGM2.play();
 			BGMisPlaying[1] = true;
 		}
-
-
 
 		if (firstRound == true)
 		{
@@ -616,25 +636,28 @@ void Game::update(float deltaTime)
 			player = new PlayerGameObject(Tag::Player);
 			PlayerGameObject* p = dynamic_cast<PlayerGameObject *>(player);
 
-			p->setSize(playerSizeX/7, playerSizeY/12);
+			p->setSize(playerSizeX / 7, playerSizeY / 12);
 			p->setRotation(180);
 			p->setPosition(glm::vec3(-212, -250, 0));
 			p->setAnimationLoop(1, 1, 4, 1000);
 			objects.push_back(player); // index 7
 
-			//Boss1 * boss = new Boss1(Tag::Enemy, "bossgirl-sample.png", 1, 1); //Tag enemy, string fileName, int row, int col
-			//boss->setRotation(180);													   //boss->setColor(1.0, 0.0, 0.0);
-			//boss->setSize(100, 100);
-			//boss->setPosition(glm::vec3(-212, 200, 0));
-			//p->setAnimationLoop(1, 1, 0, 1000);
-			//objects.push_back(boss); // index 8
+									   //Boss1 * boss = new Boss1(Tag::Enemy, "bossgirl-sample.png", 1, 1); //Tag enemy, string fileName, int row, int col
+									   //boss->setRotation(180);													   //boss->setColor(1.0, 0.0, 0.0);
+									   //boss->setSize(100, 100);
+									   //boss->setPosition(glm::vec3(-212, 200, 0));
+									   //p->setAnimationLoop(1, 1, 0, 1000);
+									   //objects.push_back(boss); // index 8
 
-			for (int i = 0; i < p->life; i++)
+			for (int i = 0; i < lifeTemp; i++)
 			{
-				life[i] = new GameObject(Tag::NONE);
+				if (life[i] == NULL)
+				{
+					life[i] = new Life("Life20X20.png", 1, 1);
+				}
 				life[i]->setColor(0.7, 0, 0);
 				life[i]->setSize(20, 20);
-				life[i]->setPosition(glm::vec3(485 + 50*i, 250, 0));
+				life[i]->setPosition(glm::vec3(485 + 50 * i, 250, 0));
 				objects.push_back(life[i]);
 			}
 
@@ -668,7 +691,7 @@ void Game::update(float deltaTime)
 			playerIsDead = false;
 			firstRound = false;
 		}
-			
+
 		SDL_Color color = { 255, 165, 255 };
 		PlayerGameObject* p = dynamic_cast<PlayerGameObject *>(player);
 		std::string s = std::to_string(p->score);
@@ -698,21 +721,21 @@ void Game::update(float deltaTime)
 
 					PlayerGameObject* p = dynamic_cast<PlayerGameObject*>(player);
 					p->score = scoreTemp;
-					p->life = lifeTemp;
+					//p->life = lifeTemp;
 					p->SetInvincible(true);
-					p->setSize(playerSizeX/7, playerSizeY/12);
+					p->setSize(playerSizeX / 7, playerSizeY / 12);
 					p->setRotation(180);
 					p->setPosition(glm::vec3(-212, -250, 0));
 					p->setAnimationLoop(1, 1, 4, 1000);
 					objects.push_back(player);
 
-					if (p->life > 0)
+					if (p->life > 0 /*&& p->life < 3*/)
 					{
 						for (int i = objects.size() - 1; i >= 0; i--)
 						{
 							DrawableObject* instance = objects.at(i);
 
-							if (instance->getObjId() == life[(p->life)]->getObjId())
+							if (instance->getObjId() == life[lifeTemp]->getObjId())
 							{
 								objects.erase(objects.begin() + i);
 								objects.end();
@@ -722,7 +745,7 @@ void Game::update(float deltaTime)
 					else
 					{
 						objects.clear();
-						menu = new Menu(menuSprite, 10, 3);;
+						menu = new Menu(menuSprite, 7, 3);;
 						menu->setSize(1280, 720);
 						menu->setPosition(glm::vec3(0, 0, 0));
 						menuCurrentSelection = 0;
@@ -751,14 +774,36 @@ void Game::update(float deltaTime)
 					timer = 0;
 				}
 			}
-			
+
 		}
+
+
+		
 
 		if (boss1Died == true)
 		{
-			isPaused = true;
-			optionCurrentSelection = 1;
-			handleKey('e');
+			objects.clear();
+			menu = new Menu(menuSprite, 7, 3);;
+			menu->setSize(1280, 720);
+			menu->setPosition(glm::vec3(0, 0, 0));
+			menuCurrentSelection = 0;
+
+			menuIsDestroyed = false;
+			handleKey('x');
+			firstRound = true;
+
+			bossSpawn = false;
+			spawnBoss1 = false;
+			spawnBoss2 = false;
+			boss1Died = false;
+			boss2Died = false;
+
+			spawnPattern = 1;
+			eSpawnRate = 8000;
+			eSpawnCD = 3000;
+			eSpawn = true;
+			spawnNum = 0;
+
 		}
 
 		//if (e1SpawnRate >= 1000)
@@ -930,6 +975,7 @@ void Game::update(float deltaTime)
 	}
 	else
 	{
+		lifeTemp = 3;
 		menu->update(deltaTime);
 
 		if (BGMisPlaying[0] == false)
@@ -1240,6 +1286,11 @@ void Game::readHighScore()
 	else cout << "Unable to open file";
 
 
+}
+
+int Game::feedBack()
+{
+	return lifeTemp;
 }
 
 

@@ -351,6 +351,9 @@ void PlayerGameObject::checkMovement()
 
 PlayerGameObject::~PlayerGameObject()
 {
+	//cout << "player DESTROY!" << endl;
+	//Game::getInstance()->feedBack(life);
+
 	//if (playerBullet != NULL)
 	//{
 	//	delete playerBullet;

@@ -1,5 +1,5 @@
 #pragma once
-
+#include"Game.h"
 #include "GameObject.h"
 #include "BulletGameObject.h"
 
@@ -41,7 +41,7 @@ public:
 	int life = 3;
 	int score = 0;
 	float bulletSpeed = 16;
-	PlayerGameObject(Tag player) : GameObject(player) {addSprite("player.png", 5, 4); }; //: GameObject(player) { addSprite("player.png", 2, 4); };
+	PlayerGameObject(Tag player) : GameObject(player) { addSprite("player.png", 5, 4);  life = Game::getInstance()->feedBack(); }; //: GameObject(player) { addSprite("player.png", 2, 4); };
 	~PlayerGameObject();
 	void checkMovement();
 	void checkAction();

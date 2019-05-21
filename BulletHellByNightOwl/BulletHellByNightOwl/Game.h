@@ -60,7 +60,7 @@ public:
 	vector<string> menuSprite;
 	vector<string> pMenuSprite;
 	vector<string> optMenuSprite;
-
+	SpriteObject* transition;
 
 	bool bombAvailable = false;//true;
 	SpriteObject * bomb;
@@ -89,4 +89,6 @@ public:
 
 	void writeHighScore();
 	void readHighScore();
+
+	int feedBack();
 };
