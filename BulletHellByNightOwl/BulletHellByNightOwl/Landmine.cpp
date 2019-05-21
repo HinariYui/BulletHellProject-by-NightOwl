@@ -2,10 +2,11 @@
 #include "Game.h"
 #include <iostream>
 
-Landmine::Landmine(Tag bulletType, string spriteFile) : EnemyBullet(bulletType, spriteFile)
+Landmine::Landmine(Tag bulletType, string spriteFile, SpriteObject* drn) : EnemyBullet(bulletType, spriteFile)
 {
-	addSprite(spriteFile, 1, 3);
-	setAnimationLoop(1, 1, 1, 500);
+	BulletGameObject::addSprite(spriteFile, 1, 3);
+	BulletGameObject::setAnimationLoop(1, 1, 1, 500);
+	drone = drn;
 }
 
 void Landmine::update(float deltaTime)

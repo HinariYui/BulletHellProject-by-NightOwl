@@ -2,8 +2,6 @@
 
 #include "EnemyBase.h"
 
-
-
 class Enemy1 :public EnemyBase
 {
 private:

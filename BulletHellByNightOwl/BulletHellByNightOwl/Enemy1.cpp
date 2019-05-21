@@ -7,8 +7,8 @@ Enemy1::Enemy1(Tag enemy, string fileName, int row, int col) : EnemyBase(enemy, 
 {
 	tag = enemy;
 	state = MOVE;
-	setVelocity(glm::vec3(0, -2, 0));
-	hp = 1;
+	setVelocity(glm::vec3(0, -1, 0));
+	hp = 20;
 	bulletSpeed = 5.0f;
 }
 
@@ -32,7 +32,7 @@ void Enemy1::update(float deltaTime)
 void Enemy1::updateMOVE(float deltaTime)
 {
 	float y = getPosition().y;
-	if (y <= 100)
+	if (y <= 200)
 	{
 		state = ATK;
 		setVelocity(glm::vec3(0, 0, 0));

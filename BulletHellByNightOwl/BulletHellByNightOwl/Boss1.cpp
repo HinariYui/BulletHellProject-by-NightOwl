@@ -20,7 +20,7 @@ Boss1::Boss1(Tag enemy, string fileName, int row, int col) : SpriteObject(fileNa
 	HPframe = new SpriteObject("HP-tube.png", 1, 1);
 	HPbg->setSize(HPsize, 20);
 	HPbar->setSize(HPsize, 20);
-	HPframe->setSize(HPsize + 2, 20);
+	HPframe->setSize(HPsize + 1, 20);
 	HPbar->setPosition(glm::vec3(HPpos, 340, 0));
 	HPbg->setPosition(glm::vec3(HPpos, 340, 0));
 	HPframe->setPosition(glm::vec3(HPpos, 340, 0));
@@ -374,7 +374,7 @@ void Boss1::shoot1_1B(float constant, float deltaTime)
 		if (drone1IsMoving)
 		{
 			// Bullet 1
-			DrawableObject* lm = new Landmine(Tag::eBullet, "Mine_50x50.png");
+			DrawableObject* lm = new Landmine(Tag::eBullet, "Mine_50x50.png", Drone1);
 			BulletGameObject* mine = dynamic_cast<BulletGameObject *>(lm);
 			lm->setSize(50, 50);
 			lm->setPosition(Drone1->getPosition());
@@ -384,7 +384,7 @@ void Boss1::shoot1_1B(float constant, float deltaTime)
 		if (drone2IsMoving)
 		{
 			// Bullet2
-			DrawableObject* lm = new Landmine(Tag::eBullet, "Mine_50x50.png");
+			DrawableObject* lm = new Landmine(Tag::eBullet, "Mine_50x50.png", Drone2);
 			BulletGameObject* mine = dynamic_cast<BulletGameObject *>(lm);
 			lm->setSize(50, 50);
 			lm->setPosition(Drone2->getPosition());
@@ -394,7 +394,7 @@ void Boss1::shoot1_1B(float constant, float deltaTime)
 		if (drone3IsMoving)
 		{
 			// Bullet 3
-			DrawableObject* lm = new Landmine(Tag::eBullet, "Mine_50x50.png");
+			DrawableObject* lm = new Landmine(Tag::eBullet, "Mine_50x50.png", Drone3);
 			BulletGameObject* mine = dynamic_cast<BulletGameObject *>(lm);
 			lm->setSize(50, 50);
 			lm->setPosition(Drone3->getPosition());
@@ -404,7 +404,7 @@ void Boss1::shoot1_1B(float constant, float deltaTime)
 		if (drone4IsMoving)
 		{
 			// Bullet 4
-			DrawableObject* lm = new Landmine(Tag::eBullet, "Mine_50x50.png");
+			DrawableObject* lm = new Landmine(Tag::eBullet, "Mine_50x50.png", Drone4);
 			BulletGameObject* mine = dynamic_cast<BulletGameObject *>(lm);
 			lm->setSize(50, 50);
 			lm->setPosition(Drone4->getPosition());

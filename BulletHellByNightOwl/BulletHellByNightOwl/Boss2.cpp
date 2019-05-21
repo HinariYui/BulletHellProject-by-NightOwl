@@ -21,7 +21,7 @@ Boss2::Boss2(Tag enemy, string fileName, int row, int col) : SpriteObject(fileNa
 	HPbar = new SpriteObject("HP-green.png", 1, 1);
 	HPframe = new SpriteObject("HP-tube.png", 1, 1);
 	HPbg->setSize(HPsize, 20);
-	HPbar->setSize(HPsize, 20);
+	HPbar->setSize(HPsize + 1, 20);
 	HPframe->setSize(HPsize, 20);
 	HPbar->setPosition(glm::vec3(HPpos, 340, 0));
 	HPbg->setPosition(glm::vec3(HPpos, 340, 0));

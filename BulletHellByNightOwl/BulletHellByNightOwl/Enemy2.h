@@ -1,18 +1,9 @@
 #pragma once
 
-#include "SpriteObject.h"
-#include "EnemyBullet.h"
+#include "EnemyBase.h"
 
-class Enemy2 :public SpriteObject
+class Enemy2 :public EnemyBase
 {
-
-public:
-	enum EnemyState
-	{
-		MOVE = 0,
-		ATK,
-		EXIT
-	};
 private:
 	EnemyState state;
 	bool isShooting = false;
@@ -23,9 +14,9 @@ private:
 	float ATKCount = 0;
 	float bulletSpeed;
 
-	//void updateMOVE(float deltaTime);
+	void updateMOVE(float deltaTime);
 	void updateATK(float deltaTime);
-	//void updateEXIT(float deltaTime);
+	void updateEXIT(float deltaTime);
 
 	void Behavior1();
 
@@ -35,4 +26,5 @@ public:
 	void move();
 	void shoot1();
 	void update(float deltaTime);
+	bool isInPlayArea();
 };
