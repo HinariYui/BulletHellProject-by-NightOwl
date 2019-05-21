@@ -38,7 +38,16 @@ Boss1::Boss1(Tag enemy, string fileName, int row, int col) : SpriteObject(fileNa
 
 void Boss1::update(float deltaTime)
 {
-	if (hp < 1)
+	if (hp < 1 && phase == 1)
+	{
+		phase = 2;
+		hp = maxHP;
+		HPbar->addSprite("HP-green.png", 1, 1);
+		stateTime = 0;
+		state = IDLE;
+		idleTime = rand() % 1000 + 4000;
+	}
+	else if (hp < 1 && phase == 2)
 	{
 		Game::getInstance()->eSpawn = true;
 		Game::getInstance()->bossSpawn = false;
@@ -47,6 +56,15 @@ void Boss1::update(float deltaTime)
 		Game::getInstance()->eSpawnCD = 0;
 		Game::getInstance()->spawnPattern = 1;
 		Game::getInstance()->spawnNum = 0;
+	}
+
+	if (phase == 2)
+	{
+		invulTime += deltaTime;
+		if (invulTime <= 4000)
+		{
+			hp = maxHP;
+		}
 	}
 
 	drone1DefaultPos = getPosition() + glm::vec3(-100, 70, 0);
@@ -100,8 +118,15 @@ void Boss1::updateIDLE(float deltaTime)
 	if (stateTime >= idleTime)
 	{
 		stateTime = 0;
-		int pattern = rand() % 3 + 1;
-		//pattern = 2;
+		int pattern = 0;
+		if (phase == 1)
+		{
+			pattern = rand() % 3 + 1;
+		}
+		else if (phase == 2)
+		{
+			pattern = rand() % 2 + 1;
+		}
 		if (pattern == 1)
 		{
 			state = ATK1;
@@ -134,74 +159,140 @@ void Boss1::updateMoveIn(float deltaTime)
 
 void Boss1::updateATK1(float deltaTime)
 {
-	stateTime += deltaTime;
-	ATKCount += deltaTime;
-	if (ATKCount >= 30) // shoot every 0.03 sec
-	{
-		shoot2_1C();
-		shootSound.play();
-		ATKCount = 0;
-	}
-	if (stateTime >= 4000)
+	if (hp < 1)
 	{
 		stateTime = 0;
 		state = IDLE;
-		idleTime = rand() % 1000 + 2000;
+		idleTime = rand() % 1000 + 4000;
+	}
+
+	stateTime += deltaTime;
+	ATKCount += deltaTime;
+	if (phase == 1)
+	{
+		if (ATKCount >= 80) // shoot every 0.08 sec
+		{
+			shoot2_1C();
+			shootSound.play();
+			ATKCount = 0;
+		}
+		if (stateTime >= 4000)
+		{
+			stateTime = 0;
+			state = IDLE;
+			idleTime = rand() % 1000 + 3000;
+		}
+	}
+	else if (phase == 2)
+	{
+		shootSoundCount += deltaTime;
+		if (shootSoundCount >= 80) // shoot sound every 0.06 sec
+		{
+			shootSound.play();
+			shootSoundCount = 0;
+		}
+		if (ATKCount >= 30) // shoot every 0.03 sec
+		{
+			shoot2_1C();
+			ATKCount = 0;
+		}
+		if (stateTime >= 4000)
+		{
+			stateTime = 0;
+			state = IDLE;
+			idleTime = rand() % 1000 + 2000;
+		}
 	}
 }
 
 void Boss1::updateATK2(float deltaTime)
 {
-	stateTime += deltaTime;
-	ATKCount += deltaTime;
-	if (ATKCount >= 100 && stateTime < 3000) // shoot every 0.1 sec
+	if (hp < 1)
 	{
-		shoot1_1A();
-		shootSound.play();
-		ATKCount = 0;
-	}
-	if (stateTime < 3000)
-	{
-		DroneMove1(deltaTime / 3000);
-		droneIsMoving1 = true;
-	}
-	else if (stateTime >= 4000 && stateTime < 6000)
-	{
-		droneIsMoving1 = false;
-		DroneMove2(deltaTime / 2000);
-		droneIsMoving2 = true;
-	}
-	else if (stateTime >= 8000 && stateTime < 14000)
-	{
-		shoot1_1B(deltaTime * 0.15f, deltaTime);
-		droneIsMoving1 = true;
-	}
-	else if (stateTime >= 14000)
-	{
-		droneIsMoving1 = false;
-		droneIsMoving2 = false;
 		stateTime = 0;
 		state = IDLE;
 		idleTime = rand() % 1000 + 4000;
+	}
+
+	stateTime += deltaTime;
+	ATKCount += deltaTime;
+
+	if (phase == 1)
+	{
+		if (ATKCount >= 100 && stateTime < 3000) // shoot every 0.1 sec
+		{
+			shoot1_1A();
+			shootSound.play();
+			ATKCount = 0;
+		}
+		if (stateTime < 3000)
+		{
+			DroneMove1(deltaTime / 3000);
+			droneIsMoving1 = true;
+		}
+		else if (stateTime >= 4000 && stateTime < 6000)
+		{
+			droneIsMoving1 = false;
+			DroneMove2(deltaTime / 2000);
+			droneIsMoving2 = true;
+		}
+		else if (stateTime >= 8000 && stateTime < 14000)
+		{
+			shoot1_1B(deltaTime * 0.15f, deltaTime);
+			droneIsMoving1 = true;
+		}
+		else if (stateTime >= 14000)
+		{
+			droneIsMoving1 = false;
+			droneIsMoving2 = false;
+			stateTime = 0;
+			state = IDLE;
+			idleTime = rand() % 1000 + 4000;
+		}
+	}
+	else if (phase == 2)
+	{
+		if (ATKCount >= 100) // shoot every 0.1 sec
+		{
+			shoot2_1D();
+			shootSound.play();
+			ATKCount = 0;
+		}
+		if (stateTime >= 3000)
+		{
+			stateTime = 0;
+			state = IDLE;
+			idleTime = rand() % 1000 + 4000;
+		}
 	}
 }
 
 void Boss1::updateATK3(float deltaTime)
 {
-
-	stateTime += deltaTime;
-	ATKCount += deltaTime;
-	if (ATKCount >= 100) // shoot every 0.1 sec
-	{
-		shoot2_1D();
-		shootSound.play();
-		ATKCount = 0;
-	}
-	if (stateTime >= 3000)
+	if (hp < 1)
 	{
 		stateTime = 0;
 		state = IDLE;
-		idleTime = rand() % 1000 + 3000;
+		idleTime = rand() % 1000 + 4000;
+	}
+
+	stateTime += deltaTime;
+	ATKCount += deltaTime;
+
+	if (phase == 1)
+	{
+		if (ATKCount >= 180) // shoot every 0.18 sec
+		{
+			shoot2_1D();
+			shootSound.play();
+			ATKCount = 0;
+		}
+		if (stateTime >= 3000)
+		{
+			stateTime = 0;
+			state = IDLE;
+			idleTime = rand() % 1000 + 5000;
+		}
 	}
 }
 

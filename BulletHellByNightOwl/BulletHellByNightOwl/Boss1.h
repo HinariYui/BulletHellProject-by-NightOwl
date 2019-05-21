@@ -59,12 +59,16 @@ private:
 	float HPpercentage;
 	float missingHP;
 
-	int maxHP = 2000;
+	int maxHP = 100;
 
 	int shootCD = 0;
 	float idleTime;
 	float stateTime;
 	float ATKCount = 0;
+	float shootSoundCount = 0;
+	float invulTime = 0;
+
+	int phase = 1;
 
 	glm::vec3 velD = glm::vec3(0, -5, 0); //shoot down
 	glm::vec3 velR = glm::vec3(5, 0, 0); //shoot right

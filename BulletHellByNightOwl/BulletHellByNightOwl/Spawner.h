@@ -11,11 +11,13 @@ class Spawner
 	float spawnCD = 0;
 	float spawnRate = 0;
 	int pattern = 0;
+
 	Enemy1* e1_1 = NULL;
 	Enemy1* e1_2 = NULL;
 	Enemy1* e1_3 = NULL;
 	Enemy1* e1_4 = NULL;
 	Enemy1* e1_5 = NULL;
+
 	Enemy2* e2_1 = NULL;
 	Enemy2* e2_2 = NULL;
 	Enemy2* e2_3 = NULL;

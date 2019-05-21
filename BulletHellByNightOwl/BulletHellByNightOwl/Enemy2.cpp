@@ -37,10 +37,7 @@ void Enemy2::update(float deltaTime)
 	{
 		hp = 0;
 	}
-	//if (state == MOVE)
-	//{
-	//	updateMOVE(deltaTime);
-	//}
+
 	else if (state == ATK)
 	{
 		updateATK(deltaTime);
@@ -53,12 +50,7 @@ void Enemy2::update(float deltaTime)
 
 void Enemy2::updateMOVE(float deltaTime)
 {
-	//float y = getPosition().y;
-	//if (y <= 100)
-	//{
-	//	state = ATK;
-	//	//setVelocity(glm::vec3(0, 0, 0));
-	//}
+
 }
 
 void Enemy2::updateATK(float deltaTime)
@@ -67,6 +59,10 @@ void Enemy2::updateATK(float deltaTime)
 	if (shootCD >= 150)
 	{
 		shoot1();
+		if (shootSoundActive)
+		{
+			shootSound.play();
+		}
 		shootCD = 0;
 	}
 }
@@ -120,6 +116,11 @@ bool Enemy2::isInPlayArea()
 void Enemy2::move()
 {
 
+}
+
+void Enemy2::setShootSound(bool boolean)
+{
+	shootSoundActive = boolean;
 }
 
 Enemy2::~Enemy2()

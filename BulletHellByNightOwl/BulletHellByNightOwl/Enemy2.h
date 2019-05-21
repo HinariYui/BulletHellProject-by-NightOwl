@@ -5,7 +5,11 @@
 class Enemy2 :public EnemyBase
 {
 private:
+	AudioEngine audio;
+	SoundEffect shootSound = audio.loadSoundEffect("Attack1.mp3");
+
 	EnemyState state;
+	bool shootSoundActive = false;
 	bool isShooting = false;
 	bool reachDestination = false;
 	int shootCD = 0;
@@ -27,4 +31,5 @@ public:
 	void shoot1();
 	void update(float deltaTime);
 	bool isInPlayArea();
+	void setShootSound(bool boolean);
 };
