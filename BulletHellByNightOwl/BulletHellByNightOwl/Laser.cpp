@@ -45,9 +45,9 @@ void Laser::update(float deltaTime)
 		{
 			if (i == 0)
 			{
-				laser = new EnemyBullet(Tag::eBullet, "HP-red.png");
-				laser->setSize(abs(pillar1->getPosition().x - pillar2->getPosition().x) - 30, 30);
-				laser->setPosition(glm::vec3(-212, pillar1->getPosition().y - 1, 0));
+				laser = new EnemyBullet(Tag::eBullet, "pillars_activate_577x45.png");
+				laser->setSize(abs(pillar1->getPosition().x - pillar2->getPosition().x) + 15, 45);
+				laser->setPosition(glm::vec3(-212, pillar1->getPosition().y, 0));
 
 				dynamic_cast<GameObject*>(laser)->setVelocity(glm::vec3(0, -1, 0) * pillarSpeed);
 				dynamic_cast<GameObject*>(pillar1)->setVelocity(glm::vec3(0, -1, 0) * pillarSpeed);
@@ -69,9 +69,9 @@ void Laser::update(float deltaTime)
 		{
 			if (i == 1)
 			{
-				laser = new EnemyBullet(Tag::eBullet, "HP-red.png");
-				laser->setSize(abs(pillar1->getPosition().x - pillar2->getPosition().x) - 30, 30);
-				laser->setPosition(glm::vec3(-212, pillar1->getPosition().y - 1, 0));
+				laser = new EnemyBullet(Tag::eBullet, "pillars_activate_577x45.png");
+				laser->setSize(abs(pillar1->getPosition().x - pillar2->getPosition().x) + 15, 45);
+				laser->setPosition(glm::vec3(-212, pillar1->getPosition().y, 0));
 
 				dynamic_cast<GameObject*>(laser)->setVelocity(glm::vec3(0, -1, 0) * pillarSpeed);
 				dynamic_cast<GameObject*>(pillar1)->setVelocity(glm::vec3(0, -1, 0) * pillarSpeed);
