@@ -97,6 +97,7 @@ void Spawner::EnemySpawn(int i)
 			e2_8->setSize(35, 35);
 			e2_8->setPosition(glm::vec3(106 + 35*3, 390 + 25*3, 0));
 			e2_8->setVelocity(normalize(glm::vec3(-7, -5, 0)) * 1.2f);
+			e2_8->setShootSound(true);
 			Game::getInstance()->getObjectRef()->push_back(e2_8);
 
 			break;
@@ -107,19 +108,20 @@ void Spawner::EnemySpawn(int i)
 			e1_1->setRotation(180);
 			e1_1->setSize(35, 35);
 			e1_1->setPosition(glm::vec3(LEFT_PLAYAREA_X + 20, 400, 0));
+			e1_1->setShootSound(true);
 			Game::getInstance()->getObjectRef()->push_back(e1_1);
 
 			e1_2 = new Enemy1(Tag::Enemy, "bossgirl-minion2.png", 1, 1); //Tag enemy, string fileName, int row, int col
 			e1_2->setRotation(180);
 			e1_2->setSize(35, 35);
 			e1_2->setPosition(glm::vec3(MID_PLAYAREA_X, 400, 0));
-			e1_2->setShootSound(true);
 			Game::getInstance()->getObjectRef()->push_back(e1_2);
 
 			e1_3 = new Enemy1(Tag::Enemy, "bossgirl-minion2.png", 1, 1); //Tag enemy, string fileName, int row, int col
 			e1_3->setRotation(180);
 			e1_3->setSize(35, 35);
 			e1_3->setPosition(glm::vec3(RIGHT_PLAYAREA_X - 20, 400, 0));
+			e1_3->setShootSound(true);
 			Game::getInstance()->getObjectRef()->push_back(e1_3);
 
 			break;
@@ -181,6 +183,7 @@ void Spawner::EnemySpawn(int i)
 			e2_8->setSize(35, 35);
 			e2_8->setPosition(glm::vec3(RIGHT_PLAYAREA_X - 10, 340 + 43*3, 0));
 			e2_8->setVelocity(normalize(glm::vec3(0, -1, 0)) * 1.2f);
+			e2_8->setShootSound(true);
 			Game::getInstance()->getObjectRef()->push_back(e2_8);
 
 			break;
@@ -191,6 +194,7 @@ void Spawner::EnemySpawn(int i)
 			e1_1->setRotation(180);
 			e1_1->setSize(35, 35);
 			e1_1->setPosition(glm::vec3(LEFT_PLAYAREA_X + 20, 400, 0));
+			e1_1->setShootSound(true);
 			Game::getInstance()->getObjectRef()->push_back(e1_1);
 
 			e1_2 = new Enemy1(Tag::Enemy, "bossgirl-minion2.png", 1, 1); //Tag enemy, string fileName, int row, int col
@@ -203,7 +207,6 @@ void Spawner::EnemySpawn(int i)
 			e1_3->setRotation(180);
 			e1_3->setSize(35, 35);
 			e1_3->setPosition(glm::vec3(MID_PLAYAREA_X, 400, 0));
-			e1_3->setShootSound(true);
 			Game::getInstance()->getObjectRef()->push_back(e1_3);
 
 			e1_4 = new Enemy1(Tag::Enemy, "bossgirl-minion2.png", 1, 1); //Tag enemy, string fileName, int row, int col
@@ -216,6 +219,7 @@ void Spawner::EnemySpawn(int i)
 			e1_5->setRotation(180);
 			e1_5->setSize(35, 35);
 			e1_5->setPosition(glm::vec3(RIGHT_PLAYAREA_X - 20, 400, 0));
+			e1_5->setShootSound(true);
 			Game::getInstance()->getObjectRef()->push_back(e1_5);
 
 			break; 
@@ -323,6 +327,7 @@ void Spawner::EnemySpawn(int i)
 			e2_8->setSize(35, 35);
 			e2_8->setPosition(glm::vec3(RIGHT_EDGE + 50*4, 250, 0));
 			e2_8->setVelocity(normalize(glm::vec3(-1, 0, 0)) * 1.0f);
+			e2_8->setShootSound(true);
 			Game::getInstance()->getObjectRef()->push_back(e2_8);
 
 			break;
@@ -337,6 +342,7 @@ void Spawner::EnemySpawn(int i)
 			e1_1->setRotation(180);
 			e1_1->setSize(35, 35);
 			e1_1->setPosition(glm::vec3(LEFT_PLAYAREA_X + 20, 420, 0));
+			e1_1->setShootSound(true);
 			Game::getInstance()->getObjectRef()->push_back(e1_1);
 
 			e1_2 = new Enemy1(Tag::Enemy, "bossgirl-minion2.png", 1, 1); //Tag enemy, string fileName, int row, int col
@@ -393,6 +399,7 @@ void Spawner::EnemySpawn(int i)
 			e2_6->setSize(35, 35);
 			e2_6->setPosition(glm::vec3(RIGHT_PLAYAREA_X - 120, 420 + 60, 0));
 			e2_6->setVelocity(normalize(glm::vec3(0, -1, 0)) * 1.0f);
+			e2_6->setShootSound(true);
 			Game::getInstance()->getObjectRef()->push_back(e2_6);
 
 			break;
