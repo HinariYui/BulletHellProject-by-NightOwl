@@ -5,15 +5,13 @@
 
 Laser::Laser(Tag bulletType, string spriteFile) : EnemyBullet(bulletType, spriteFile)
 {
-	//addSprite(spriteFile, 1, 3);
-	//setAnimationLoop(1, 1, 1, 500);
+	BulletGameObject::addSprite(spriteFile, 1, 5);
+	BulletGameObject::setAnimationLoop(1, 1, 1, 500);
 	i = rand() % 2;
 }
 
 void Laser::update(float deltaTime)
 {
-	//BulletGameObject::setVelocity(glm::vec3(0));
-	//BulletGameObject::update(deltaTime);
 	if (lsState == LS_START)
 	{
 		if (!pillarActive)
@@ -48,12 +46,14 @@ void Laser::update(float deltaTime)
 			if (i == 0)
 			{
 				laser = new EnemyBullet(Tag::eBullet, "HP-red.png");
-				laser->setSize(abs(pillar1->getPosition().x - pillar2->getPosition().x) - 30, 40);
+				laser->setSize(abs(pillar1->getPosition().x - pillar2->getPosition().x) - 30, 30);
 				laser->setPosition(glm::vec3(-212, pillar1->getPosition().y - 1, 0));
 
 				dynamic_cast<GameObject*>(laser)->setVelocity(glm::vec3(0, -1, 0) * pillarSpeed);
 				dynamic_cast<GameObject*>(pillar1)->setVelocity(glm::vec3(0, -1, 0) * pillarSpeed);
 				dynamic_cast<GameObject*>(pillar2)->setVelocity(glm::vec3(0, -1, 0) * pillarSpeed);
+
+				dynamic_cast<BulletGameObject*>(laser)->update(deltaTime);
 
 				Game::getInstance()->getObjectRef()->push_back(laser);
 			}
@@ -70,12 +70,14 @@ void Laser::update(float deltaTime)
 			if (i == 1)
 			{
 				laser = new EnemyBullet(Tag::eBullet, "HP-red.png");
-				laser->setSize(abs(pillar1->getPosition().x - pillar2->getPosition().x) - 30, 40);
+				laser->setSize(abs(pillar1->getPosition().x - pillar2->getPosition().x) - 30, 30);
 				laser->setPosition(glm::vec3(-212, pillar1->getPosition().y - 1, 0));
 
 				dynamic_cast<GameObject*>(laser)->setVelocity(glm::vec3(0, -1, 0) * pillarSpeed);
 				dynamic_cast<GameObject*>(pillar1)->setVelocity(glm::vec3(0, -1, 0) * pillarSpeed);
 				dynamic_cast<GameObject*>(pillar2)->setVelocity(glm::vec3(0, -1, 0) * pillarSpeed);
+
+				dynamic_cast<BulletGameObject*>(laser)->update(deltaTime);
 
 				Game::getInstance()->getObjectRef()->push_back(laser);
 			}

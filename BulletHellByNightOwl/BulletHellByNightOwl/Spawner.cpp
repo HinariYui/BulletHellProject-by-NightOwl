@@ -42,7 +42,7 @@ void Spawner::EnemySpawn(int i)
 	{
 		case(1):
 		{
-			e2_1 = new Enemy2(Tag::Enemy, "bossgirl-minion2.png", 1, 1);
+			e2_1 = new Enemy2(Tag::Enemy, "DroneBoss_Enemy3.png", 1, 1);
 			e2_1->setRotation(180);
 			e2_1->setSize(35, 35);
 			e2_1->setPosition(glm::vec3(-530, 390, 0));
@@ -50,49 +50,49 @@ void Spawner::EnemySpawn(int i)
 			e2_1->setShootSound(true);
 			Game::getInstance()->getObjectRef()->push_back(e2_1);
 
-			e2_2 = new Enemy2(Tag::Enemy, "bossgirl-minion2.png", 1, 1);
+			e2_2 = new Enemy2(Tag::Enemy, "DroneBoss_Enemy3.png", 1, 1);
 			e2_2->setRotation(180);
 			e2_2->setSize(35, 35);
 			e2_2->setPosition(glm::vec3(-530 - 35, 390 + 25, 0));
 			e2_2->setVelocity(normalize(glm::vec3(7, -5, 0)) * 1.2f);
 			Game::getInstance()->getObjectRef()->push_back(e2_2);
 
-			e2_3 = new Enemy2(Tag::Enemy, "bossgirl-minion2.png", 1, 1);
+			e2_3 = new Enemy2(Tag::Enemy, "DroneBoss_Enemy3.png", 1, 1);
 			e2_3->setRotation(180);
 			e2_3->setSize(35, 35);
 			e2_3->setPosition(glm::vec3(-530 - 35*2, 390 + 25*2, 0));
 			e2_3->setVelocity(normalize(glm::vec3(7, -5, 0)) * 1.2f);
 			Game::getInstance()->getObjectRef()->push_back(e2_3);
 
-			e2_4 = new Enemy2(Tag::Enemy, "bossgirl-minion2.png", 1, 1);
+			e2_4 = new Enemy2(Tag::Enemy, "DroneBoss_Enemy3.png", 1, 1);
 			e2_4->setRotation(180);
 			e2_4->setSize(35, 35);
 			e2_4->setPosition(glm::vec3(-530 - 35*3, 390 + 25*3, 0));
 			e2_4->setVelocity(normalize(glm::vec3(7, -5, 0)) * 1.2f);
 			Game::getInstance()->getObjectRef()->push_back(e2_4);
 
-			e2_5 = new Enemy2(Tag::Enemy, "bossgirl-minion2.png", 1, 1);
+			e2_5 = new Enemy2(Tag::Enemy, "DroneBoss_Enemy3.png", 1, 1);
 			e2_5->setRotation(180);
 			e2_5->setSize(35, 35);
 			e2_5->setPosition(glm::vec3(106, 390, 0));
 			e2_5->setVelocity(normalize(glm::vec3(-7, -5, 0)) * 1.2f);
 			Game::getInstance()->getObjectRef()->push_back(e2_5);
 
-			e2_6 = new Enemy2(Tag::Enemy, "bossgirl-minion2.png", 1, 1);
+			e2_6 = new Enemy2(Tag::Enemy, "DroneBoss_Enemy3.png", 1, 1);
 			e2_6->setRotation(180);
 			e2_6->setSize(35, 35);
 			e2_6->setPosition(glm::vec3(106 + 35, 390 + 25, 0));
 			e2_6->setVelocity(normalize(glm::vec3(-7, -5, 0)) * 1.2f);
 			Game::getInstance()->getObjectRef()->push_back(e2_6);
 
-			e2_7 = new Enemy2(Tag::Enemy, "bossgirl-minion2.png", 1, 1);
+			e2_7 = new Enemy2(Tag::Enemy, "DroneBoss_Enemy3.png", 1, 1);
 			e2_7->setRotation(180);
 			e2_7->setSize(35, 35);
 			e2_7->setPosition(glm::vec3(106 + 35*2, 390 + 25*2, 0));
 			e2_7->setVelocity(normalize(glm::vec3(-7, -5, 0)) * 1.2f);
 			Game::getInstance()->getObjectRef()->push_back(e2_7);
 
-			e2_8 = new Enemy2(Tag::Enemy, "bossgirl-minion2.png", 1, 1);
+			e2_8 = new Enemy2(Tag::Enemy, "DroneBoss_Enemy3.png", 1, 1);
 			e2_8->setRotation(180);
 			e2_8->setSize(35, 35);
 			e2_8->setPosition(glm::vec3(106 + 35*3, 390 + 25*3, 0));
@@ -128,7 +128,7 @@ void Spawner::EnemySpawn(int i)
 		}
 		case(3):
 		{
-			e2_1 = new Enemy2(Tag::Enemy, "bossgirl-minion2.png", 1, 1);
+			e2_1 = new Enemy2(Tag::Enemy, "DroneBoss_Enemy3.png", 1, 1);
 			e2_1->setRotation(180);
 			e2_1->setSize(35, 35);
 			e2_1->setPosition(glm::vec3(LEFT_PLAYAREA_X + 10, -340, 0));
@@ -136,49 +136,49 @@ void Spawner::EnemySpawn(int i)
 			e2_1->setShootSound(true);
 			Game::getInstance()->getObjectRef()->push_back(e2_1);
 
-			e2_2 = new Enemy2(Tag::Enemy, "bossgirl-minion2.png", 1, 1);
+			e2_2 = new Enemy2(Tag::Enemy, "DroneBoss_Enemy3.png", 1, 1);
 			e2_2->setRotation(180);
 			e2_2->setSize(35, 35);
 			e2_2->setPosition(glm::vec3(LEFT_PLAYAREA_X + 10, -340 - 43, 0));
 			e2_2->setVelocity(normalize(glm::vec3(0, 1, 0)) * 1.2f);
 			Game::getInstance()->getObjectRef()->push_back(e2_2);
 
-			e2_3 = new Enemy2(Tag::Enemy, "bossgirl-minion2.png", 1, 1);
+			e2_3 = new Enemy2(Tag::Enemy, "DroneBoss_Enemy3.png", 1, 1);
 			e2_3->setRotation(180);
 			e2_3->setSize(35, 35);
 			e2_3->setPosition(glm::vec3(LEFT_PLAYAREA_X + 10, -340 - 43*2, 0));
 			e2_3->setVelocity(normalize(glm::vec3(0, 1, 0)) * 1.2f);
 			Game::getInstance()->getObjectRef()->push_back(e2_3);
 
-			e2_4 = new Enemy2(Tag::Enemy, "bossgirl-minion2.png", 1, 1);
+			e2_4 = new Enemy2(Tag::Enemy, "DroneBoss_Enemy3.png", 1, 1);
 			e2_4->setRotation(180);
 			e2_4->setSize(35, 35);
 			e2_4->setPosition(glm::vec3(LEFT_PLAYAREA_X + 10, -340 - 43*3, 0));
 			e2_4->setVelocity(normalize(glm::vec3(0, 1, 0)) * 1.2f);
 			Game::getInstance()->getObjectRef()->push_back(e2_4);
 
-			e2_5 = new Enemy2(Tag::Enemy, "bossgirl-minion2.png", 1, 1);
+			e2_5 = new Enemy2(Tag::Enemy, "DroneBoss_Enemy3.png", 1, 1);
 			e2_5->setRotation(180);
 			e2_5->setSize(35, 35);
 			e2_5->setPosition(glm::vec3(RIGHT_PLAYAREA_X - 10, 340, 0));
 			e2_5->setVelocity(normalize(glm::vec3(0, -1, 0)) * 1.2f);
 			Game::getInstance()->getObjectRef()->push_back(e2_5);
 
-			e2_6 = new Enemy2(Tag::Enemy, "bossgirl-minion2.png", 1, 1);
+			e2_6 = new Enemy2(Tag::Enemy, "DroneBoss_Enemy3.png", 1, 1);
 			e2_6->setRotation(180);
 			e2_6->setSize(35, 35);
 			e2_6->setPosition(glm::vec3(RIGHT_PLAYAREA_X - 10, 340 + 43, 0));
 			e2_6->setVelocity(normalize(glm::vec3(0, -1, 0)) * 1.2f);
 			Game::getInstance()->getObjectRef()->push_back(e2_6);
 
-			e2_7 = new Enemy2(Tag::Enemy, "bossgirl-minion2.png", 1, 1);
+			e2_7 = new Enemy2(Tag::Enemy, "DroneBoss_Enemy3.png", 1, 1);
 			e2_7->setRotation(180);
 			e2_7->setSize(35, 35);
 			e2_7->setPosition(glm::vec3(RIGHT_PLAYAREA_X - 10, 340 + 43*2, 0));
 			e2_7->setVelocity(normalize(glm::vec3(0, -1, 0)) * 1.2f);
 			Game::getInstance()->getObjectRef()->push_back(e2_7);
 
-			e2_8 = new Enemy2(Tag::Enemy, "bossgirl-minion2.png", 1, 1);
+			e2_8 = new Enemy2(Tag::Enemy, "DroneBoss_Enemy3.png", 1, 1);
 			e2_8->setRotation(180);
 			e2_8->setSize(35, 35);
 			e2_8->setPosition(glm::vec3(RIGHT_PLAYAREA_X - 10, 340 + 43*3, 0));
@@ -272,7 +272,7 @@ void Spawner::EnemySpawn(int i)
 		}
 		case(6):
 		{
-			e2_1 = new Enemy2(Tag::Enemy, "bossgirl-minion2.png", 1, 1);
+			e2_1 = new Enemy2(Tag::Enemy, "DroneBoss_Enemy3.png", 1, 1);
 			e2_1->setRotation(180);
 			e2_1->setSize(35, 35);
 			e2_1->setPosition(glm::vec3(LEFT_EDGE - 50, 150, 0));
@@ -280,49 +280,49 @@ void Spawner::EnemySpawn(int i)
 			e2_1->setShootSound(true);
 			Game::getInstance()->getObjectRef()->push_back(e2_1);
 
-			e2_2 = new Enemy2(Tag::Enemy, "bossgirl-minion2.png", 1, 1);
+			e2_2 = new Enemy2(Tag::Enemy, "DroneBoss_Enemy3.png", 1, 1);
 			e2_2->setRotation(180);
 			e2_2->setSize(35, 35);
 			e2_2->setPosition(glm::vec3(LEFT_EDGE - 50*2, 150, 0));
 			e2_2->setVelocity(normalize(glm::vec3(1, 0, 0)) * 1.0f);
 			Game::getInstance()->getObjectRef()->push_back(e2_2);
 
-			e2_3 = new Enemy2(Tag::Enemy, "bossgirl-minion2.png", 1, 1);
+			e2_3 = new Enemy2(Tag::Enemy, "DroneBoss_Enemy3.png", 1, 1);
 			e2_3->setRotation(180);
 			e2_3->setSize(35, 35);
 			e2_3->setPosition(glm::vec3(LEFT_EDGE - 50*3, 150, 0));
 			e2_3->setVelocity(normalize(glm::vec3(1, 0, 0)) * 1.0f);
 			Game::getInstance()->getObjectRef()->push_back(e2_3);
 
-			e2_4 = new Enemy2(Tag::Enemy, "bossgirl-minion2.png", 1, 1);
+			e2_4 = new Enemy2(Tag::Enemy, "DroneBoss_Enemy3.png", 1, 1);
 			e2_4->setRotation(180);
 			e2_4->setSize(35, 35);
 			e2_4->setPosition(glm::vec3(LEFT_EDGE - 50*4, 150, 0));
 			e2_4->setVelocity(normalize(glm::vec3(1, 0, 0)) * 1.0f);
 			Game::getInstance()->getObjectRef()->push_back(e2_4);
 
-			e2_5 = new Enemy2(Tag::Enemy, "bossgirl-minion2.png", 1, 1);
+			e2_5 = new Enemy2(Tag::Enemy, "DroneBoss_Enemy3.png", 1, 1);
 			e2_5->setRotation(180);
 			e2_5->setSize(35, 35);
 			e2_5->setPosition(glm::vec3(RIGHT_EDGE + 50, 250, 0));
 			e2_5->setVelocity(normalize(glm::vec3(-1, 0, 0)) * 1.0f);
 			Game::getInstance()->getObjectRef()->push_back(e2_5);
 
-			e2_6 = new Enemy2(Tag::Enemy, "bossgirl-minion2.png", 1, 1);
+			e2_6 = new Enemy2(Tag::Enemy, "DroneBoss_Enemy3.png", 1, 1);
 			e2_6->setRotation(180);
 			e2_6->setSize(35, 35);
 			e2_6->setPosition(glm::vec3(RIGHT_EDGE + 50*2, 250, 0));
 			e2_6->setVelocity(normalize(glm::vec3(-1, 0, 0)) * 1.0f);
 			Game::getInstance()->getObjectRef()->push_back(e2_6);
 
-			e2_7 = new Enemy2(Tag::Enemy, "bossgirl-minion2.png", 1, 1);
+			e2_7 = new Enemy2(Tag::Enemy, "DroneBoss_Enemy3.png", 1, 1);
 			e2_7->setRotation(180);
 			e2_7->setSize(35, 35);
 			e2_7->setPosition(glm::vec3(RIGHT_EDGE + 50*3, 250, 0));
 			e2_7->setVelocity(normalize(glm::vec3(-1, 0, 0)) * 1.0f);
 			Game::getInstance()->getObjectRef()->push_back(e2_7);
 
-			e2_8 = new Enemy2(Tag::Enemy, "bossgirl-minion2.png", 1, 1);
+			e2_8 = new Enemy2(Tag::Enemy, "DroneBoss_Enemy3.png", 1, 1);
 			e2_8->setRotation(180);
 			e2_8->setSize(35, 35);
 			e2_8->setPosition(glm::vec3(RIGHT_EDGE + 50*4, 250, 0));
@@ -358,7 +358,7 @@ void Spawner::EnemySpawn(int i)
 			e1_3->setPosition(glm::vec3(RIGHT_PLAYAREA_X - 20, 420, 0));
 			Game::getInstance()->getObjectRef()->push_back(e1_3);
 
-			e2_1 = new Enemy2(Tag::Enemy, "bossgirl-minion2.png", 1, 1);
+			e2_1 = new Enemy2(Tag::Enemy, "DroneBoss_Enemy3.png", 1, 1);
 			e2_1->setRotation(180);
 			e2_1->setSize(35, 35);
 			e2_1->setPosition(glm::vec3(LEFT_PLAYAREA_X + 120, 420 - 60, 0));
@@ -366,35 +366,35 @@ void Spawner::EnemySpawn(int i)
 			e2_1->setShootSound(true);
 			Game::getInstance()->getObjectRef()->push_back(e2_1);
 
-			e2_2 = new Enemy2(Tag::Enemy, "bossgirl-minion2.png", 1, 1);
+			e2_2 = new Enemy2(Tag::Enemy, "DroneBoss_Enemy3.png", 1, 1);
 			e2_2->setRotation(180);
 			e2_2->setSize(35, 35);
 			e2_2->setPosition(glm::vec3(LEFT_PLAYAREA_X + 120, 420, 0));
 			e2_2->setVelocity(normalize(glm::vec3(0, -1, 0)) * 1.0f);
 			Game::getInstance()->getObjectRef()->push_back(e2_2);
 
-			e2_3 = new Enemy2(Tag::Enemy, "bossgirl-minion2.png", 1, 1);
+			e2_3 = new Enemy2(Tag::Enemy, "DroneBoss_Enemy3.png", 1, 1);
 			e2_3->setRotation(180);
 			e2_3->setSize(35, 35);
 			e2_3->setPosition(glm::vec3(LEFT_PLAYAREA_X + 120, 420 + 60, 0));
 			e2_3->setVelocity(normalize(glm::vec3(0, -1, 0)) * 1.0f);
 			Game::getInstance()->getObjectRef()->push_back(e2_3);
 
-			e2_4 = new Enemy2(Tag::Enemy, "bossgirl-minion2.png", 1, 1);
+			e2_4 = new Enemy2(Tag::Enemy, "DroneBoss_Enemy3.png", 1, 1);
 			e2_4->setRotation(180);
 			e2_4->setSize(35, 35);
 			e2_4->setPosition(glm::vec3(RIGHT_PLAYAREA_X - 120, 420 - 60, 0));
 			e2_4->setVelocity(normalize(glm::vec3(0, -1, 0)) * 1.0f);
 			Game::getInstance()->getObjectRef()->push_back(e2_4);
 
-			e2_5 = new Enemy2(Tag::Enemy, "bossgirl-minion2.png", 1, 1);
+			e2_5 = new Enemy2(Tag::Enemy, "DroneBoss_Enemy3.png", 1, 1);
 			e2_5->setRotation(180);
 			e2_5->setSize(35, 35);
 			e2_5->setPosition(glm::vec3(RIGHT_PLAYAREA_X - 120, 420, 0));
 			e2_5->setVelocity(normalize(glm::vec3(0, -1, 0)) * 1.0f);
 			Game::getInstance()->getObjectRef()->push_back(e2_5);
 
-			e2_6 = new Enemy2(Tag::Enemy, "bossgirl-minion2.png", 1, 1);
+			e2_6 = new Enemy2(Tag::Enemy, "DroneBoss_Enemy3.png", 1, 1);
 			e2_6->setRotation(180);
 			e2_6->setSize(35, 35);
 			e2_6->setPosition(glm::vec3(RIGHT_PLAYAREA_X - 120, 420 + 60, 0));

@@ -305,12 +305,12 @@ void Game::handleKey(char ch)
 				//	spawnBoss2 = false;
 				//	bossSpawn = false;
 				//}
-				//if (ch == 'p')
-				//{
-				//	spawnBoss2 = true;
-				//	spawnBoss1 = false;
-				//	bossSpawn = false;
-				//}
+				if (ch == 'p')
+				{
+					spawnBoss2 = true;
+					spawnBoss1 = false;
+					bossSpawn = false;
+				}
 
 				if (ch == 'g')
 				{
@@ -863,7 +863,7 @@ void Game::update(float deltaTime)
 			{
 				boss2 = new Boss2(Tag::Enemy, "bossgirl-sample.png", 1, 1); //Tag enemy, string fileName, int row, int col
 				boss2->setRotation(180);													   //boss->setColor(1.0, 0.0, 0.0);
-				boss2->setSize(100, 100);
+				boss2->setSize(80, 110);
 				boss2->setPosition(glm::vec3(-212, 400, 0));
 				objects.push_back(boss2);
 				bossSpawn = true;
@@ -947,7 +947,7 @@ void Game::update(float deltaTime)
 
 				boss2 = new Boss2(Tag::Enemy, "bossgirl-sample.png", 1, 1); //Tag enemy, string fileName, int row, int col
 				boss2->setRotation(180);													   //boss->setColor(1.0, 0.0, 0.0);
-				boss2->setSize(100, 100);
+				boss2->setSize(80, 110);
 				boss2->setPosition(glm::vec3(-212, 400, 0));
 				objects.push_back(boss2);
 				bossSpawn = true;

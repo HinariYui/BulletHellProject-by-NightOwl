@@ -786,7 +786,7 @@ void Boss2::shoot1_2B()
 
 void Boss2::shoot1_2C()
 {
-		Laser* ls = new Laser(Tag::eBullet, "bigred.png");
+		Laser* ls = new Laser(Tag::eBullet, "pillars_activate.png");
 		Game::getInstance()->getObjectRef()->push_back(ls);
 }
 

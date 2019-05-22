@@ -59,7 +59,7 @@ private:
 	float HPpercentage;
 	float missingHP;
 
-	int maxHP = 100;
+	int maxHP = 2000;
 
 	int shootCD = 0;
 	float idleTime;
