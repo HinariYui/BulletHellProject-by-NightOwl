@@ -299,18 +299,18 @@ void Game::handleKey(char ch)
 				//		bombAvailable = false;
 				//	}
 				//}
-				//if (ch == 'o')
-				//{
-				//	spawnBoss1 = true;
-				//	spawnBoss2 = false;
-				//	bossSpawn = false;
-				//}
-				//if (ch == 'p')
-				//{
-				//	spawnBoss2 = true;
-				//	spawnBoss1 = false;
-				//	bossSpawn = false;
-				//}
+				if (ch == 'o')
+				{
+					spawnBoss1 = true;
+					spawnBoss2 = false;
+					bossSpawn = false;
+				}
+				if (ch == 'p')
+				{
+					spawnBoss2 = true;
+					spawnBoss1 = false;
+					bossSpawn = false;
+				}
 
 				if (ch == 'g')
 				{
@@ -859,7 +859,7 @@ void Game::update(float deltaTime)
 				eSpawnCD = 0;
 			}
 
-			if (spawnNum >= 6 && eSpawnCD >= eSpawnRate && !bossSpawn && !boss2Died)
+			if (spawnNum >= 12 && eSpawnCD >= eSpawnRate && !bossSpawn && !boss2Died)
 			{
 				boss2 = new Boss2(Tag::Enemy, "bossgirl-sample.png", 1, 1); //Tag enemy, string fileName, int row, int col
 				boss2->setRotation(180);													   //boss->setColor(1.0, 0.0, 0.0);
@@ -869,7 +869,7 @@ void Game::update(float deltaTime)
 				bossSpawn = true;
 			}
 
-			if (spawnNum >= 7 && eSpawnCD >= eSpawnRate && !bossSpawn && boss2Died)
+			if (spawnNum >= 12 && eSpawnCD >= eSpawnRate && !bossSpawn && boss2Died)
 			{
 				boss1 = new Boss1(Tag::Enemy, "Boss1_Idle_ColorVer3_82x100.png", 1, 1); //Tag enemy, string fileName, int row, int col
 				boss1->setRotation(180);													   //boss->setColor(1.0, 0.0, 0.0);

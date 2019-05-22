@@ -52,7 +52,7 @@ public:
 
 	int spawnPattern = 1;
 	float eSpawnRate = 8000;
-	float eSpawnCD = 3000;
+	float eSpawnCD = 1500;
 	bool eSpawn = true;
 	int spawnNum = 0;
 
